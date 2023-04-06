@@ -33,15 +33,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Provinsi::factory(10)->create();
-        Kabupaten::factory(20)->create();
-        Dosen::factory(20)->create();
-        Mahasiswa::factory(20)->create();
+        // Provinsi::factory(10)->create();
+        // Kabupaten::factory(20)->create();
+        // Dosen::factory(20)->create();
+        // Mahasiswa::factory(20)->create();
         IRS::factory(20)->create();
-        KHS::factory(20)->create();
-        PKL::factory(15)->create();
-        Skripsi::factory(10)->create();
-        User::factory(39)->create();
+        // KHS::factory(20)->create();
+        // PKL::factory(15)->create();
+        // Skripsi::factory(10)->create();
+        // User::factory(39)->create();
 
     }
 }
