@@ -13,4 +13,5 @@ class Kabupaten extends Model
     {
         return $this->belongsTo(Provinsi::class, 'provinsi_kode_provinsi');
     }
+
 }

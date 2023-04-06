@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class IRS extends Model
 {
     use HasFactory;
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'irs_id');
+    }
 }
