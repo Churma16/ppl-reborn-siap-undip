@@ -17,7 +17,7 @@ class SkripsiFactory extends Factory
      */
     public function definition()
     {
-        $mahasiswa = Mahasiswa::factory()->create();
+        $mahasiswa = Mahasiswa::factory()->make();
         return [
             'judul' => $this->faker->sentence,
             'status_konfirmasi' => $this->faker->randomElement(['Belum dikonfirmasi', 'Dikonfirmasi']),

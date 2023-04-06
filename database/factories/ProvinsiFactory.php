@@ -17,8 +17,7 @@ class ProvinsiFactory extends Factory
     public function definition()
     {
         return [
-            'kode_provinsi' => $this->faker->unique()->randomNumber(2),
-            'nama_provinsi' => $this->faker->state,
+            'nama' => $this->faker->state,
         ];
     }
 }

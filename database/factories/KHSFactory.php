@@ -18,14 +18,14 @@ class KHSFactory extends Factory
      */
     public function definition()
     {
-        $mahasiswa = Mahasiswa::factory()->create();
+        $mahasiswa = Mahasiswa::factory()->make();
         return [
-            'semester' => $this->faker->randomNumber(1,14),
+            'semester' => $this->faker->randomNumber(1, 14),
             'status_konfirmasi' => $this->faker->randomElement(['Belum dikonfirmasi', 'Dikonfirmasi']),
-            'status_konfirmasi' => $this->faker->randomElement(['Aktif']),
-            'ip_semester' => $this->faker->randomFloat(1,4),
-            'ip_kumulatif' => $this->faker->randomFloat(1,4),
-            'sks_kumulatif' => $this->faker->randomNumber(1,144),
+            'status_mahasiswa' => $this->faker->randomElement(['Aktif']),
+            'ip_semester' => $this->faker->randomFloat(2, 0, 4),
+            'ip_kumulatif' => $this->faker->randomFloat(2, 0, 4),
+            'sks_kumulatif' => $this->faker->numberBetween(1, 144),
             'mahasiswa_nim' => $mahasiswa->nim,
         ];
     }

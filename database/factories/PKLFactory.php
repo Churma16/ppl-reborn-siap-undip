@@ -18,7 +18,7 @@ class PKLFactory extends Factory
      */
     public function definition()
     {
-        $mahasiswa = Mahasiswa::factory()->create();
+        $mahasiswa = Mahasiswa::factory()->make();
         return [
             'status_lulus' => $this->faker->randomElement(['Lulus', 'Tidak Lulus']),
             'nama_perusahaan' => $this->faker->company,

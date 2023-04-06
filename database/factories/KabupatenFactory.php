@@ -21,7 +21,7 @@ class KabupatenFactory extends Factory
 
         return [
             'nama' => $this->faker->city,
-            'provinsi_kode_provinsi' => $provinsi->kode_provinsi,
+            'provinsi_kode_provinsi' => $this->faker->randomNumber(1,30),
         ];
     }
 }

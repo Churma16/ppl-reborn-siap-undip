@@ -18,7 +18,7 @@ class IRSFactory extends Factory
      */
     public function definition()
     {
-        $mahasiswa = Mahasiswa::factory()->create();
+        $mahasiswa = Mahasiswa::factory()->make();
         return [
             'semester_aktif' => $this->faker->randomNumber(1),
             'status_konfirmasi' => $this->faker->randomElement(['Belum dikonfirmasi', 'Dikonfirmasi']),

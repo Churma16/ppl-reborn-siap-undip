@@ -18,23 +18,24 @@ class MahasiswaFactory extends Factory
      */
     public function definition()
     {
-        $dosen = Dosen::factory()->create();
-        $kodeKabupaten = Kabupaten::factory()->create();
+        $dosen = Dosen::factory()->make();
+        $Kabupaten = Kabupaten::factory()->create();
+        $kodeProvinsi = $Kabupaten->provinsi_kode_provinsi;
+    
         return [
-            'nim'=> $this->faker->unique()->randomNumber(14),
+            'nim' => $this->faker->unique()->numberBetween(1, 59),
             'nama' => $this->faker->name,
             'foto_mahasiswa' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
-            'angkatan' => $this->faker->randomNumber(2000,2021),
+            'angkatan' => $this->faker->year($startDate = '-10 years', $endDate = 'now'),
             'email' => $this->faker->unique()->safeEmail,
             'alamat' => $this->faker->address,
             'no_hp' => $this->faker->phoneNumber,
-            'jalur_masuk'=> $this->faker->randomElement(['SNMPTN', 'SBMPTN', 'Mandiri']),
-            'provinsi_kode_provinsi' => $kodeKabupaten->provinsi_kode_provinsi,
-            'kabupaten_kode_kabupaten' => $kodeKabupaten->kode_kabupaten,
+            'jalur_masuk' => $this->faker->randomElement(['SNMPTN', 'SBMPTN', 'Mandiri']),
+            'provinsi_kode_provinsi' => $kodeProvinsi,
+            'kabupaten_kode_kabupaten' => $this->faker->unique()->numberBetween(1, 131),
             'dosen_kode_wali' => $dosen->kode_wali,
-
-
-
         ];
     }
+    
+    
 }
