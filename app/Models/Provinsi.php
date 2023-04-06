@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Provinsi extends Model
 {
     use HasFactory;
+
+
+    public function kabupatens()
+    {
+        return $this->hasMany(Kabupaten::class, 'provinsi_kode_provinsi');
+    }
 }
