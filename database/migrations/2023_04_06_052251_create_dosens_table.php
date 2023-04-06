@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id('nip');
-            $table->integer('kode_wali')->unique();
+            $table->string('kode_wali')->unique();
             $table->string('nama');
             $table->string('foto_dosen')->nullable();
             $table->string('email')->unique();
