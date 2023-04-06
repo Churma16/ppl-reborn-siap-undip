@@ -16,10 +16,10 @@ class DosenFactory extends Factory
      */
     public function definition()
     {
-        $kode_wali = $this->faker->regexify('[A-Z][0-9]');
+        $kodeWali = $this->faker->regexify('[A-Z][0-9]');
         return [
-            'nip' => $this->faker->unique()->randomNumber(8),
-            'kode_wali' => $kode_wali,
+            'nip' => $this->faker->unique()->randomNumber(7),
+            'kode_wali' => $kodeWali,
             'nama' => $this->faker->name,
             'foto_dosen' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
             'email' => $this->faker->unique()->safeEmail,
