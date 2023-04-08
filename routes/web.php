@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardDepartemenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard-master');
 });
+
+Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
+
