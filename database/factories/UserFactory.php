@@ -21,7 +21,7 @@ class UserFactory extends Factory
     public function definition()
     {
         $isMahasiswa = $this->faker->boolean(50);
-        $nip_nim = $isMahasiswa ? Mahasiswa::factory()->make()->nim : Dosen::factory()->make()->nip;
+        $nip_nim = $isMahasiswa ? Mahasiswa::first()->nim : Dosen::first()->nip;        
         $role = $isMahasiswa ? 'mahasiswa' : 'dosen';
         return [
             'nip_nim' => $nip_nim,

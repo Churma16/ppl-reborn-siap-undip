@@ -18,9 +18,9 @@ class MahasiswaFactory extends Factory
      */
     public function definition()
     {
-        $dosen = Dosen::factory()->make();
-        $Kabupaten = Kabupaten::factory()->create();
-        $kodeProvinsi = $Kabupaten->provinsi_kode_provinsi;
+        $dosen = Dosen::all()->random();
+        $kabupaten = Kabupaten::all()->random();
+        $kodeProvinsi = $kabupaten->provinsi_kode_provinsi;
     
         return [
             'nim' => $this->faker->unique()->numberBetween(1, 59),
@@ -32,7 +32,7 @@ class MahasiswaFactory extends Factory
             'no_hp' => $this->faker->phoneNumber,
             'jalur_masuk' => $this->faker->randomElement(['SNMPTN', 'SBMPTN', 'Mandiri']),
             'provinsi_kode_provinsi' => $kodeProvinsi,
-            'kabupaten_kode_kabupaten' => $this->faker->unique()->numberBetween(1, 131),
+            'kabupaten_kode_kabupaten' => $kabupaten->kode_kabupaten,
             'dosen_kode_wali' => $dosen->kode_wali,
         ];
     }

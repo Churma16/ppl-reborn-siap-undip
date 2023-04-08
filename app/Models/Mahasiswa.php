@@ -9,11 +9,11 @@ class Mahasiswa extends Model
 {
     use HasFactory;
     protected $primaryKey = 'nim';
-    
+
     protected $fillable = [];
 
 
-    public function getMahasiswaPklAttribute()
+    public function getMahasiswaPklCountAttribute()
     {
         return $this->pkl()->where('status_lulus', 'belum lulus')->count();
     }

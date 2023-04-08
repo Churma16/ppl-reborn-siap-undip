@@ -17,11 +17,11 @@ class KabupatenFactory extends Factory
      */
     public function definition()
     {
-        $provinsi = Provinsi::factory()->create();
+        $provinsi = Provinsi::all()->random()->kode_provinsi;
 
         return [
             'nama' => $this->faker->city,
-            'provinsi_kode_provinsi' => $this->faker->randomNumber(1,30),
+            'provinsi_kode_provinsi' => $provinsi,
         ];
     }
 }

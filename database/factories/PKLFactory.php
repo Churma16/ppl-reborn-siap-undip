@@ -18,14 +18,14 @@ class PKLFactory extends Factory
      */
     public function definition()
     {
-        $mahasiswa = Mahasiswa::factory()->make();
+        $mahasiswa = Mahasiswa::all()->random()->nim;
         return [
-            'status_lulus' => $this->faker->randomElement(['Lulus', 'Tidak Lulus']),
+            'status_lulus' => $this->faker->randomElement(['Lulus', 'Belum Lulus']),
             'nama_perusahaan' => $this->faker->company,
             'tanggal_mulai' => $this->faker->date(),
             'status_konfirmasi' => $this->faker->randomElement(['Sudah Konfirmasi', 'Belum Konfirmasi']),
             'file_pkl' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
-            'nim_mahasiswa' => $mahasiswa->nim,
+            'mahasiswa_nim' => $mahasiswa,
         ];
     }
 }
