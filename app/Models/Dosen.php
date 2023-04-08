@@ -9,6 +9,8 @@ class Dosen extends Model
 {
     use HasFactory;
 
+    protected $fillable = [];
+
     public function mahasiswas()
     {
         return $this->hasMany(Mahasiswa::class, 'dosen_nip');

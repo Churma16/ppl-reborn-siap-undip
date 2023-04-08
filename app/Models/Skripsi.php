@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Skripsi extends Model
 {
     use HasFactory;
+    protected $fillable = [];
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
 }
