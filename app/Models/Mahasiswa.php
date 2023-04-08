@@ -11,11 +11,15 @@ class Mahasiswa extends Model
 
     public function dosen()
     {
-        return $this->belongsTo(Dosen::class, 'dosen_nip');
+        return $this->belongsTo(Dosen::class);
     }
 
     public function irs()
     {
-        return $this->hasMany(Irs::class, 'irs_id');
+        return $this->hasMany(Irs::class);
+    }
+
+    public function pkl(){
+        return $this->hasOne(Pkl::class);
     }
 }
