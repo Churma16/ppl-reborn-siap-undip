@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'nim';
+    
     protected $fillable = [];
+
+
+    public function getMahasiswaPklAttribute()
+    {
+        return $this->pkl()->where('status_lulus', 'belum lulus')->count();
+    }
+    
+
+    // Relasi
     public function dosen()
     {
         return $this->belongsTo(Dosen::class);
