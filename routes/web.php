@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardDepartemenController;
+use App\Http\Controllers\BerandaGuestController;
 use Illuminate\Support\Facades\Route;
 
 /*
