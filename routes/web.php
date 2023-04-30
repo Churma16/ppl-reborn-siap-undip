@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard-master');
-});
 
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
+// Guest
+Route::resource('/', BerandaGuestController::class);
+// Mahasiswa
+Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
