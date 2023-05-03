@@ -1,4 +1,4 @@
-{{-- @dd($mahasiswa) --}}
+{{-- @dd($mahasiswa->aktif_pkl) --}}
 @extends('dashboard-departemen.layouts.main')
 
 
@@ -9,7 +9,7 @@
                 <div class="card-header p-3 pt-2">
                     <div
                         class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="material-icons opacity-10">weekend</i>
+                        <i class="material-icons opacity-10">group</i>
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">
@@ -31,7 +31,7 @@
                 <div class="card-header p-3 pt-2">
                     <div
                         class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="material-icons opacity-10">person</i>
+                        <i class="material-icons opacity-10">people</i>
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">
@@ -76,7 +76,7 @@
                 <div class="card-header p-3 pt-2">
                     <div
                         class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                        <i class="material-icons opacity-10">weekend</i>
+                        <i class="material-icons opacity-10">person_off</i>
                     </div>
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">
@@ -993,7 +993,7 @@
         new Chart(ctx4, {
             type: "pie",
             data: {
-                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                labels: ['Sudah Ambil', 'Belum Ambil'],
                 datasets: [{
                     label: "Projects",
                     weight: 9,
@@ -1001,8 +1001,8 @@
                     tension: 0.9,
                     pointRadius: 2,
                     borderWidth: 1,
-                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
-                    data: [15, 20, 12, 60],
+                    backgroundColor: ['#17c1e8', '#3A416F'],
+                    data: [{{ $mahasiswa->jumlah_status_pkl['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_pkl['belum_ambil']  }}],
                     fill: false
                 }],
             },
@@ -1051,16 +1051,16 @@
         new Chart(ctx5, {
             type: "pie",
             data: {
-                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                labels: ['Lulus', 'Belum Lulus'],
                 datasets: [{
-                    label: "Projects",
+                    label: "Kelulusan",
                     weight: 9,
                     cutout: 0,
                     tension: 0.9,
                     pointRadius: 2,
                     borderWidth: 1,
-                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
-                    data: [15, 20, 12, 60],
+                    backgroundColor: ['#17c1e8','#3A416F'],
+                    data: [{{ $pkl->jumlah_kelulusan['lulus'] . ',' . $pkl->jumlah_kelulusan['belum_lulus'] }}],
                     fill: false
                 }],
             },
@@ -1109,16 +1109,16 @@
         new Chart(ctx6, {
             type: "pie",
             data: {
-                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                labels: ['Sudah Ambil', 'Belum Ambil'],
                 datasets: [{
-                    label: "Projects",
+                    label: "Status",
                     weight: 9,
                     cutout: 0,
                     tension: 0.9,
                     pointRadius: 2,
                     borderWidth: 1,
-                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
-                    data: [15, 20, 12, 60],
+                    backgroundColor: ['#17c1e8', '#3A416F'],
+                    data: [{{ $mahasiswa->jumlah_status_skripsi['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_skripsi['belum_ambil']  }}],
                     fill: false
                 }],
             },
@@ -1167,16 +1167,16 @@
         new Chart(ctx7, {
             type: "pie",
             data: {
-                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                labels: ['Lulus', 'Belum Lulus'],
                 datasets: [{
-                    label: "Projects",
+                    label: "Kelulusan",
                     weight: 9,
                     cutout: 0,
                     tension: 0.9,
                     pointRadius: 2,
                     borderWidth: 1,
-                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
-                    data: [15, 20, 12, 60],
+                    backgroundColor: ['#17c1e8', '#3A416F'],
+                    data: [{{ $skripsi->jumlah_kelulusan['lulus'] . ',' . $skripsi->jumlah_kelulusan['belum_lulus'] }}],
                     fill: false
                 }],
             },
