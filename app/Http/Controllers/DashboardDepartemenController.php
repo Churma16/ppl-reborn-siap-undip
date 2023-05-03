@@ -24,4 +24,12 @@ class DashboardDepartemenController extends Controller
             'dosen' => $dosen,
         ]);
     }
+
+    public function dataMahasiswa()
+    {
+        $mahasiswa = Mahasiswa::all();
+        return view('dashboard-departemen.data-mahasiswa',[
+            'mahasiswas' => $mahasiswa,
+        ]);
+    }
 }

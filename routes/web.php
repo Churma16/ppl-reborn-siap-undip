@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// Departemen
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
+
+Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
+
 // Guest
 Route::resource('/', BerandaGuestController::class);
 // Mahasiswa
