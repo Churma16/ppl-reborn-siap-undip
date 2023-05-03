@@ -11,6 +11,12 @@ class Dosen extends Model
 
     protected $fillable = [];
 
+
+    // Accessor
+    public function getJumlahDosenAttribute()
+    {
+        return $this->count();
+    }
     public function mahasiswas()
     {
         return $this->hasMany(Mahasiswa::class, 'dosen_nip');

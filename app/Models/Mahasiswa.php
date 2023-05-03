@@ -12,7 +12,12 @@ class Mahasiswa extends Model
 
     protected $fillable = [];
 
-
+    // Accessor
+    public function getJumlahMahasiswaAttribute()
+    {
+        return $this->count();
+    }
+    
     public function getMahasiswaPklCountAttribute()
     {
         return $this->pkl()->where('status_lulus', 'belum lulus')->count();

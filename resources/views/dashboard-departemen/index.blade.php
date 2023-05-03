@@ -1,3 +1,4 @@
+{{-- @dd($mahasiswa) --}}
 @extends('dashboard-departemen.layouts.main')
 
 
@@ -14,7 +15,7 @@
                         <p class="text-sm mb-0 text-capitalize">
                             Total Mahasiswa
                         </p>
-                        <h4 class="mb-0">$53k</h4>
+                        <h4 class="mb-0">{{ $mahasiswa->jumlah_mahasiswa }}</h4>
                     </div>
                 </div>
                 <hr class="dark horizontal my-0" />
@@ -36,7 +37,7 @@
                         <p class="text-sm mb-0 text-capitalize">
                             Total Dosen
                         </p>
-                        <h4 class="mb-0">2,300</h4>
+                        <h4 class="mb-0">{{ $dosen->jumlah_dosen }}</h4>
                     </div>
                 </div>
                 <hr class="dark horizontal my-0" />
