@@ -10,4 +10,13 @@ class KHS extends Model
     
     use HasFactory;
     protected $fillable = [];
+
+    // Accessor
+
+
+    // Relasi
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class);
+    }
 }

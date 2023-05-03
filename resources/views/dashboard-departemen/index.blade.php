@@ -95,17 +95,22 @@
         </div>
     </div>
     <div class="row mt-4">
+        <div>
+            <h3>
+                Data Praktik Kerja Lapangan (PKL)
+            </h3>
+        </div>
         <div class="col-lg-6 col-md-6 mt-4 mb-4">
             <div class="card z-index-2">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                         <div class="chart">
-                            <canvas id="pie-chart-pkl" class="chart-canvas" height="300px"></canvas>
+                            <canvas id="pie-chart-pkl-status" class="chart-canvas" height="300px"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="mb-0">Mahasiswa PKL</h6>
+                    <h6 class="mb-0">Data Status PKL</h6>
                     <p class="text-sm">Last Campaign Performance</p>
                     <hr class="dark horizontal" />
                     <div class="d-flex">
@@ -122,12 +127,65 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
                     <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
                         <div class="chart">
-                            <canvas id="pie-chart-skripsi" class="chart-canvas" height="300px"></canvas>
+                            <canvas id="pie-chart-pkl-kelulusan" class="chart-canvas" height="300px"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="mb-0">Mahasiswa Skripsi</h6>
+                    <h6 class="mb-0">Data Kelulusan PKL</h6>
+                    <p class="text-sm">
+                        (<span class="font-weight-bolder">+15%</span>) increase in today sales.
+                    </p>
+                    <hr class="dark horizontal" />
+                    <div class="d-flex">
+                        <i class="material-icons text-sm my-auto me-1">schedule</i>
+                        <p class="mb-0 text-sm">
+                            updated 4 min ago
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div>
+            <h3>
+                Data Skripsi
+            </h3>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-4 mb-4">
+            <div class="card z-index-2">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                        <div class="chart">
+                            <canvas id="pie-chart-skripsi-status" class="chart-canvas" height="300px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-0">Data Status Skripsi</h6>
+                    <p class="text-sm">Last Campaign Performance</p>
+                    <hr class="dark horizontal" />
+                    <div class="d-flex">
+                        <i class="material-icons text-sm my-auto me-1">schedule</i>
+                        <p class="mb-0 text-sm">
+                            campaign sent 2 days ago
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-4 mb-4">
+            <div class="card z-index-2">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                    <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+                        <div class="chart">
+                            <canvas id="pie-chart-skripsi-kelulusan" class="chart-canvas" height="300px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-0">Data Kelulusan Skripsi</h6>
                     <p class="text-sm">
                         (<span class="font-weight-bolder">+15%</span>) increase in today sales.
                     </p>
@@ -929,8 +987,8 @@
             },
         });
 
-        // Pie chart PKL
-        var ctx4 = document.getElementById("pie-chart-pkl").getContext("2d");
+        // Pie chart PKL Status
+        var ctx4 = document.getElementById("pie-chart-pkl-status").getContext("2d");
 
         new Chart(ctx4, {
             type: "pie",
@@ -987,10 +1045,126 @@
             },
         });
 
-        // Pie chart Skripsi
-        var ctx5 = document.getElementById("pie-chart-skripsi").getContext("2d");
+        // Pie Chart PKL Kelulusan
+        var ctx5 = document.getElementById("pie-chart-pkl-kelulusan").getContext("2d");
 
         new Chart(ctx5, {
+            type: "pie",
+            data: {
+                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                datasets: [{
+                    label: "Projects",
+                    weight: 9,
+                    cutout: 0,
+                    tension: 0.9,
+                    pointRadius: 2,
+                    borderWidth: 1,
+                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
+                    data: [15, 20, 12, 60],
+                    fill: false
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            display: false,
+                        }
+                    },
+                },
+            },
+        });
+
+        // Pie Chart Skripsi Status
+        var ctx6 = document.getElementById("pie-chart-skripsi-status").getContext("2d");
+
+        new Chart(ctx6, {
+            type: "pie",
+            data: {
+                labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
+                datasets: [{
+                    label: "Projects",
+                    weight: 9,
+                    cutout: 0,
+                    tension: 0.9,
+                    pointRadius: 2,
+                    borderWidth: 1,
+                    backgroundColor: ['#17c1e8', '#e3316e', '#3A416F', '#a8b8d8'],
+                    data: [15, 20, 12, 60],
+                    fill: false
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            display: false,
+                        }
+                    },
+                },
+            },
+        });
+
+        // Pie Chart Skripsi Kelulusan
+        var ctx7 = document.getElementById("pie-chart-skripsi-kelulusan").getContext("2d");
+
+        new Chart(ctx7, {
             type: "pie",
             data: {
                 labels: ['Facebook', 'Direct', 'Organic', 'Referral'],
