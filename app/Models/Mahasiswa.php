@@ -13,21 +13,41 @@ class Mahasiswa extends Model
     protected $fillable = [];
 
     // Accessor
+    /**
+     * Accessor untuk mengambil jumlah total mahasiswa.
+     *
+     * @return int
+     */
     public function getJumlahMahasiswaAttribute()
     {
         return $this->count();
     }
 
+    /**
+     * Accessor untuk mengambil jumlah total SKS yang diambil oleh mahasiswa.
+     *
+     * @return int
+     */
     public function getJumlahSksAttribute()
     {
         return $this->irs()->sum('jumlah_sks');
     }
 
+    /**
+     * Accessor untuk mengambil semester aktif terakhir dari mahasiswa.
+     *
+     * @return string
+     */
     public function getSemesterAktifAttribute()
     {
         return $this->irs()->max('semester_aktif');
     }
 
+    /**
+     * Accessor untuk mengambil IP kumulatif terakhir dari mahasiswa.
+     *
+     * @return float
+     */
     public function getIpKumulatifAttribute()
     {
         $max_semester = $this->khs()->max('semester');
@@ -39,11 +59,38 @@ class Mahasiswa extends Model
         return $ip_kumulatif;
     }
 
-
-    public function getMahasiswaPklCountAttribute()
+    /**
+     * Accessor untuk mengambil jumlah mahasiswa yang telah mengambil PKL dan yang belum mengambil PKL.
+     *
+     * @return array
+     */
+    public function getJumlahStatusPklAttribute()
     {
-        return $this->pkl()->where('status_lulus', 'belum lulus')->count();
+        $sudah_ambil = Mahasiswa::has('pkl')->count();
+        $belum_ambil = Mahasiswa::doesntHave('pkl')->count();
+
+        return [
+            'sudah_ambil' => $sudah_ambil,
+            'belum_ambil' => $belum_ambil,
+        ];
     }
+
+    /**
+     * Accessor untuk mengambil jumlah mahasiswa yang telah mengambil skripsi dan yang belum mengambil skripsi.
+     *
+     * @return array
+     */
+    public function getJumlahStatusSkripsiAttribute()
+    {
+        $sudah_ambil = Mahasiswa::has('skripsi')->count();
+        $belum_ambil = Mahasiswa::doesntHave('skripsi')->count();
+
+        return [
+            'sudah_ambil' => $sudah_ambil,
+            'belum_ambil' => $belum_ambil,
+        ];
+    }
+
 
 
     // Relasi
@@ -64,7 +111,7 @@ class Mahasiswa extends Model
 
     public function skripsi()
     {
-        return $this->hasOne(Pkl::class);
+        return $this->hasOne(Skripsi::class);
     }
 
     public function khs()
