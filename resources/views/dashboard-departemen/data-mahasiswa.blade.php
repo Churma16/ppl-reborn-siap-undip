@@ -12,7 +12,18 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body px-0 pb-2">
+                <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
+                    <div class="d-flex flex-row">
+                        @foreach ($angkatans as $angkatan)
+                            <div class="mx-2" style="width:100vw">
+                                <button id="angkatanSelector" type="button" class="btn btn-secondary"
+                                    data-angkatan="{{ $angkatan->angkatan }}">{{ $angkatan->angkatan }}</button>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="card-body
+                                    px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -113,45 +124,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                {{-- <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="../assets/img/team-4.jpg"
-                                                    class="avatar avatar-sm me-3 border-radius-lg" alt="user3" />
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">
-                                                    Laurent Perrier
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    laurent@creative-tim.com
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="text-xs font-weight-bold mb-0">
-                                            Executive
-                                        </p>
-                                        <p class="text-xs text-secondary mb-0">
-                                            Projects
-                                        </p>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-success">Online</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                            data-toggle="tooltip" data-original-title="Edit user">
-                                            Edit
-                                        </a>
-                                    </td>
-                                </tr> --}}
-
                             </tbody>
                         </table>
                     </div>
@@ -163,4 +135,12 @@
 @endsection
 
 @section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var scrollContainer = document.getElementById("scrollContainer");
+        scrollContainer.addEventListener("wheel", function(event) {
+            event.preventDefault();
+            scrollContainer.scrollLeft += event.deltaY;
+        });
+    </script>
 @endsection

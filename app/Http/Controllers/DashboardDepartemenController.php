@@ -34,8 +34,10 @@ class DashboardDepartemenController extends Controller
     public function dataMahasiswa()
     {
         $mahasiswa = Mahasiswa::all();
+        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
         return view('dashboard-departemen.data-mahasiswa',[
             'mahasiswas' => $mahasiswa,
+            'angkatans' => $angkatan,
         ]);
     }
 }
