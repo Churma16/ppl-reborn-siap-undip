@@ -25,3 +25,5 @@ Route::resource('/', BerandaGuestController::class);
 // Mahasiswa
 Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
+// Route::post()
+

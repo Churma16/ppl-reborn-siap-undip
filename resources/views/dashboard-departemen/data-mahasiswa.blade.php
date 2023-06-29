@@ -22,8 +22,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="card-body
-                                    px-0 pb-2">
+                <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
@@ -137,10 +136,21 @@
 @section('script')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        var scrollContainer = document.getElementById("scrollContainer");
-        scrollContainer.addEventListener("wheel", function(event) {
-            event.preventDefault();
-            scrollContainer.scrollLeft += event.deltaY;
+        $(document).ready(function() {
+            $(".angkatanSelector").click(function() {
+                var angkatan = $(this).data("angkatan");
+                $.ajax({
+                    url: "/your-api-endpoint",
+                    type: "POST",
+                    data: { angkatan: angkatan },
+                    success: function(response) {
+                        $("#tableContainer").html(response);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
         });
     </script>
 @endsection
