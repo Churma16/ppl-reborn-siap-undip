@@ -18,12 +18,12 @@ class DashboardDepartemenController extends Controller
 
 
         $mahasiswa = new Mahasiswa();
-        $dosen= new Dosen();
+        $dosen = new Dosen();
         $pkl = new Pkl();
         $skripsi = new Skripsi();
 
         // dd($count);
-        return view('dashboard-departemen.index',[
+        return view('dashboard-departemen.index', [
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
             'pkl' => $pkl,
@@ -35,8 +35,34 @@ class DashboardDepartemenController extends Controller
     {
         $mahasiswa = Mahasiswa::all();
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
-        return view('dashboard-departemen.data-mahasiswa',[
+        return view('dashboard-departemen.data-mahasiswa', [
             'mahasiswas' => $mahasiswa,
+            'angkatans' => $angkatan,
+        ]);
+    }
+
+    public function dataMahasiswaPkl()
+    {
+        $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
+            return $mahasiswa->semester_aktif >= 6;
+        });
+
+        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+        return view('dashboard-departemen.data-mahasiswa-pkl', [
+            'mahasiswas' => $mahasiswas,
+            'angkatans' => $angkatan,
+        ]);
+    }
+
+    public function dataMahasiswaSkripsi()
+    {
+        $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
+            return $mahasiswa->semester_aktif >= 7;
+        });
+
+        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+        return view('dashboard-departemen.data-mahasiswa-skripsi', [
+            'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,
         ]);
     }

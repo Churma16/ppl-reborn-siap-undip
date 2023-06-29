@@ -14,7 +14,8 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white active bg-gradient-primary" href="/dashboard-departemen">
+                <a class="nav-link text-white {{ Request::is('dashboard-departemen') ? 'bg-gradient-primary' : '' }} "
+                    href="/dashboard-departemen">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -22,7 +23,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="/dashboard-departemen/data-mahasiswa">
+                <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-departemen/data-mahasiswa">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
@@ -30,31 +32,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="../pages/billing.html">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">receipt_long</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Rekap PKL Mahasiswa</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="../pages/virtual-reality.html">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">view_in_ar</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Rekap Skripsi Mahasiswa</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="../pages/rtl.html">
+                <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa-pkl') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-departemen/data-mahasiswa-pkl">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
                     </div>
-                    <span class="nav-link-text ms-1">Daftar Mahasiswa PKl</span>
+                    <span class="nav-link-text ms-1">Daftar Mahasiswa PKL</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="../pages/notifications.html">
+                <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa-skripsi') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-departemen/data-mahasiswa-skripsi">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">notifications</i>
                     </div>

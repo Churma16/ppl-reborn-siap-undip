@@ -20,6 +20,10 @@ Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'inde
 
 Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
 
+Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
+
+Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
+
 // Guest
 Route::resource('/', BerandaGuestController::class);
 // Mahasiswa
