@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardDepartemenController;
-use App\Http\Controllers\BerandaGuestController;
-use App\Http\Controllers\DashboardDosenController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DashboardMhsController;
+use App\Http\Controllers\DashboardDosenController;
+use App\Http\Controllers\DashboardDepartemenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
+
 // Departemen
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
 
@@ -26,7 +32,7 @@ Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenContr
 Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
 
 
-//Dosen
+// Dosen
 Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 
 // Guest
