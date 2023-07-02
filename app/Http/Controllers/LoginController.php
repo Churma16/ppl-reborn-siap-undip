@@ -32,10 +32,21 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt(['username' => $request->username, 'password' => $request->password])) {
             $request->session()->regenerate();
-
-            return redirect()->intended('/dashboard');
+            
+            if(auth()->user()->role == '1'){
+                return redirect()->intended('/dashboard-admin');
+            }
+            if(auth()->user()->role == '2'){
+                return redirect()->intended('/dashboard-departemen');
+            }
+            if(auth()->user()->role == '3'){
+                return redirect()->intended('/dashboard-dosen/'.auth()->user()->nip_nim);
+            }
+            if(auth()->user()->role == '4'){
+                return redirect()->intended('/dashboard-mhs');
+            }
         }
 
         return back()->withInput()->withErrors(['loginError' => 'Email atau password yang dimasukkan salah!']);

@@ -20,7 +20,7 @@ use App\Http\Controllers\DashboardDepartemenController;
 
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 // Departemen
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
@@ -33,7 +33,7 @@ Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenC
 
 
 // Dosen
-Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
+Route::get('/dashboard-dosen/{dosen:nip}', [DashboardDosenController::class, 'index']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);
