@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardDepartemenController;
 use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DashboardDosenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,10 @@ Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenControlle
 Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
 
 Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
+
+
+//Dosen
+Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);
