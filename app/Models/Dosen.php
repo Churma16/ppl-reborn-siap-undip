@@ -21,6 +21,7 @@ class Dosen extends Model
         return $this->count();
     }
 
+
     // Relasi
     public function mahasiswas()
     {

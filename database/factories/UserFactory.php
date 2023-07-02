@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -20,15 +21,44 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $isMahasiswa = $this->faker->boolean(50);
-        $nip_nim = $isMahasiswa ? Mahasiswa::first()->nim : Dosen::first()->nip;        
-        $role = $isMahasiswa ? 'mahasiswa' : 'dosen';
-        return [
-            'nip_nim' => $nip_nim,
-            'username' => $this->faker->unique()->userName,
-            'role' => $role,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ];
+        User::create([
+            'nip_nim' => '30',
+            'username' => 'admin',
+            'role' => '1',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'nip_nim' => '65',
+            'username' => 'departemen',
+            'role' => '2',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'nip_nim' => Mahasiswa::first(),
+            'username' => 'user',
+            'role' => '3',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'nip_nim' => Mahasiswa::first(),
+            'username' => 'user',
+            'role' => '4',
+            'password' => bcrypt('password'),
+        ]);
+        // $isMahasiswa = $this->faker->boolean(50);
+        // $nip_nim = $isMahasiswa ? Mahasiswa::first()->nim : Dosen::first()->nip;        
+        // $role = $isMahasiswa ? 'mahasiswa' : 'dosen';
+        // return [
+        //     'nip_nim' => $nip_nim,
+        //     'username' => $this->faker->unique()->userName,
+        //     'role' => $role,
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ];
+
+
     }
 
     /**
