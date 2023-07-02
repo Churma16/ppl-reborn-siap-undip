@@ -21,33 +21,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        User::create([
-            'nip_nim' => '30',
-            'username' => 'admin',
-            'role' => '1',
-            'password' => bcrypt('password'),
-        ]);
 
-        User::create([
-            'nip_nim' => '65',
-            'username' => 'departemen',
-            'role' => '2',
-            'password' => bcrypt('password'),
-        ]);
-
-        User::create([
-            'nip_nim' => Mahasiswa::first(),
-            'username' => 'user',
-            'role' => '3',
-            'password' => bcrypt('password'),
-        ]);
-
-        User::create([
-            'nip_nim' => Mahasiswa::first(),
-            'username' => 'user',
-            'role' => '4',
-            'password' => bcrypt('password'),
-        ]);
         // $isMahasiswa = $this->faker->boolean(50);
         // $nip_nim = $isMahasiswa ? Mahasiswa::first()->nim : Dosen::first()->nip;        
         // $role = $isMahasiswa ? 'mahasiswa' : 'dosen';

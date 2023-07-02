@@ -41,6 +41,47 @@ class DatabaseSeeder extends Seeder
         KHS::factory(20)->create();
         PKL::factory(15)->create();
         Skripsi::factory(10)->create();
+        User::create([
+            'nip_nim' => '30',
+            'username' => 'admin',
+            'role' => '1',
+            'password' => bcrypt('password'),
+        ]);
+
+        User::create([
+            'nip_nim' => '65',
+            'username' => 'departemen',
+            'role' => '2',
+            'password' => bcrypt('password'),
+        ]);
+
+        $jsonValue = Dosen::select('nip')->first();
+        $data = json_decode($jsonValue);
+        $nip = $data->nip;
+        // Convert the nip value to an integer
+        $nip = intval($nip);
+
+        User::create([
+            'nip_nim' => $nip,
+            'username' => 'dosen',
+            'role' => '3',
+            'password' => bcrypt('password'),
+        ]);
+
+
+        $jsonValue = Mahasiswa::select('nim')->first();
+        $data = json_decode($jsonValue);
+        $nim = $data->nim;
+
+        // Convert the nim value to an integer
+        $nim = intval($nim);
+        User::create([
+            'nip_nim' => $nim,
+            'username' => 'mahasiswa',
+            'role' => '4',
+            'password' => bcrypt('password'),
+        ]);
+
         // User::factory(39)->create();
 
     }
