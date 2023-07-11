@@ -35,9 +35,8 @@ Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenC
 
 
 // Dosen
-Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index'])->middleware('auth');
-Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs'])->middleware('auth');
-Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiIrs']);
+Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
+Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);
