@@ -13,6 +13,7 @@ class DashboardDepartemenController extends Controller
 {
     public function index()
     {
+        // dd(session('user'));
         // $mahasiswa = Mahasiswa::all(1);
         // $count = $mahasiswa->getMahasiswaPklCountAttribute();
 

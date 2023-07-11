@@ -42,7 +42,7 @@
 
 <body class="g-sidenav-show bg-gray-200">
     <!-- Sidenav -->
-    @include('dashboard-departemen.partials.sidenav')
+    @include('dashboard-dosen.partials.sidenav')
     <!-- End Sidenav -->
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">

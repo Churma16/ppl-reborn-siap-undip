@@ -1,4 +1,4 @@
-@extends('dashboard-departemen.layouts.main')
+@extends('dashboard-dosen.layouts.main')
 
 
 @section('content')
@@ -118,33 +118,33 @@
                     <div class="col-12 col-xl-6">
                         <div class="card card-plain">
                             <div class="card-body p-3">
-                                <h6 >Profile Information</h6>
-                                <hr class="horizontal gray-light my-1">
-                                <ul class="list-group">
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Kode
-                                        Wali:</strong> &nbsp; {{ $dosen->kode_wali }}</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">No
-                                        HP:</strong> &nbsp; {{ $dosen->no_hp }}</li>
-                                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong>
-                                    &nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                        data-cfemail="a6c7cac3c5d2cec9cbd6d5c9c8e6cbc7cfca88c5c9cb">{{ $dosen->email }}</a>
-                                </li>
+                                <h6>Profile Information</h6>
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <hr class="horizontal gray-light my-1">
+                                        <ul class="list-group">
+                                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                                                    class="text-dark">Kode
+                                                    Wali:</strong> &nbsp; {{ $dosen->kode_wali }}</li>
+                                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">No
+                                                    HP:</strong> &nbsp; {{ $dosen->no_hp }}</li>
+                                            <li class="list-group-item border-0 ps-0 text-sm"><strong
+                                                    class="text-dark">Email:</strong>
+                                                &nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                                    data-cfemail="a6c7cac3c5d2cec9cbd6d5c9c8e6cbc7cfca88c5c9cb">{{ $dosen->email }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-group">
+                                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                                                    class="text-dark">Departemen:</strong> &nbsp; Informatika</li>
+                                            <li class="list-group-item border-0 ps-0 text-sm"><strong
+                                                    class="text-dark">Fakultas:</strong> &nbsp; Sains dan Matematika</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-6">
-                        <div class="card card-plain ">
-                            <div class="card-body p-3">
-                                <hr >
-                                <hr class="horizontal gray-light my-1">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
-                                            class="text-dark">Departemen:</strong> &nbsp; Informatika</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong
-                                            class="text-dark">Fakultas:</strong> &nbsp; Sains dan Matematika</li>
-                                </ul>
                             </div>
                         </div>
                     </div>

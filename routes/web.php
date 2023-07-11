@@ -6,6 +6,8 @@ use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\DashboardDepartemenController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +35,9 @@ Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenC
 
 
 // Dosen
-Route::get('/dashboard-dosen/{dosen:nip}', [DashboardDosenController::class, 'index']);
+Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index'])->middleware('auth');
+Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs'])->middleware('auth');
+Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiIrs']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);
@@ -41,4 +45,3 @@ Route::resource('/', BerandaGuestController::class);
 Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
 // Route::post()
-

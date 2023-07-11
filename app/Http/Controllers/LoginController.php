@@ -32,24 +32,27 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (Auth::attempt(['username' => $credentials['username'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
-            
-            if(auth()->user()->role == '1'){
+            // $request->session()->put('user', Auth::user());
+
+            if (Auth::user()->role == '1') {
                 return redirect()->intended('/dashboard-admin');
             }
-            if(auth()->user()->role == '2'){
+            if (Auth::user()->role == '2') {
                 return redirect()->intended('/dashboard-departemen');
             }
-            if(auth()->user()->role == '3'){
-                return redirect()->intended('/dashboard-dosen/'.auth()->user()->nip_nim);
+            if (Auth::user()->role == '3') {
+                // return redirect()->intended('/dashboard-dosen/'.Auth::user()->nip_nim);
+
+                return redirect()->intended('/dashboard-dosen');
             }
-            if(auth()->user()->role == '4'){
+            if (Auth::user()->role == '4') {
                 return redirect()->intended('/dashboard-mhs');
             }
         }
 
-        return back()->withInput()->withErrors(['loginError' => 'Email atau password yang dimasukkan salah!']);
+        return back()->withInput()->withErrors(['loginError' => 'Username or password is incorrect!']);
     }
 
     /**
