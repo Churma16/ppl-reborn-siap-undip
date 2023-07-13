@@ -1,3 +1,4 @@
+{{-- @dd($dosen->mahasiswa_bimbingan) --}}
 @extends('dashboard-dosen.layouts.main')
 
 @section('content')
@@ -26,6 +27,9 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
+                                        NO
+                                    </th>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
                                         Foto
                                     </th>
@@ -58,21 +62,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($mahasiswas as $mahasiswa)
+                                @foreach ($irss as $irs)
+                                    {{-- @dd()); --}}
                                     <tr>
+                                        <td>
+                                            <div class="d-flex px-3 py-1 ms-1">
+                                                <p class="text-sm text-center font-weight-bold mb-0">
+                                                    {{ $loop->iteration }}
+                                                </p>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex px-3 py-1">
                                                 <div>
-                                                    <img src="{{ $mahasiswa->foto_mahasiswa }}"
+                                                    <img src="{{ $irs->mahasiswa->foto_mahasiswa }}"
                                                         class="avatar avatar-sm border-radius-lg"
-                                                        alt="foto {{ $mahasiswa->nama }}" />
+                                                        alt="foto {{ $irs->mahasiswa->nama }}" />
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-3 py-1">
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $mahasiswa->nim }}
+                                                    {{ $irs->mahasiswa->nim }}
                                                 </p>
                                             </div>
                                         </td>
@@ -80,34 +92,42 @@
                                             <div class="d-flex py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
-                                                        {{ $mahasiswa->nama }}
+                                                        {{ $irs->mahasiswa->nama }}
                                                     </h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $mahasiswa->angkatan }}
+                                                {{ $irs->mahasiswa->angkatan }}
                                             </p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $mahasiswa->semester_aktif }}
+                                                {{ $irs->mahasiswa->semester_aktif }}
                                             </p>
                                         </td>
                                         <td>
-                                            <p class="text-sm  font-weight-bold mb-0">
-                                                {{ $mahasiswa->irs_terendah}}
+                                            <p class="text-sm text-center  font-weight-bold mb-0">
+                                                {{ $irs->mahasiswa->irs_terendah }}
                                             </p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }}
+                                                <a href="{{ $irs->file_sks }}" target="_blank"><i class="fas fa-eye"></i>
+                                                    Lihat File</a>
+
+                                                {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }} --}}
                                             </p>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
+                                            <a href="/dashboard-dosen/verifikasi-irs/terima/{{ $irs->id }}" class="badge " style="background-color: rgb(5, 173, 5)"
+                                                data-bs-toggle="tooltip" title="Terima"><i data-feather="check"></i>
+                                            </a>
+                                            <a href="/dashboard-dosen/verifikasi-irs/tolak/{{ $irs->id }}" class="badge bg-danger" data-bs-toggle="tooltip" title="Tolak"><i data-feather="x"></i>
+                                            </a>
                                             <p class="text-sm font-weight-bold text-center  mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_lulus : '-' }}
+                                                {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_lulus : '-' }} --}}
                                             </p>
                                         </td>
                                     </tr>

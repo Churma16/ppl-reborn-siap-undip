@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Departemen
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
@@ -36,7 +37,10 @@ Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenC
 
 // Dosen
 Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
+
 Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
+Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
+    ->where('action', 'terima|tolak');
 
 // Guest
 Route::resource('/', BerandaGuestController::class);

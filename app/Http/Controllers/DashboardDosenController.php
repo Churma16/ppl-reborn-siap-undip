@@ -36,16 +36,39 @@ class DashboardDosenController extends Controller
 
     public function verifikasiIrs()
     {
+        // Get Data Dosen
         $dosen = Dosen::where('nip', auth()->user()->nip_nim)->first();
-        // dd($dosen);
+
+        // Get Data Mahasiswa Perwalian
         $mahasiswas = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)->get();
 
-        
+        $mahasiswa_perwalian = $dosen->getMahasiswaBimbinganAttribute();
+
+        // Get Data IRS Mahasiswa Perwalian
+        $irss = IRS::whereIn('mahasiswa_nim', $mahasiswa_perwalian)->where('status_konfirmasi', 'Belum Dikonfirmasi')->get();
+
 
 
         return view('dashboard-dosen.verifikasi-irs-mahasiswa', [
             'title' => 'Verifikasi IRS',
             'mahasiswas' => $mahasiswas,
+            'dosen' => $dosen,
+            'irss' => $irss,
         ]);
+    }
+
+    public function verifikasiIrsKeputusan($action, IRS $irs)
+    {
+        if ($action === 'terima') {
+            $irs->update([
+                'status_konfirmasi' => 'Sudah Dikonfirmasi',
+            ]);
+        } elseif ($action === 'tolak') {
+            $irs->update([
+                'status_konfirmasi' => 'Ditolak',
+            ]);
+        }
+
+        return redirect()->back();
     }
 }

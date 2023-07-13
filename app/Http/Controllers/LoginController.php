@@ -52,5 +52,14 @@ class LoginController extends Controller
         return back()->withInput()->withErrors(['loginError' => 'Username or password is incorrect!']);
     }
 
-
+    /**
+     * Logout the user.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }

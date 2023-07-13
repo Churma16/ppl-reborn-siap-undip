@@ -38,6 +38,11 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
+
+    <script src="https://unpkg.com/feather-icons"></script>
+
+
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
@@ -58,7 +63,7 @@
     @include('partials.plugin')
 
 
-    
+
     <!--   Core JS Files   -->
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
@@ -83,6 +88,9 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/js/material-dashboard.min.js?v=3.0.5"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        feather.replace()
+    </script>
 </body>
 
 </html>
