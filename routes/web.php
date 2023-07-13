@@ -29,9 +29,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
 
 Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
-
 Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
-
 Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
 
 
@@ -41,6 +39,8 @@ Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
 Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
     ->where('action', 'terima|tolak');
+
+Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiKhs']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\IRS;
+use App\Models\KHS;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -71,4 +72,26 @@ class DashboardDosenController extends Controller
 
         return redirect()->back();
     }
+
+    public function verifikasiKhs(){
+        // Get Data Dosen
+        $dosen = Dosen::where('nip', auth()->user()->nip_nim)->first();
+
+        // Get Data Mahasiswa Perwalian
+        $mahasiswas = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)->get();
+
+        $mahasiswa_perwalian = $dosen->getMahasiswaBimbinganAttribute();
+
+        // Get Data IRS Mahasiswa Perwalian
+        $khss = KHS::whereIn('mahasiswa_nim', $mahasiswa_perwalian)->where('status_konfirmasi', 'Belum Dikonfirmasi')->get();
+
+        return view('dashboard-dosen.verifikasi-khs-mahasiswa', [
+            'title' => 'Verifikasi KHS',
+            'mahasiswas' => $mahasiswas,
+            'dosen' => $dosen,
+            'khss' => $khss,
+        ]);
+    }
+
+
 }
