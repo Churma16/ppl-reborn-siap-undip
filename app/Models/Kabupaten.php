@@ -14,4 +14,8 @@ class Kabupaten extends Model
         return $this->belongsTo(Provinsi::class, 'provinsi_kode_provinsi');
     }
 
+    public function mahasiswa(){
+        return $this->hasMany(Mahasiswa::class,'Kabupaten_kode_Kabupaten', 'kode_Kabupaten');
+        // return $this->belongsTo(Mahasiswa::class);
+    }
 }

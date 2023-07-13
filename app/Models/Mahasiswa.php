@@ -100,7 +100,7 @@ class Mahasiswa extends Model
     // Relasi
     public function dosen()
     {
-        return $this->belongsTo(Dosen::class);
+        return $this->belongsTo(Dosen::class, 'dosen_kode_wali', 'kode_wali');
     }
 
     public function irs()
@@ -122,4 +122,15 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(KHS::class);
     }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class,'provinsi_kode_provinsi', 'kode_provinsi');
+        // return $this->hasOne(Provinsi::class);
+    } 
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(Kabupaten::class,'kabupaten_kode_kabupaten', 'kode_kabupaten');
+    }   
 }

@@ -27,9 +27,9 @@ class Dosen extends Model
     }
 
     // Relasi
-    public function mahasiswas()
+    public function mahasiswa()
     {
-        return $this->hasMany(Mahasiswa::class, 'dosen_nip');
+        return $this->hasMany(Mahasiswa::class, 'dosen_kode_wali', 'kode_wali');
     }
 
     public function user()

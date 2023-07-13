@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('jalur_masuk');
             $table->foreignId('provinsi_kode_provinsi');
             $table->foreignId('kabupaten_kode_kabupaten');
-            $table->string('dosen_kode_wali');
+            $table->foreignUuid('dosen_kode_wali');
             $table->timestamps();
         });
     }
