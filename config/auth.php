@@ -16,6 +16,7 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        'primary_key' => 'nip_nim',
     ],
 
     /*
