@@ -6,6 +6,7 @@ use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\DashboardDepartemenController;
+use App\Http\Controllers\DashboardMahasiswaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -25,6 +26,9 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
+// Guest
+Route::resource('/', BerandaGuestController::class);
+
 // Departemen
 Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
 
@@ -42,9 +46,10 @@ Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenCont
 
 Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiKhs']);
 
-// Guest
-Route::resource('/', BerandaGuestController::class);
 // Mahasiswa
-Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
+Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
+
+
+// Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
 // Route::post()

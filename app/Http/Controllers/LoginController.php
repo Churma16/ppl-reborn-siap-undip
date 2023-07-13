@@ -45,7 +45,7 @@ class LoginController extends Controller
                 return redirect()->intended('/dashboard-dosen');
             }
             if (auth()->user()->role == '4') {
-                return redirect()->intended('/dashboard-mhs');
+                return redirect()->intended('/dashboard-mahasiswa');
             }
         }
 
