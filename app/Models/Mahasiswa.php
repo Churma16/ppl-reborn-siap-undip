@@ -91,6 +91,10 @@ class Mahasiswa extends Model
         ];
     }
 
+    public function getIrsTerendahAttribute()
+    {
+        return $this->irs()->min('jumlah_sks');
+    }
 
 
     // Relasi

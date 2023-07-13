@@ -21,6 +21,10 @@ class Dosen extends Model
         return $this->count();
     }
 
+    public function getMahasiswaBimbinganAttribute()
+    {
+        return Mahasiswa::where('dosen_kode_wali', $this->kode_wali)->pluck('nim');
+    }
 
     // Relasi
     public function mahasiswas()
@@ -32,6 +36,4 @@ class Dosen extends Model
     {
         return $this->hasOne(User::class);
     }
-    
-
 }

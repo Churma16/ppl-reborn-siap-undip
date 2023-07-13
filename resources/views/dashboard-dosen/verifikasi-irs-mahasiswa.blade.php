@@ -13,12 +13,12 @@
                 </div>
                 <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
                     <div class="d-flex flex-row">
-                        @foreach ($angkatans as $angkatan)
+                        {{-- @foreach ($angkatans as $angkatan)
                             <div class="mx-2" style="width:100vw">
                                 <button id="angkatanSelector" type="button" class="btn btn-secondary"
                                     data-angkatan="{{ $angkatan->angkatan }}">{{ $angkatan->angkatan }}</button>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -43,30 +43,17 @@
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
                                         Semester
                                     </th>
-                                    <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ps-2">
-                                        Instansi PKL
-                                    </th>
-
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Status Konfirmasi
+                                        Jumlah SKS
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Status Lulus
-                                    </th>
-
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Tanggal <br>Mulai
+                                        File IRS
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Tanggal <br>Selesai
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        File PKL
+                                        Aksi
                                     </th>
                                 </tr>
                             </thead>
@@ -110,7 +97,7 @@
                                         </td>
                                         <td>
                                             <p class="text-sm  font-weight-bold mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->nama_perusahaan : '-' }}
+                                                {{ $mahasiswa->irs_terendah}}
                                             </p>
                                         </td>
                                         <td>
@@ -121,21 +108,6 @@
                                         <td>
                                             <p class="text-sm font-weight-bold text-center  mb-0">
                                                 {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_lulus : '-' }}
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->tanggal_mulai_formatted : '-' }}
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold text-center  mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->tanggal_selesai_formatted : '-' }}
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold text-center mb-0">
-                                                {!! $mahasiswa->Skripsi ? '<a href="' . $mahasiswa->skripsi->file_skripsi . '" target="_blank">Unduh</a>' : '-' !!}
                                             </p>
                                         </td>
                                     </tr>
