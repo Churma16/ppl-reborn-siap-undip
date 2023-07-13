@@ -26,6 +26,7 @@ class KHSFactory extends Factory
             'ip_semester' => $this->faker->randomFloat(2, 0, 4),
             'ip_kumulatif' => $this->faker->randomFloat(2, 0, 4),
             'sks_kumulatif' => $this->faker->numberBetween(1, 144),
+            'file_khs' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
             'mahasiswa_nim' => $mahasiswa,
         ];
     }

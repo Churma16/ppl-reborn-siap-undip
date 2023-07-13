@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('ip_semester');
             $table->float('ip_kumulatif');
             $table->integer('sks_kumulatif');
+            $table->string('file_khs');
             $table->foreignId('mahasiswa_nim');
             $table->timestamps();
         });

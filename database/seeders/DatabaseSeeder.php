@@ -55,28 +55,25 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $jsonValue = Dosen::select('nip')->first();
-        $data = json_decode($jsonValue);
-        $nip = $data->nip;
-        // Convert the nip value to an integer
-        $nip = intval($nip);
+        $firstDosen = Dosen::all()->first();
+
+        // $jsonValue = Dosen::select('nip')->first();
+        // $data = json_decode($jsonValue);
+        // $nip = $data->nip;
+        // // Convert the nip value to an integer
+        // $nip = intval($nip);
 
         User::create([
-            'nip_nim' => $nip,
+            'nip_nim' => $firstDosen['nip'],
             'username' => 'dosen',
             'role' => '3',
             'password' => bcrypt('password'),
         ]);
 
 
-        $jsonValue = Mahasiswa::select('nim')->first();
-        $data = json_decode($jsonValue);
-        $nim = $data->nim;
-
-        // Convert the nim value to an integer
-        $nim = intval($nim);
+        $firstMhs = Mahasiswa::all()->first();
         User::create([
-            'nip_nim' => $nim,
+            'nip_nim' => $firstMhs['nim'],
             'username' => 'mahasiswa',
             'role' => '4',
             'password' => bcrypt('password'),
