@@ -14,8 +14,8 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen') ? 'bg-gradient-primary' : '' }} "
-                    href="/dashboard-dosen">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa') ? 'bg-gradient-primary' : '' }} "
+                    href="/dashboard-mahasiswa">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -23,39 +23,39 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-irs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-irs">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-irs') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/verifikasi-irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">description</i>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi IRS Mahasiswa</span>
+                    <span class="nav-link-text ms-1">Isian Rencana Studi (IRS)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-khs">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/verifikasi-khs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        <i class="material-icons opacity-10">menu_book</i>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi KHS Mahasiswa</span>
+                    <span class="nav-link-text ms-1">Kartu Hasil Studi (KHS)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-pkl">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/verifikasi-pkl">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
+                        <i class="material-icons opacity-10">badge</i>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi Mahasiswa PKL</span>
+                    <span class="nav-link-text ms-1">Praktek Kerja Lapangan (PKL)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-skripsi">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/verifikasi-skripsi">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
+                        <i class="material-icons opacity-10">history_edu</i>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi Mahasiswa Skripsi</span>
+                    <span class="nav-link-text ms-1">Skripsi</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
@@ -66,7 +66,15 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="/logout">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">login</i>
+                        <i class="material-icons opacity-10">edit_note</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Edit Profile</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/logout">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">logout</i>
                     </div>
                     <span class="nav-link-text ms-1">Log Out</span>
                 </a>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('tanggal_selesai')->nullable();
             $table->string('status_konfirmasi');
             $table->string('file_pkl');
+            $table->string('nilai')->nullable();
             $table->foreignId('mahasiswa_nim');
             $table->timestamps();
         });

@@ -19,6 +19,11 @@ class DashboardMahasiswaController extends Controller
 
         // Semester Aktif
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
+        if($semesterAktif == null){
+            $semesterAktif = [
+                'semester_aktif' => '-'
+            ];
+        }
 
         // Sks Kumulatif
         $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)->sum('jumlah_sks');

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('status_skripsi')->default('Belum lulus');
             $table->date('tanggal_sidang')->nullable();
             $table->string('file_skripsi');
+            $table->string('nilai')->nullable();
             $table->foreignId('mahasiswa_nim');
             $table->timestamps();
         });
