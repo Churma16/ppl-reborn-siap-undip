@@ -6,8 +6,8 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
             target="_blank">
-            <img src="/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo" />
+            <span class="ms-1 font-weight-bold text-white">SIAP UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-irs') ? 'bg-gradient-primary' : '' }}"
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-irs/*') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-mahasiswa/kelola-irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">description</i>
@@ -32,8 +32,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-mahasiswa/verifikasi-khs">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-khs*') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/kelola-khs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">menu_book</i>
                     </div>
@@ -41,8 +41,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-mahasiswa/verifikasi-pkl">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-pkl') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/kelola-pkl">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">badge</i>
                     </div>
@@ -50,8 +50,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-mahasiswa/verifikasi-skripsi">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-skripsi') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/kelola-skripsi">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">history_edu</i>
                     </div>

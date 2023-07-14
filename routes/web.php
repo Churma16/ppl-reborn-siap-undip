@@ -1,14 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MahasiswaKelolaIrs;
+use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
-use App\Http\Controllers\DashboardDepartemenController;
 use App\Http\Controllers\DashboardMahasiswaController;
-use App\Http\Controllers\MahasiswaKelolaIrs;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardDepartemenController;
 
 
 /*
@@ -50,6 +51,7 @@ Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 
 // Mahasiswa
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
 Route::Resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
+Route::Resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
 
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 

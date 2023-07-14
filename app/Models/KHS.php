@@ -9,7 +9,7 @@ class KHS extends Model
 {
     
     use HasFactory;
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     // Accessor
 
