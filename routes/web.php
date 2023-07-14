@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\DashboardDepartemenController;
 use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\MahasiswaKelolaIrs;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -48,7 +49,7 @@ Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 
 
 // Mahasiswa
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
-
+Route::Resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
 
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 

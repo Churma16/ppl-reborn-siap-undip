@@ -23,8 +23,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/verifikasi-irs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-mahasiswa/verifikasi-irs">
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-irs') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/kelola-irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">description</i>
                     </div>

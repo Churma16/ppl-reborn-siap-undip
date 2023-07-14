@@ -26,14 +26,14 @@ class DashboardMahasiswaController extends Controller
         }
 
         // Sks Kumulatif
-        $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)->sum('jumlah_sks');
+        $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('jumlah_sks');
 
         return view('dashboard-mahasiswa.index', [
             'title' => 'Dashboard Mahasiswa',
             'mahasiswa' => $mahasiswa,
             'ipk' => $ipk,
             'semesterAktif' => $semesterAktif['semester_aktif'],
-            'sksk' => $sksk
+            'sksk' => $sksk,
         ]);
     }
 }
