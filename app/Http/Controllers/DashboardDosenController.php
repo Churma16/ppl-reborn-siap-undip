@@ -62,7 +62,7 @@ class DashboardDosenController extends Controller
     {
         if ($action === 'terima') {
             $irs->update([
-                'status_konfirmasi' => 'Sudah Dikonfirmasi',
+                'status_konfirmasi' => 'Dikonfirmasi',
             ]);
         } elseif ($action === 'tolak') {
             $irs->update([
@@ -73,14 +73,15 @@ class DashboardDosenController extends Controller
         return redirect()->back();
     }
 
-    public function verifikasiKhs(){
+    public function verifikasiKhs()
+    {
         // Get Data Dosen
         $dosen = Dosen::where('nip', auth()->user()->nip_nim)->first();
 
         // Get Data Mahasiswa Perwalian
         $mahasiswas = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)->get();
-        
-        
+
+
         $mahasiswa_perwalian = $dosen->getMahasiswaBimbinganAttribute();
 
         // Get Data IRS Mahasiswa Perwalian
@@ -93,6 +94,4 @@ class DashboardDosenController extends Controller
             'khss' => $khss,
         ]);
     }
-
-
 }

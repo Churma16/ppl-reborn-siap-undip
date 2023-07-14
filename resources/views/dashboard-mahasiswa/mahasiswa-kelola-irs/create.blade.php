@@ -36,7 +36,7 @@
                                     <p class="card-text "><strong>Semester:</strong> {{ $semesterAktif }}</p>
                                 </div>
                                 <div class="mt-3 mb-1">
-                                    <strong >SKS Semester</strong>
+                                    <strong>SKS Semester</strong>
                                     <div class="input-group input-group-outline ">
                                         <input type="text" name="jumlah_sks" id="jumlah_sks" class="form-control p-2"
                                             placeholder="Masukan Banyak SKS yang diambil semester ini *Maks 24">
@@ -47,7 +47,16 @@
                                     <div class="input-group input-group-outline">
                                         <input type="file" name="file_sks" id="file_sks" class="form-control p-2">
                                     </div>
-                                    <small class="ms-1">Note: Pastikan file berformat .pdf dan ukuran dibawah 10mb</small>
+                                    <ul>
+                                        <li>
+                                            <small class="ms-1">Pastikan file berformat .pdf dan ukuran dibawah 10mb
+                                                </small>
+                                        </li>
+                                        <li>
+                                            <small class="ms-1">Pastikan nama file berformat nama_nim_semester.pdf. cth: bruce_1900018312_1.pdf
+                                                </small>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-info">Unggah File IRS</button>

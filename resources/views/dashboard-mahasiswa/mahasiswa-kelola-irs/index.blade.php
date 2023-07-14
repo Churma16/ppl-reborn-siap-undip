@@ -31,54 +31,29 @@
                     </div>
                     }
                 @else
-                    <div class="card mt-4 border ">
-                        <!-- Card body -->
-                        <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Semester 1</h4>
-                            <div class="row border-top pt-3 mb-3">
-                                <div class="col-6">
-                                    <p class="card-text text-sm mb-1"><strong>Jumlah SKS:</strong> 25</p>
+                    @foreach ($irss as $irs)
+                        <div class="card mt-4 border ">
+                            <!-- Card body -->
+                            <div class="card-body ">
+                                <h4 class="font-weight-normal mt-1 mb-1 ">Semester {{ $irs->semester_aktif }}</h4>
+                                <div class="row border-top pt-3 mb-3">
+                                    <div class="col-6">
+                                        <p class="card-text text-sm mb-1"><strong>Jumlah SKS:</strong>
+                                            {{ $irs->jumlah_sks }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
+                                            {{ $irs->status_konfirmasi }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <p class="card-text text-sm"><strong>Status Konfirmasi:</strong> Belum Dikonfirmasi</p>
-                                </div>
+                                <a href="{{ asset('storage/' . $irs->file_sks) }}" target="_blank" class="btn btn-info">Lihat File IRS</a>
                             </div>
-                            <a href="#" class="btn btn-info">Lihat File IRS</a>
                         </div>
-                    </div>
-                    <div class="card mt-4 border ">
-                        <!-- Card body -->
-                        <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Semester 1</h4>
-                            <div class="row border-top pt-3 mb-3">
-                                <div class="col-6">
-                                    <p class="card-text text-sm mb-1"><strong>Jumlah SKS:</strong> 25</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="card-text text-sm"><strong>Status Konfirmasi:</strong> Belum Dikonfirmasi</p>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-info">Lihat File IRS</a>
-                        </div>
-                    </div>
-                    <div class="card mt-4 border ">
-                        <!-- Card body -->
-                        <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Semester 1</h4>
-                            <div class="row border-top pt-3 mb-3">
-                                <div class="col-6">
-                                    <p class="card-text text-sm mb-1"><strong>Jumlah SKS:</strong> 25</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="card-text text-sm"><strong>Status Konfirmasi:</strong> Belum Dikonfirmasi</p>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-info">Lihat File IRS</a>
-                        </div>
-                    </div>
+                    @endforeach
                 @endif
             </div>
-            <div class="ms-auto me-4 mt-5"> 
+            <div class="ms-auto me-4 mt-5">
                 <a href="/dashboard-mahasiswa/kelola-irs/create" class="btn btn-primary">Unggah IRS</a>
             </div>
 

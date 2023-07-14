@@ -49,7 +49,7 @@ class MahasiswaKelolaIrs extends Controller
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
         if($semesterAktif == null){
             $semesterAktif = [
-                'semester_aktif' => '1'
+                'semester_aktif' => '0'
             ];
         }
         return view('dashboard-mahasiswa.mahasiswa-kelola-irs.create', [
@@ -57,7 +57,7 @@ class MahasiswaKelolaIrs extends Controller
             'mahasiswa' => $mahasiswa,
             'irss' => $irss,
             'sksk' => $sksk,
-            'semesterAktif' => $semesterAktif['semester_aktif'],
+            'semesterAktif' => $semesterAktif['semester_aktif']+1,
         ]);
     }
 
@@ -70,24 +70,30 @@ class MahasiswaKelolaIrs extends Controller
     public function store(Request $request)
     {
         /// Semester Aktif
-        $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
+        $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
         if($semesterAktif == null){
             $semesterAktif = [
-                'semester_aktif' => '1'
+                'semester_aktif' => '0'
             ];
         }
 
         // Validasi
         $validatedData = $request->validate([
             'file_sks' => 'required|mimes:pdf|max:10000',
+            'jumlah_sks' => 'required|numeric|min:1|max:24',
         ]);
+
+        if($request->file('file_sks')){
+            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
+        }
 
         // Tambah Data
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
-        $validatedData['semester_aktif'] = $semesterAktif['semester_aktif'];
-        
+        $validatedData['semester_aktif'] = $semesterAktif['semester_aktif']+1;
 
+        IRS::create($validatedData);
+        return redirect('/dashboard-mahasiswa/kelola-irs')->with('success', 'IRS berhasil diunggah!');
     }
 
     /**
