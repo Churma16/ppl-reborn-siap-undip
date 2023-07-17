@@ -22,26 +22,38 @@
                 </div>
             </div>
             <div class="row px-4 pt-4">
-                <h4 class="mb-2">Informasi PKL</h4>
-                <div class="col-6">
-                    <p class=""><strong>Nama Instansi:</strong> {{ $pkls[0]->nama_perusahaan }}</p>
-                    <p class=""><strong>Status Lulus:</strong> {{ $pkls[0]->status_lulus }}</p>
+                @if (empty($pkls))
+                    <div class="col-6">
+                        <p class=""><strong>Nama Instansi:</strong> {{ $pkls[0]->nama_perusahaan }}</p>
+                        <p class=""><strong>Status Lulus:</strong> {{ $pkls[0]->status_lulus }}</p>
 
-                </div>
-                <div class="col-6">
-                    <p class=""><strong>Tanggal Mulai:</strong> {{ $pkls[0]->tanggal_mulai_formatted }}</p>
-                    <p class=""><strong>Tanggal Selesai:</strong> {{ $pkls[0]->tanggal_selesai_formatted }}</p>
-                </div>
+                    </div>
+                    <div class="col-6">
+                        <p class=""><strong>Tanggal Mulai:</strong> {{ $pkls[0]->tanggal_mulai_formatted }}</p>
+                        <p class=""><strong>Tanggal Selesai:</strong> {{ $pkls[0]->tanggal_selesai_formatted }}
+                        </p>
+                    </div>
+                    
+                @else
+                    <div class="col-6">
+                        <p class=""><strong>Nama Instansi:</strong> -</p>
+                        <p class=""><strong>Status Lulus:</strong> -</p>
+
+                    </div>
+                    <div class="col-6">
+                        <p class=""><strong>Tanggal Mulai:</strong> -</p>
+                        <p class=""><strong>Tanggal Selesai:</strong> -</p>
+                    </div>
+                    
+                @endif
             </div>
             <div class="row mx-4">
-                @if ($pkls == null)
-                    {
+                @if (empty($pkls))
                     <div class="card mt-4 border ">
                         <div class="card-body ">
                             <h4 class="font-weight-normal mt-1 mb-1 ">Belum Mengunggah PKL</h4>
                         </div>
                     </div>
-                    }
                 @else
                     @foreach ($pkls as $pkl)
                         <div class="card mt-4 border ">
