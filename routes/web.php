@@ -57,7 +57,10 @@ Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
 Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
 Route::resource('/dashboard-mahasiswa/kelola-pkl', MahasiswaKelolaPkl::class);
 Route::resource('/dashboard-mahasiswa/kelola-skripsi', MahasiswaKelolaSkripsi::class);
+
 Route::get('/dashboard-mahasiswa/edit-profile',[DashboardMahasiswaController::class, 'edit']);
+Route::get('/fetch-kabupatens/{id}', [DashboardMahasiswaController::class, 'fetchKabupaten']);
+Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasiswaController::class, 'update']);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
 // Route::post()
