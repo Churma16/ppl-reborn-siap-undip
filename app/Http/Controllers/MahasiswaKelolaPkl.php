@@ -8,19 +8,20 @@ use App\Models\PKL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
-use PhpParser\Node\Stmt\Return_;
 
 class MahasiswaKelolaPkl extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar PKL mahasiswa.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
+        // Mendapatkan PKL mahasiswa
         $pkls = PKL::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('progress_ke', 'asc')->get();
 
         return view('dashboard-mahasiswa.mahasiswa-kelola-pkl.index', [
@@ -31,17 +32,18 @@ class MahasiswaKelolaPkl extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan halaman form unggah PKL.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
-
-
+        // Mendapatkan progress ke dalam PKL
         $progressKe = PKL::where('mahasiswa_nim', Auth::user()->nip_nim)->where('status_konfirmasi', 'Dikonfirmasi')->count();
+
         return view('dashboard-mahasiswa.mahasiswa-kelola-pkl.create', [
             'title' => 'Unggah PKL',
             'mahasiswa' => $mahasiswa,
@@ -50,15 +52,17 @@ class MahasiswaKelolaPkl extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data PKL yang diunggah.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Mendapatkan data PKL mahasiswa
         $pkl = PKL::where('mahasiswa_nim', Auth::user()->nip_nim)->first();
 
+        // Validasi data input
         $validatedData = $request->validate([
             'rincian_progress' => 'required|max:50',
             'file_pkl' => 'required|mimes:pdf|max:2048',
@@ -66,6 +70,7 @@ class MahasiswaKelolaPkl extends Controller
             'nama_perusahaan' => 'required|max:50',
         ]);
 
+        // Mengunggah file PKL
         if ($request->file('file_pkl')) {
             $validatedData['file_pkl'] = $request->file('file_pkl')->store('file-pkl');
         }
@@ -86,7 +91,6 @@ class MahasiswaKelolaPkl extends Controller
 
         PKL::create($validatedData);
         return redirect('/dashboard-mahasiswa/kelola-pkl')->with('success', 'PKL berhasil diunggah!');
-
     }
 
     /**

@@ -10,16 +10,16 @@ use Illuminate\Http\Request;
 class MahasiswaKelolaIrs extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar IRS mahasiswa.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // Data Mahasiswa
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
-        // IRS
+        // Mendapatkan IRS mahasiswa
         $irss = IRS::where('mahasiswa_nim', $mahasiswa->nim)->get();
 
         return view('dashboard-mahasiswa.mahasiswa-kelola-irs.index', [
@@ -30,74 +30,76 @@ class MahasiswaKelolaIrs extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan halaman form unggah IRS.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        // Data Mahasiswa
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
-        // IRS
+        // Mendapatkan IRS mahasiswa
         $irss = IRS::where('mahasiswa_nim', $mahasiswa->nim)->get();
 
-        // Sks Kumulatif
+        // Mendapatkan SKS kumulatif
         $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('jumlah_sks');
 
-        // Semester Aktif
+        // Mendapatkan semester aktif terakhir
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
-        if($semesterAktif == null){
+        if ($semesterAktif == null) {
             $semesterAktif = [
                 'semester_aktif' => '0'
             ];
         }
+
         return view('dashboard-mahasiswa.mahasiswa-kelola-irs.create', [
             'title' => 'Unggah IRS',
             'mahasiswa' => $mahasiswa,
             'irss' => $irss,
             'sksk' => $sksk,
-            'semesterAktif' => $semesterAktif['semester_aktif']+1,
+            'semesterAktif' => $semesterAktif['semester_aktif'] + 1,
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data IRS yang diunggah.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        /// Semester Aktif
+        // Mendapatkan semester aktif terakhir
         $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
-        if($semesterAktif == null){
+        if ($semesterAktif == null) {
             $semesterAktif = [
                 'semester_aktif' => '0'
             ];
         }
 
-        // Validasi
+        // Validasi data input
         $validatedData = $request->validate([
             'file_sks' => 'required|mimes:pdf|max:10000',
             'jumlah_sks' => 'required|numeric|min:1|max:24',
         ]);
 
-        if($request->file('file_sks')){
+        // Mengunggah file SKS
+        if ($request->file('file_sks')) {
             $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
         }
 
-        // Tambah Data
+        // Menambahkan data IRS
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
-        $validatedData['semester_aktif'] = $semesterAktif['semester_aktif']+1;
+        $validatedData['semester_aktif'] = $semesterAktif['semester_aktif'] + 1;
 
         IRS::create($validatedData);
         return redirect('/dashboard-mahasiswa/kelola-irs')->with('success', 'IRS berhasil diunggah!');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan halaman detail IRS.
      *
      * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
@@ -110,7 +112,7 @@ class MahasiswaKelolaIrs extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan halaman edit IRS.
      *
      * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
@@ -121,7 +123,7 @@ class MahasiswaKelolaIrs extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Memperbarui data IRS.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\IRS  $iRS
@@ -133,7 +135,7 @@ class MahasiswaKelolaIrs extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus data IRS.
      *
      * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response

@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 
 class DashboardDepartemenController extends Controller
 {
+    /**
+     * Menampilkan halaman utama dashboard departemen.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index()
     {
-        // dd(session('user'));
-        // $mahasiswa = Mahasiswa::all(1);
-        // $count = $mahasiswa->getMahasiswaPklCountAttribute();
-
-
         $mahasiswa = new Mahasiswa();
         $dosen = new Dosen();
         $pkl = new Pkl();
         $skripsi = new Skripsi();
 
-        // dd($count);
         return view('dashboard-departemen.index', [
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
@@ -32,16 +31,27 @@ class DashboardDepartemenController extends Controller
         ]);
     }
 
+    /**
+     * Menampilkan data mahasiswa departemen.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function dataMahasiswa()
     {
         $mahasiswa = Mahasiswa::all();
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+
         return view('dashboard-departemen.data-mahasiswa', [
             'mahasiswas' => $mahasiswa,
             'angkatans' => $angkatan,
         ]);
     }
 
+    /**
+     * Menampilkan data mahasiswa yang sedang PKL.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function dataMahasiswaPkl()
     {
         $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
@@ -49,12 +59,18 @@ class DashboardDepartemenController extends Controller
         });
 
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+
         return view('dashboard-departemen.data-mahasiswa-pkl', [
             'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,
         ]);
     }
 
+    /**
+     * Menampilkan data mahasiswa yang sedang skripsi.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function dataMahasiswaSkripsi()
     {
         $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
@@ -62,6 +78,7 @@ class DashboardDepartemenController extends Controller
         });
 
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+
         return view('dashboard-departemen.data-mahasiswa-skripsi', [
             'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,

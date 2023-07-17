@@ -11,16 +11,16 @@ use Illuminate\Http\Request;
 class MahasiswaKelolaKhs extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar KHS mahasiswa.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // Data Mahasiswa
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
-        // IRS
+        // Mendapatkan KHS mahasiswa
         $khss = KHS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester', 'asc')->get();
 
         return view('dashboard-mahasiswa.mahasiswa-kelola-khs.index', [
@@ -31,31 +31,32 @@ class MahasiswaKelolaKhs extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan halaman form unggah KHS.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        // Data Mahasiswa
+        // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', Auth::user()->nip_nim)->first();
 
-        // KHS
+        // Mendapatkan KHS mahasiswa
         $khss = KHS::where('mahasiswa_nim', $mahasiswa->nim)->get();
 
-        // Sks Kumulatif
+        // Mendapatkan SKS kumulatif
         $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('jumlah_sks');
 
-        // Semester Aktif
+        // Mendapatkan semester aktif terakhir
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
 
-        //IP Kumulatif
+        // Mendapatkan IP Kumulatif
         $ipk = KHS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi', 'Dikonfirmasi')->avg('ip_semester');
         if ($semesterAktif == null) {
             $semesterAktif = [
                 'semester_aktif' => '0'
             ];
         }
+
         return view('dashboard-mahasiswa.mahasiswa-kelola-khs.create', [
             'title' => 'Unggah KHS',
             'mahasiswa' => $mahasiswa,
@@ -67,14 +68,14 @@ class MahasiswaKelolaKhs extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data KHS yang diunggah.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        /// Semester Aktif
+        // Mendapatkan semester aktif terakhir
         $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
         if ($semesterAktif == null) {
             $semesterAktif = [
@@ -82,29 +83,29 @@ class MahasiswaKelolaKhs extends Controller
             ];
         }
 
-        // Sks Kumulatif
+        // Mendapatkan SKS kumulatif
         $sksk = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('jumlah_sks');
 
-
-        // Jumlah IPK
+        // Mendapatkan jumlah IPK
         $jumlahIpk = KHS::where('mahasiswa_nim', Auth::user()->nip_nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('ip_semester');
 
-        // Validasi
+        // Validasi data input
         $validatedData = $request->validate([
             'file_khs' => 'required|mimes:pdf|max:10000',
             'ip_semester' => 'required|numeric|min:0.00|max:4.00',
         ]);
 
-        // Upload File
+        // Mengunggah file KHS
         if ($request->file('file_khs')) {
             $validatedData['file_khs'] = $request->file('file_khs')->store('file-khs');
         }
 
-        // Ip Kumulatif
-        $ipKumulatif =( $jumlahIpk + $validatedData['ip_semester']) / (($semesterAktif['semester_aktif']) + 1);
-        // Tambah Data
+        // Menghitung IP Kumulatif
+        $ipKumulatif = ($jumlahIpk + $validatedData['ip_semester']) / (($semesterAktif['semester_aktif']) + 1);
+
+        // Menambahkan data KHS
         $validatedData['sks_kumulatif'] = $sksk;
-        $validatedData['ip_kumulatif'] = number_format($ipKumulatif,2);
+        $validatedData['ip_kumulatif'] = number_format($ipKumulatif, 2);
         $validatedData['status_mahasiswa'] = 'Aktif';
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';

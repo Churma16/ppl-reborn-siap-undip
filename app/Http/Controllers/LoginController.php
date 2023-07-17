@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     /**
-     * Display the login form.
+     * Menampilkan halaman form login.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -20,20 +20,24 @@ class LoginController extends Controller
     }
 
     /**
-     * Authenticate the user.
+     * Mengautentikasi pengguna.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function authenticate(Request $request)
     {
+        // Validasi kredensial pengguna
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
+        // Mencoba untuk melakukan autentikasi pengguna
         if (auth()->attempt(['username' => $credentials['username'], 'password' => $credentials['password']])) {
             $request->session()->regenerate();
+
+            // Mengarahkan pengguna ke halaman yang sesuai berdasarkan peran (role) pengguna
             if (auth()->user()->role == '1') {
                 return redirect()->intended('/dashboard-admin');
             }
@@ -41,7 +45,6 @@ class LoginController extends Controller
                 return redirect()->intended('/dashboard-departemen');
             }
             if (auth()->user()->role == '3') {
-                // return redirect()->intended('/dashboard-dosen/'.auth()->user()->nip_nim);
                 return redirect()->intended('/dashboard-dosen');
             }
             if (auth()->user()->role == '4') {
@@ -53,7 +56,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Logout the user.
+     * Melakukan logout pengguna.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
