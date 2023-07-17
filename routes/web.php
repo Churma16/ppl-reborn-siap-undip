@@ -53,12 +53,12 @@ Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 
 
 // Mahasiswa
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
-Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
-Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
-Route::resource('/dashboard-mahasiswa/kelola-pkl', MahasiswaKelolaPkl::class);
-Route::resource('/dashboard-mahasiswa/kelola-skripsi', MahasiswaKelolaSkripsi::class);
+Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class)->only(['index', 'create', 'store']);
+Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class)->only(['index', 'create', 'store']);
+Route::resource('/dashboard-mahasiswa/kelola-pkl', MahasiswaKelolaPkl::class)->only(['index', 'create', 'store']);
+Route::resource('/dashboard-mahasiswa/kelola-skripsi', MahasiswaKelolaSkripsi::class)->only(['index', 'create', 'store']);
 
-Route::get('/dashboard-mahasiswa/edit-profile',[DashboardMahasiswaController::class, 'edit']);
+Route::get('/dashboard-mahasiswa/edit-profile', [DashboardMahasiswaController::class, 'edit']);
 Route::get('/fetch-kabupatens/{id}', [DashboardMahasiswaController::class, 'fetchKabupaten']);
 Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasiswaController::class, 'update']);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
