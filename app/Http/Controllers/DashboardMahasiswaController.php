@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 class DashboardMahasiswaController extends Controller
 {
     public function index(){
-
+        
         // Data Mahasiswa
         $mahasiswa = Mahasiswa::where('nim', auth()->user()->nip_nim)->first();
 
         // IPK
-        $ipk=KHS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi','Dikonfirmasi')->avg('ip_semester');
+        $ipKumulatifNotFormatted =number_format(KHS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi','Dikonfirmasi')->avg('ip_semester'),2);
+        $ipk=$ipKumulatifNotFormatted;
 
         // Semester Aktif
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();

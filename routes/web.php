@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
+use App\Http\Controllers\MahasiswaKelolaPkl;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
@@ -50,9 +51,10 @@ Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 
 
 // Mahasiswa
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
-Route::Resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
-Route::Resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
-
+Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
+Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
+Route::resource('/dashboard-mahasiswa/kelola-pkl', MahasiswaKelolaPkl::class);
+Route::resource('/dashboard-mahasiswa/kelola-skripsi', MahasiswaKelolaSkripsi::class);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
 // Route::post()

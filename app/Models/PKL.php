@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class PKL extends Model
 {
     use HasFactory;
-    protected $fillable = [];
+    protected $guarded = ['id'];
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
@@ -30,12 +30,18 @@ class PKL extends Model
     public function getTanggalMulaiFormattedAttribute()
     {
         $date = Carbon::parse($this->tanggal_mulai);
-        return $date->format('d-m-y');
+        return $date->format('d M Y');
     }
 
     public function getTanggalSelesaiFormattedAttribute()
     {
         $date = Carbon::parse($this->tanggal_selesai);
-        return $date->format('d-m-y');
+        return $date->format('d M Y');
+    }
+
+    public function getTanggalDiunggahAtrribute()
+    {
+        $date = Carbon::parse($this->created_at);
+        return $date->format('d M Y');
     }
 }

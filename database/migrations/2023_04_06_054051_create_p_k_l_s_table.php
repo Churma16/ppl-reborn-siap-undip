@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('status_lulus');
             $table->string('nama_perusahaan');
+            $table->string('rincian_progress')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai')->nullable();
             $table->string('status_konfirmasi');
             $table->string('file_pkl');
             $table->string('nilai')->nullable();
+            $table->string('progress_ke')->nullable();
             $table->foreignId('mahasiswa_nim');
             $table->timestamps();
         });

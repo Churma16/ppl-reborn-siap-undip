@@ -96,8 +96,8 @@ class MahasiswaKelolaKhs extends Controller
         ]);
 
         // Upload File
-        if ($request->file('file_sks')) {
-            $validatedData['file_sks'] = $request->file('file_khs')->store('file-khs');
+        if ($request->file('file_khs')) {
+            $validatedData['file_khs'] = $request->file('file_khs')->store('file-khs');
         }
 
         // Ip Kumulatif
