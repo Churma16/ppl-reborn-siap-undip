@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\IRS;
+use App\Models\Kabupaten;
 use App\Models\KHS;
 use App\Models\Mahasiswa;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 
 class DashboardMahasiswaController extends Controller
@@ -40,9 +42,13 @@ class DashboardMahasiswaController extends Controller
 
     public function edit(){
         $mahasiswa = Mahasiswa::where('nim', auth()->user()->nip_nim)->first();
+        $provinsis = Provinsi::all();
+        $kabupatens = Kabupaten::all();
         return view('dashboard-mahasiswa.edit-profile', [
             'title' => 'Edit Profil',
             'mahasiswa' => $mahasiswa,
+            'provinsis' => $provinsis,
+            'kabupatens' => $kabupatens,
         ]);
     }
 }

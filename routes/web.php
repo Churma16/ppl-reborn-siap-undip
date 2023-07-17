@@ -9,6 +9,7 @@ use App\Http\Controllers\MahasiswaKelolaPkl;
 use App\Http\Controllers\MahasiswaKelolaSkripsi;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
+
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\DashboardMahasiswaController;
 use App\Http\Controllers\DashboardDepartemenController;
@@ -56,6 +57,7 @@ Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class);
 Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class);
 Route::resource('/dashboard-mahasiswa/kelola-pkl', MahasiswaKelolaPkl::class);
 Route::resource('/dashboard-mahasiswa/kelola-skripsi', MahasiswaKelolaSkripsi::class);
+Route::get('/dashboard-mahasiswa/edit-profile',[DashboardMahasiswaController::class, 'edit']);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
 // Route::post()
