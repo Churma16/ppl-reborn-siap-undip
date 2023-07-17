@@ -29,26 +29,32 @@
                         <form method="POST" action="/dashboard-mahasiswa/kelola-pkl" enctype="multipart/form-data">
                             @csrf
                             <div class="row border-top pt-3 mb-3">
+                                @if($progressKe == 1)
+                                <strong>Nama Instansi</strong>
+                                <div class="input-group input-group-outline ">
+                                    <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control p-2"
+                                        placeholder="Perusahaan tempat anda melakukan pkl. cth: PT Mencintaimu">
+                                </div>
+                                @endif
                                 <div class="mt-3 mb-1">
                                     <strong>Progress Ke-</strong>
                                     <div class="input-group input-group-outline ">
                                         <input type="text" name="progress_ke" id="progress_ke" class="form-control p-2"
                                             placeholder="Masukan IP semester ini *Maks 4.00" value="{{ $progressKe }}" disabled>
-                                            <input type="hidden" name="progress_ke" value="{{ $progressKe }}">
-
+                                            <input type="hidden" name="progress_ke" value="{{ $progressKe }}" required>
                                     </div>
                                 </div>
                                 <div class="mt-3 mb-1">
                                     <strong>Rincian Progress</strong>
                                     <div class="input-group input-group-outline ">
                                         <input type="text" name="rincian_progress" id="rincian_progress" class="form-control p-2"
-                                            placeholder="Rincian Progress. cth: Menambahkan Desain">
+                                            placeholder="Rincian Progress. cth: Menambahkan Desain" required>
                                     </div>
                                 </div>
                                 <div class="mt-3 mb-1">
                                     <strong>Unggah Progress</strong>
                                     <div class="input-group input-group-outline">
-                                        <input type="file" name="file_pkl" id="file_pkl" class="form-control p-2">
+                                        <input type="file" name="file_pkl" id="file_pkl" class="form-control p-2" required>
                                     </div>
                                     <ul>
                                         <li>
@@ -62,7 +68,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info">Unggah File KHS</button>
+                            <button type="submit" class="btn btn-info">Unggah Progress PKL</button>
                         </form>
                     </div>
                 </div>

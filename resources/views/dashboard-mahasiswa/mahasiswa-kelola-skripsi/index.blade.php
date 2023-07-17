@@ -1,4 +1,5 @@
-{{-- @dd($pkls); --}}
+{{-- @dd(dd($skripsis)); --}}
+{{-- @dd(count($skripsis['items'])); --}}
 @extends('dashboard-mahasiswa.layouts.main')
 @section('content')
     <h3 class="ms-4">{{ $title }}</h3>
@@ -22,8 +23,8 @@
                 </div>
             </div>
             <div class="row px-4 pt-4">
-                <h4 class="mb-2">Informasi PKL</h4>
-                @if (empty($skripsis))
+                <h5 class="mb-2">Informasi Skripsi</h5>
+                @if (count($skripsis) == 0)
                     <div class="col-6">
                         <p class=""><strong>Nama Instansi:</strong> -</p>
                         <p class=""><strong>Status Lulus:</strong> -</p>
@@ -47,10 +48,10 @@
                 @endif
             </div>
             <div class="row mx-4">
-                @if ($skripsis == null)
+                @if (count($skripsis) == 0)
                     <div class="card mt-4 border ">
                         <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Belum Mengunggah PKL</h4>
+                            <h4 class="font-weight-normal mt-1 mb-1 fw-bolder text-center">Belum Mengunggah Skripsi</h4>
                         </div>
                     </div>
                 @else
@@ -79,14 +80,14 @@
                                     </div>
                                 </div>
                                 <a href="{{ asset('storage/' . $skripsi->file_skripsi) }}" target="_blank"
-                                    class="btn btn-info">Lihat File pkl</a>
+                                    class="btn btn-info">Lihat File Skripsi</a>
                             </div>
                         </div>
                     @endforeach
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-skripsi/create" class="btn btn-primary">Unggah pkl</a>
+                <a href="/dashboard-mahasiswa/kelola-skripsi/create" class="btn btn-primary">Unggah Skripsi</a>
             </div>
 
         </div>

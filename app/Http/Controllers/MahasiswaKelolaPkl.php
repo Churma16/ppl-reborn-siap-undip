@@ -7,6 +7,7 @@ use App\Models\PKL;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 use PhpParser\Node\Stmt\Return_;
 
 class MahasiswaKelolaPkl extends Controller
@@ -61,7 +62,8 @@ class MahasiswaKelolaPkl extends Controller
         $validatedData = $request->validate([
             'rincian_progress' => 'required|max:50',
             'file_pkl' => 'required|mimes:pdf|max:2048',
-            'progress_ke' => 'required|numeric'
+            'progress_ke' => 'required|numeric',
+            'nama_perusahaan' => 'required|max:50',
         ]);
 
         if ($request->file('file_pkl')) {
@@ -70,8 +72,15 @@ class MahasiswaKelolaPkl extends Controller
 
         // Tambah Data
         $validatedData['status_lulus'] = 'Belum Lulus';
-        $validatedData['nama_perusahaan'] = $pkl->nama_perusahaan;
-        $validatedData['tanggal_mulai'] = $pkl->tanggal_mulai;
+
+        if($request->progress_ke == 1){
+            $validatedData['tanggal_mulai'] = Carbon::now()->format('Y-m-d');
+        }
+        else{
+            $validatedData['nama_perusahaan'] = $pkl->nama_perusahaan;
+            $validatedData['tanggal_mulai'] = $pkl->tanggal_mulai;
+            
+        }
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
 
