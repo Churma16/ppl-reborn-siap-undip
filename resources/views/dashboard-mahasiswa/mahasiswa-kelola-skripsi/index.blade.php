@@ -23,48 +23,62 @@
             </div>
             <div class="row px-4 pt-4">
                 <h4 class="mb-2">Informasi PKL</h4>
-                <div class="col-6">
-                    <p class=""><strong>Nama Instansi:</strong> {{ $pkls[0]->nama_perusahaan }}</p>
-                    <p class=""><strong>Status Lulus:</strong> {{ $pkls[0]->status_lulus }}</p>
+                @if (empty($skripsis))
+                    <div class="col-6">
+                        <p class=""><strong>Nama Instansi:</strong> -</p>
+                        <p class=""><strong>Status Lulus:</strong> -</p>
 
-                </div>
-                <div class="col-6">
-                    <p class=""><strong>Tanggal Mulai:</strong> {{ $pkls[0]->tanggal_mulai_formatted }}</p>
-                    <p class=""><strong>Tanggal Selesai:</strong> {{ $pkls[0]->tanggal_selesai_formatted }}</p>
-                </div>
+                    </div>
+                    <div class="col-6">
+                        <p class=""><strong>Tanggal Mulai:</strong> -</p>
+                        <p class=""><strong>Tanggal Selesai:</strong> -</p>
+                    </div>
+                @else
+                    <div class="col-6">
+                        <p class=""><strong>Judul Skripsi:</strong> {{ $skripsis[0]->judul }}</p>
+                        <p class=""><strong>Status Lulus:</strong> {{ $skripsis[0]->status_skripsi }}</p>
+
+                    </div>
+                    <div class="col-6">
+                        <p class=""><strong>Tanggal Mulai:</strong> {{ $skripsis[0]->tanggal_mulai_formatted }}</p>
+                        <p class=""><strong>Tanggal Selesai:</strong> {{ $skripsis[0]->tanggal_sidang_formatted }}
+                        </p>
+                    </div>
+                @endif
             </div>
             <div class="row mx-4">
-                @if ($pkls == null)
-                    {
+                @if ($skripsis == null)
                     <div class="card mt-4 border ">
                         <div class="card-body ">
                             <h4 class="font-weight-normal mt-1 mb-1 ">Belum Mengunggah PKL</h4>
                         </div>
                     </div>
-                    }
                 @else
-                    @foreach ($pkls as $pkl)
+                    @foreach ($skripsis as $skripsi)
                         <div class="card mt-4 border ">
                             <!-- Card body -->
                             <div class="card-body ">
-                                <h4 class="font-weight-normal mt-1 mb-1 ">Progress Ke-{{ $pkl->progress_ke }}</h4>
+                                <h4 class="font-weight-normal mt-1 mb-1 ">Progress Ke-{{ $skripsi->progress_ke }}</h4>
 
                                 <div class="row border-top pt-3 mb-3">
                                     <div class="col-12">
-                                        <p class="card-text text-sm mb-1"><strong>Rincian Progress:</strong>
-                                            {{ $pkl->rincian_progress }}</p>
+                                        <p class="card-text text-sm mb-1"><strong>Rincian
+                                                Progress:</strong> {{ $skripsi->rincian_progress }}
+                                        </p>
                                     </div>
                                     <div class="col-6">
                                         <p class="card-text text-sm mb-1"><strong>Tanggal Diunggah:</strong>
-                                            {{ $pkl->created_at->format('d M Y') }}</p>
+                                            {{ $skripsi->created_at->format('d M Y') }}
+                                        </p>
                                     </div>
                                     <div class="col-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
-                                            {{ $pkl->status_konfirmasi }}
+                                            {{ $skripsi->status_konfirmasi }}
+
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ asset('storage/' . $pkl->file_pkl) }}" target="_blank"
+                                <a href="{{ asset('storage/' . $skripsi->file_skripsi) }}" target="_blank"
                                     class="btn btn-info">Lihat File pkl</a>
                             </div>
                         </div>
@@ -72,7 +86,7 @@
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-pkl/create" class="btn btn-primary">Unggah pkl</a>
+                <a href="/dashboard-mahasiswa/kelola-skripsi/create" class="btn btn-primary">Unggah pkl</a>
             </div>
 
         </div>

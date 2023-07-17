@@ -1,4 +1,4 @@
-{{-- @dd($irss); --}}
+{{-- @dd($progressKe); --}}
 @extends('dashboard-mahasiswa.layouts.main')
 @section('content')
     <h3 class="ms-4">{{ $title }}</h3>
@@ -26,43 +26,63 @@
                     <!-- Card body -->
                     <div class="card-body ">
                         <h4 class="font-weight-normal mt-1 mb-1 ">Masukan Data</h4>
-                        <form method="POST" action="/dashboard-mahasiswa/kelola-pkl" enctype="multipart/form-data">
+                        <form method="POST" action="/dashboard-mahasiswa/kelola-skripsi" enctype="multipart/form-data">
                             @csrf
                             <div class="row border-top pt-3 mb-3">
+                                @if ($progressKe == 1)
+                                    <div class="mt-3 mb-1">
+                                        <strong>Judul Skripsi</strong>
+                                        <div class="input-group input-group-outline ">
+                                            <input type="text" name="judul" id="judul" class="form-control p-2"
+                                                placeholder="Judul skripsi anda">
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="mt-3 mb-1">
+                                        <strong>Judul Skripsi</strong>
+                                        <div class="input-group input-group-outline ">
+                                            <input type="text" name="judul" id="judul" class="form-control p-2"
+                                                placeholder="Judul skripsi anda" disabled>
+                                        </div>
+                                        <input type="hidden" name="judul" value="{{ $progressKe }}">
+                                @endif
                                 <div class="mt-3 mb-1">
                                     <strong>Progress Ke-</strong>
                                     <div class="input-group input-group-outline ">
                                         <input type="text" name="progress_ke" id="progress_ke" class="form-control p-2"
-                                            placeholder="Masukan IP semester ini *Maks 4.00" value="{{ $progressKe }}" disabled>
-                                            <input type="hidden" name="progress_ke" value="{{ $progressKe }}">
-
+                                            placeholder="Masukan IP semester ini *Maks 4.00" value="{{ $progressKe }}"
+                                            disabled>
+                                        <input type="hidden" name="progress_ke" value="{{ $progressKe }}">
                                     </div>
                                 </div>
                                 <div class="mt-3 mb-1">
                                     <strong>Rincian Progress</strong>
                                     <div class="input-group input-group-outline ">
-                                        <input type="text" name="rincian_progress" id="rincian_progress" class="form-control p-2"
+                                        <input type="text" name="rincian_progress" id="rincian_progress"
+                                            class="form-control p-2"
                                             placeholder="Rincian Progress. cth: Menambahkan Desain">
                                     </div>
                                 </div>
                                 <div class="mt-3 mb-1">
                                     <strong>Unggah Progress</strong>
                                     <div class="input-group input-group-outline">
-                                        <input type="file" name="file_pkl" id="file_pkl" class="form-control p-2">
+                                        <input type="file" name="file_skripsi" id="file_skripsi"
+                                            class="form-control p-2">
                                     </div>
                                     <ul>
                                         <li>
                                             <small class="ms-1">Pastikan file berformat .pdf dan ukuran dibawah 10mb
-                                                </small>
+                                            </small>
                                         </li>
                                         <li>
-                                            <small class="ms-1">Pastikan nama file berformat nama_nim_semester.pdf. cth: bruce_1900018312_1.pdf
-                                                </small>
+                                            <small class="ms-1">Pastikan nama file berformat nama_nim_semester.pdf. cth:
+                                                bruce_1900018312_1.pdf
+                                            </small>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info">Unggah File KHS</button>
+                            <button type="submit" class="btn btn-info">Unggah Progress Skripsi</button>
                         </form>
                     </div>
                 </div>

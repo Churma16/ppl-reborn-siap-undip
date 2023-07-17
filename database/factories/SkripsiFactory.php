@@ -24,6 +24,9 @@ class SkripsiFactory extends Factory
             'status_Skripsi' => $this->faker->randomElement(['Lulus', 'Belum Lulus']),
             'file_skripsi' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
             'mahasiswa_nim' => $mahasiswa,
+            'rincian_progress' => $this->faker->sentence,
+            'progress_ke' => $this->faker->randomElement(['1', '2', '3', '4', '5', '6']),
+            'tanggal_mulai' => $this->faker->date(),
         ];
     }
 }

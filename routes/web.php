@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
+use App\Http\Controllers\MahasiswaKelolaSkripsi;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\DashboardDosenController;
