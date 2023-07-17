@@ -25,22 +25,22 @@
             <div class="row px-4 pt-4">
                 <h5 class="mb-2">Informasi Skripsi</h5>
                 @if (count($skripsis) == 0)
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Nama Instansi:</strong> -</p>
                         <p class=""><strong>Status Lulus:</strong> -</p>
 
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Tanggal Mulai:</strong> -</p>
                         <p class=""><strong>Tanggal Selesai:</strong> -</p>
                     </div>
                 @else
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Judul Skripsi:</strong> {{ $skripsis[0]->judul }}</p>
                         <p class=""><strong>Status Lulus:</strong> {{ $skripsis[0]->status_skripsi }}</p>
 
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Tanggal Mulai:</strong> {{ $skripsis[0]->tanggal_mulai_formatted }}</p>
                         <p class=""><strong>Tanggal Selesai:</strong> {{ $skripsis[0]->tanggal_sidang_formatted }}
                         </p>
@@ -69,12 +69,12 @@
                                                 Progress:</strong> {{ $skripsi->rincian_progress }}
                                         </p>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <p class="card-text text-sm mb-1"><strong>Tanggal Diunggah:</strong>
                                             {{ $skripsi->created_at->format('d M Y') }}
                                         </p>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
                                             {{ $skripsi->status_konfirmasi }}
 

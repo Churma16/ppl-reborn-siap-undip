@@ -24,22 +24,22 @@
             <div class="row px-4 pt-4">
                 <h5 class="mb-2">Informasi Praktik Kerja Lapangan</h5>
                 @if (count($pkls) == 0)
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Nama Instansi:</strong> -</p>
                         <p class=""><strong>Status Lulus:</strong> -</p>
 
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Tanggal Mulai:</strong> -</p>
                         <p class=""><strong>Tanggal Selesai:</strong> -</p>
                     </div>
                 @else
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Nama Instansi:</strong> {{ $pkls[0]->nama_perusahaan }}</p>
                         <p class=""><strong>Status Lulus:</strong> {{ $pkls[0]->status_lulus }}</p>
 
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <p class=""><strong>Tanggal Mulai:</strong> {{ $pkls[0]->tanggal_mulai_formatted }}</p>
                         <p class=""><strong>Tanggal Selesai:</strong> {{ $pkls[0]->tanggal_selesai_formatted }}
                         </p>
@@ -67,11 +67,11 @@
                                         <p class="card-text text-sm mb-1"><strong>Rincian Progress:</strong>
                                             {{ $pkl->rincian_progress }}</p>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <p class="card-text text-sm mb-1"><strong>Tanggal Diunggah:</strong>
                                             {{ $pkl->created_at->format('d M Y') }}</p>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
                                             {{ $pkl->status_konfirmasi }}
                                         </p>

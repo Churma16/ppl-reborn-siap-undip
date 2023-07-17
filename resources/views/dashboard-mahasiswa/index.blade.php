@@ -17,11 +17,7 @@
                             <h4 class="mb-0">{{ $semesterAktif }}</h4>
                         </div>
                     </div>
-                    <hr class="dark horizontal my-0" />
-                    <div class="card-footer p-3">
-                        <p class="mb-0">
-                            <span class="text-success text-sm font-weight-bolder">+3% </span>than last month
-                        </p>
+                    <div class="card-footer py-1">
                     </div>
                 </div>
             </div>
@@ -39,11 +35,7 @@
                             <h4 class="mb-0">{{ $ipk }}</h4>
                         </div>
                     </div>
-                    <hr class="dark horizontal my-0" />
-                    <div class="card-footer p-3">
-                        <p class="mb-0">
-                            <span class="text-success text-sm font-weight-bolder">+55% </span>than last week
-                        </p>
+                    <div class="card-footer p-1">
                     </div>
                 </div>
             </div>
@@ -61,12 +53,7 @@
                             <h4 class="mb-0">{{ $sksk }}</h4>
                         </div>
                     </div>
-                    <hr class="dark horizontal my-0" />
-                    <div class="card-footer p-3">
-                        <p class="mb-0">
-                            <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                            than yesterday
-                        </p>
+                    <div class="card-footer p-1">
                     </div>
                 </div>
             </div>
@@ -84,11 +71,7 @@
                             <h4 class="mb-0">{{ $mahasiswa->dosen->nama }}</h4>
                         </div>
                     </div>
-                    <hr class="dark horizontal my-0" />
-                    <div class="card-footer p-3">
-                        <p class="mb-0">
-                            <span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday
-                        </p>
+                    <div class="card-footer p-1">
                     </div>
                 </div>
             </div>
@@ -117,9 +100,9 @@
                     <div class="col-12 col-xl-12">
                         <div class="card card-plain">
                             <div class="card-body p-3">
-                                <h5 class="mb-2">Profile Information</h5>
+                                <h5 class="mb-2">Data Diri</h5>
                                 <div class="row justify-content-center">
-                                    <div class="col-6">
+                                    <div class="col-md-6">
                                         <hr class="horizontal gray-light my-1">
                                         <ul class="list-group">
                                             <li class="list-group-item border-0 ps-0 pt-0 "><strong

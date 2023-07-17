@@ -29,10 +29,10 @@
                         <form method="POST" action="/dashboard-mahasiswa/kelola-irs" enctype="multipart/form-data">
                             @csrf
                             <div class="row border-top pt-3 mb-3">
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <p class="card-text  mb-1"><strong>SKS Kumulatif:</strong> {{ $sksk }}</p>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <p class="card-text "><strong>Semester:</strong> {{ $semesterAktif }}</p>
                                 </div>
                                 <div class="mt-3 mb-1">
