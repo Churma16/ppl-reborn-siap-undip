@@ -21,15 +21,14 @@
                     </div>
                 </div>
             </div>
+            <h5 class="mb-0 ms-4 mt-4">Daftar Kartu Hasil Studi (KHS)</h5>
             <div class="row mx-4">
-                @if ($khss == null)
-                    {
+                @if (count($khss) == 0)
                     <div class="card mt-4 border ">
                         <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Belum Mengunggah IRS</h4>
+                            <h4 class="font-weight-normal mt-1 mb-1 text-center">Belum Mengunggah KHS</h4>
                         </div>
                     </div>
-                    }
                 @else
                     @foreach ($khss as $khs)
                         <div class="card mt-4 border ">
@@ -49,7 +48,8 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ asset('storage/' . $khs->file_sks) }}" target="_blank" class="btn btn-info">Lihat File khs</a>
+                                <a href="{{ asset('storage/' . $khs->file_sks) }}" target="_blank"
+                                    class="btn btn-info">Lihat File khs</a>
                             </div>
                         </div>
                     @endforeach

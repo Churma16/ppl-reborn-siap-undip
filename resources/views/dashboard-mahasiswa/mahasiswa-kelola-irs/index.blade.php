@@ -21,15 +21,14 @@
                     </div>
                 </div>
             </div>
+            <h5 class="mb-0 ms-4 mt-4">Daftar Isian Rencana Studi (IRS)</h5>
             <div class="row mx-4">
-                @if ($irss == null)
-                    {
+                @if (count($irss) == 0)
                     <div class="card mt-4 border ">
                         <div class="card-body ">
-                            <h4 class="font-weight-normal mt-1 mb-1 ">Belum Mengunggah IRS</h4>
+                            <h4 class="font-weight-normal mt-1 mb-1 text-center">Belum Mengunggah IRS</h4>
                         </div>
                     </div>
-                    }
                 @else
                     @foreach ($irss as $irs)
                         <div class="card mt-4 border ">

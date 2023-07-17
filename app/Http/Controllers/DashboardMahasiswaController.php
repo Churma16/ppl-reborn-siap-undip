@@ -37,4 +37,12 @@ class DashboardMahasiswaController extends Controller
             'sksk' => $sksk,
         ]);
     }
+
+    public function edit(){
+        $mahasiswa = Mahasiswa::where('nim', auth()->user()->nip_nim)->first();
+        return view('dashboard-mahasiswa.edit-profile', [
+            'title' => 'Edit Profil',
+            'mahasiswa' => $mahasiswa,
+        ]);
+    }
 }
