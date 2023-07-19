@@ -6,8 +6,8 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
             target="_blank">
-            <img src="/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+            <img src="/img/Undip.png" class="navbar-brand-img h-100 mb-2" alt="main_logo" />
+            <span class="ms-1 font-weight-bold text-white text-lg">SIAP UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
@@ -38,24 +38,6 @@
                         <i class="material-icons opacity-10">person_add</i>
                     </div>
                     <span class="nav-link-text ms-1">Tambah Mahasiswa Baru</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/verifikasi-pkl">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Verifikasi Mahasiswa PKL</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/verifikasi-skripsi">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Verifikasi Mahasiswa Skripsi</span>
                 </a>
             </li>
             <li class="nav-item mt-3">

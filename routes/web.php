@@ -76,5 +76,6 @@ Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasisw
 
 // Admin
 Route::get('/dashboard-admin', [DashboardAdminController::class, 'index']);
+Route::get('/dashboard-admin/data-mahasiswa', [DashboardAdminController::class, 'dataMahasiswa']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru', [DashboardAdminController::class, 'tambahMahasiswaBaru']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru/create', [DashboardAdminController::class, 'createMahasiswa']);

@@ -49,7 +49,7 @@ class DashboardAdminController extends Controller
         $akunBaru = [
             'nip_nim' => $validatedData['nim'],
             'username' => $validatedData['nim'],
-            'password' => bcrypt($validatedData['nim']), 
+            'password' => bcrypt($validatedData['nim']),
             'role' => '4',
         ];
 
@@ -57,5 +57,16 @@ class DashboardAdminController extends Controller
         User::create($akunBaru);
 
         return redirect('/dashboard-admin')->with('success', 'New post has been added!');
+    }
+
+    public function dataMahasiswa()
+    {
+        $mahasiswa = Mahasiswa::all();
+        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+
+        return view('dashboard-admin.data-mahasiswa', [
+            'mahasiswas' => $mahasiswa,
+            'angkatans' => $angkatan,
+        ]);
     }
 }
