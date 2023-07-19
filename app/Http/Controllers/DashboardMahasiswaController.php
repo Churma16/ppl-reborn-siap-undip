@@ -21,7 +21,7 @@ class DashboardMahasiswaController extends Controller
     {
         // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', auth()->user()->nip_nim)->first();
-
+        
         // Menghitung IPK kumulatif
         $ipKumulatifNotFormatted = number_format(KHS::where('mahasiswa_nim', $mahasiswa->nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')
@@ -38,6 +38,7 @@ class DashboardMahasiswaController extends Controller
             ];
         }
 
+        
         // Menghitung SKS kumulatif
         $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')

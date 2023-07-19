@@ -6,10 +6,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
-use App\Http\Controllers\MahasiswaKelolaSkripsi;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
+use App\Http\Controllers\MahasiswaKelolaSkripsi;
 
+use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\DashboardMahasiswaController;
 use App\Http\Controllers\DashboardDepartemenController;
@@ -63,4 +64,8 @@ Route::get('/fetch-kabupatens/{id}', [DashboardMahasiswaController::class, 'fetc
 Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasiswaController::class, 'update']);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
 
-// Route::post()
+// Admin
+Route::get('/dashboard-admin', [DashboardAdminController::class, 'index']);
+Route::get('/dashboard-admin/tambah-mahasiswa-baru', [DashboardAdminController::class, 'tambahMahasiswaBaru']);
+Route::get('/dashboard-admin/tambah-mahasiswa-baru/create', [DashboardAdminController::class, 'createMahasiswa']);
+

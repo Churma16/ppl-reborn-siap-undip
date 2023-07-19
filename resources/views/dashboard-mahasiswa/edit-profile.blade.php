@@ -93,11 +93,14 @@
                                         <strong>Provinsi</strong>
                                         <div class="input-group input-group-outline">
                                             <select name="provinsi" id="provinsi" class="form-control p-2" required>
+                                                <option>Pilih Provinsi</option>
                                                 @foreach ($provinsis as $provinsi)
-                                                    <option value="{{ $provinsi->kode_provinsi }}"
-                                                        {{ $mahasiswa->provinsi_kode_provinsi == $provinsi->kode_provinsi ? 'selected' : '' }}>
-                                                        {{ $provinsi->nama }}</option>
+                                                    <option
+                                                        value="{{ $provinsi->kode_provinsi }}"{{ ($mahasiswa->provinsi_kode_provinsi ?? '') == $provinsi->kode_provinsi ? ' selected' : '' }}>
+                                                        {{ $provinsi->nama }}
+                                                    </option>
                                                 @endforeach
+
                                             </select>
                                         </div>
                                     </div>
@@ -105,8 +108,12 @@
                                         <strong>Kabupaten/Kota</strong>
                                         <div class="input-group input-group-outline ">
                                             <select name="kabupaten" id="kabupaten" class="form-control p-2" required>
-                                                <option value="{{ $mahasiswa->kabupaten_kode_kabupaten }}">
-                                                    {{ $mahasiswa->kabupaten->nama }}</option>
+                                                @if ($mahasiswa->kabupaten_kode_kabupaten)
+                                                    <option value="{{ $mahasiswa->kabupaten_kode_kabupaten }}">
+                                                        {{ $mahasiswa->kabupaten->nama }}</option>
+                                                @else
+                                                    <option value="">Pilih Kabupaten</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>

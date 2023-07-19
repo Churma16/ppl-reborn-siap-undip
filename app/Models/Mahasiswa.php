@@ -10,7 +10,7 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $primaryKey = 'nim';
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
     // Accessor
     /**

@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('foto_mahasiswa')->nullable();
             $table->integer('angkatan');
             $table->string('email')->unique();
-            $table->text('alamat');
-            $table->string('no_hp');
+            $table->text('alamat')->nullable();
+            $table->string('no_hp')->nullable();
             $table->string('jalur_masuk');
-            $table->foreignId('provinsi_kode_provinsi');
-            $table->foreignId('kabupaten_kode_kabupaten');
+            $table->foreignId('provinsi_kode_provinsi')->nullable();
+            $table->foreignId('kabupaten_kode_kabupaten')->nullable();
             $table->foreignUuid('dosen_kode_wali');
             $table->timestamps();
         });

@@ -108,8 +108,8 @@
                                             <li class="list-group-item border-0 ps-0 pt-0 "><strong
                                                     class="text-dark">Angkatan:</strong> &nbsp; {{ $mahasiswa->angkatan }}
                                             </li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Jalur Masuk:</strong> &nbsp;
+                                            <li class="list-group-item border-0 ps-0 "><strong class="text-dark">Jalur
+                                                    Masuk:</strong> &nbsp;
                                                 {{ $mahasiswa->jalur_masuk }}</li>
                                             <li class="list-group-item border-0 ps-0 "><strong
                                                     class="text-dark">Jurusan:</strong> &nbsp;
@@ -124,16 +124,18 @@
                                             <li class="list-group-item border-0 ps-0 pt-0 "><strong
                                                     class="text-dark">Email:</strong> &nbsp; {{ $mahasiswa->email }}</li>
                                             <li class="list-group-item border-0 ps-0 "><strong class="text-dark">No
-                                                    HP:</strong> &nbsp; {{ $mahasiswa->no_hp }}</li>
+                                                    HP:</strong> &nbsp; {{ $mahasiswa->no_hp ? $mahasiswa->no_hp : '-' }}</li>
                                             <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Alamat:</strong>&nbsp; {{ $mahasiswa->alamat }}
+                                                    class="text-dark">Alamat:</strong>&nbsp; {{ $mahasiswa->alamat ? $mahasiswa->alamat : '-' }}
                                             </li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Provinsi:</strong> &nbsp;
-                                                {{ $mahasiswa->provinsi->nama }}</li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Kabupaten:</strong> &nbsp;
-                                                {{ $mahasiswa->kabupaten->nama }}</li>
+                                            <li class="list-group-item border-0 ps-0">
+                                                <strong class="text-dark">Provinsi:</strong> &nbsp;
+                                                {{ $mahasiswa->provinsi ? $mahasiswa->provinsi->nama : '-' }}
+                                            </li>
+                                            <li class="list-group-item border-0 ps-0">
+                                                <strong class="text-dark">Kabupaten:</strong> &nbsp;
+                                                {{ $mahasiswa->kabupaten ? $mahasiswa->kabupaten->nama : '-' }}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
