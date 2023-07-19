@@ -23,7 +23,7 @@ class PKLFactory extends Factory
             'status_lulus' => $this->faker->randomElement(['Lulus', 'Belum Lulus']),
             'nama_perusahaan' => $this->faker->company,
             'tanggal_mulai' => $this->faker->date(),
-            'status_konfirmasi' => $this->faker->randomElement(['Dikonfirmasi', 'Belum Konfirmasi']),
+            'status_konfirmasi' => $this->faker->randomElement(['Dikonfirmasi', 'Belum Dikonfirmasi']),
             'file_pkl' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
             'progress_ke' => $this->faker->numberBetween(1, 10),
             'mahasiswa_nim' => $mahasiswa,

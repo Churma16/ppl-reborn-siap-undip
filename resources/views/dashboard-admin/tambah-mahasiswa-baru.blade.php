@@ -1,5 +1,5 @@
 {{-- @dd($irss); --}}
-@extends('dashboard-mahasiswa.layouts.main')
+@extends('dashboard-admin.layouts.main')
 @section('content')
     <h3 class="ms-4">{{ $title }}</h3>
     <div class="container-fluid px-2 px-md-4 mt-4">
@@ -11,7 +11,7 @@
                         <h4 class="font-weight-normal mt-1 mb-1 ">Masukan Data</h4>
                         <form method="get" action="/dashboard-admin/tambah-mahasiswa-baru/create">
                             @csrf
-                            <div class="row border-top">
+                            <div class="row border-top pt-2">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="mt-2">
                                         <strong>Nomor Induk Mahasiswa (NIM)</strong>

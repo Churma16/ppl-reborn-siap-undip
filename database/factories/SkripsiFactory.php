@@ -20,7 +20,7 @@ class SkripsiFactory extends Factory
         $mahasiswa = Mahasiswa::all()->random()->nim;
         return [
             'judul' => $this->faker->sentence,
-            'status_konfirmasi' => $this->faker->randomElement(['Belum dikonfirmasi', 'Dikonfirmasi']),
+            'status_konfirmasi' => $this->faker->randomElement(['Belum Dikonfirmasi', 'Dikonfirmasi']),
             'status_Skripsi' => $this->faker->randomElement(['Lulus', 'Belum Lulus']),
             'file_skripsi' => $this->faker->imageUrl(640, 480, 'people', true, 'Faker'),
             'mahasiswa_nim' => $mahasiswa,

@@ -12,7 +12,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
+                {{-- <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
                     <div class="d-flex flex-row">
                         @foreach ($angkatans as $angkatan)
                             <div class="mx-2" style="width:100vw">
@@ -21,12 +21,15 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
+                                        No
+                                    </th>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
                                         Foto
                                     </th>
@@ -68,6 +71,13 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex px-3 py-1">
+                                                <p class="text-sm font-weight-bold mb-0 ps-1">
+                                                    {{ $loop->iteration }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-3 py-1">
                                                 <div>
                                                     <img src="{{ $mahasiswa->foto_mahasiswa }}"
                                                         class="avatar avatar-sm border-radius-lg"
@@ -98,7 +108,11 @@
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                Aktif/tidakaktif
+                                                @if ($mahasiswa->status_aktif)
+                                                    <span class="badge bg-gradient-success">Aktif</span>
+                                                @else
+                                                    <span class="badge bg-gradient-danger">Tidak Aktif</span>
+                                                @endif
                                             </p>
                                         </td>
                                         <td>
@@ -142,7 +156,9 @@
                 $.ajax({
                     url: "/your-api-endpoint",
                     type: "POST",
-                    data: { angkatan: angkatan },
+                    data: {
+                        angkatan: angkatan
+                    },
                     success: function(response) {
                         $("#tableContainer").html(response);
                     },

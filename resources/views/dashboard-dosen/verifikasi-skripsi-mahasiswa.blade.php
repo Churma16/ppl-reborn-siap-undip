@@ -8,7 +8,7 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">
-                            Verifikasi IRS Mahasiswa
+                            Verifikasi skripsi Mahasiswa
                         </h6>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                 </div> --}}
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
-                        <table id="tabledata" class="table align-items-center mb-0">
+                        <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
@@ -41,19 +41,19 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Angkatan
+                                        Progress<br>Ke-
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ps-2">
+                                        Judul
+                                    </th>
+                                    <th
+                                        class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ps-2">
+                                        Rincian Progress
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Semester
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Jumlah SKS
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        File IRS
+                                        File Skripsi
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
@@ -62,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($irss as $irs)
+                                @foreach ($skripsis as $skripsi)
                                     {{-- @dd()); --}}
                                     <tr>
                                         <td>
@@ -75,16 +75,16 @@
                                         <td>
                                             <div class="d-flex px-3 py-1">
                                                 <div>
-                                                    <img src="{{ $irs->mahasiswa->foto_mahasiswa }}"
+                                                    <img src="{{ $skripsi->mahasiswa->foto_mahasiswa }}"
                                                         class="avatar avatar-sm border-radius-lg"
-                                                        alt="foto {{ $irs->mahasiswa->nama }}" />
+                                                        alt="foto {{ $skripsi->mahasiswa->nama }}" />
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-3 py-1">
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $irs->mahasiswa->nim }}
+                                                    {{ $skripsi->mahasiswa->nim }}
                                                 </p>
                                             </div>
                                         </td>
@@ -92,42 +92,39 @@
                                             <div class="d-flex py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
-                                                        {{ $irs->mahasiswa->nama }}
+                                                        {{ $skripsi->mahasiswa->nama }}
                                                     </h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $irs->mahasiswa->angkatan }}
+                                                {{ $skripsi->progress_ke }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-bold  mb-0">
+                                                {{ $skripsi->judul }}
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm   font-weight-bold mb-0">
+                                                {{ $skripsi->rincian_progress }}
                                             </p>
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $irs->mahasiswa->semester_aktif }}
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm text-center  font-weight-bold mb-0">
-                                                {{ $irs->mahasiswa->irs_terendah }}
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold text-center mb-0">
-                                                <a href="{{ $irs->file_sks }}" target="_blank"><i class="fas fa-eye"></i>
+                                                <a href="{{ $skripsi->file_sks }}" target="_blank"><i class="fas fa-eye"></i>
                                                     Lihat File</a>
 
                                                 {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }} --}}
                                             </p>
                                         </td>
                                         <td class="text-center">
-                                            <a href="/dashboard-dosen/verifikasi-irs/terima/{{ $irs->id }}"
-                                                class="badge " style="background-color: rgb(5, 173, 5)"
+                                            <a href="/dashboard-dosen/verifikasi-skripsi/terima/{{ $skripsi->id }}" class="badge " style="background-color: rgb(5, 173, 5)"
                                                 data-bs-toggle="tooltip" title="Terima"><i data-feather="check"></i>
                                             </a>
-                                            <a href="/dashboard-dosen/verifikasi-irs/tolak/{{ $irs->id }}"
-                                                class="badge bg-danger" data-bs-toggle="tooltip" title="Tolak"><i
-                                                    data-feather="x"></i>
+                                            <a href="/dashboard-dosen/verifikasi-skripsi/tolak/{{ $skripsi->id }}" class="badge bg-danger" data-bs-toggle="tooltip" title="Tolak"><i data-feather="x"></i>
                                             </a>
                                             <p class="text-sm font-weight-bold text-center  mb-0">
                                                 {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_lulus : '-' }} --}}
@@ -143,12 +140,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#tabledata').DataTable();
-        });
-    </script>
 @endsection

@@ -23,21 +23,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/tambah-mahasiswa-baru') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/tambah-mahasiswa-baru">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/data-mahasiswa') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/data-mahasiswa">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">people</i>
                     </div>
-                    <span class="nav-link-text ms-1">Tambah Mahasiswa Baru</span>
+                    <span class="nav-link-text ms-1">Data Mahasiswa</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/verifikasi-khs">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/tambah-mahasiswa-baru') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/tambah-mahasiswa-baru">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        <i class="material-icons opacity-10">person_add</i>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi KHS Mahasiswa</span>
+                    <span class="nav-link-text ms-1">Tambah Mahasiswa Baru</span>
                 </a>
             </li>
             <li class="nav-item">

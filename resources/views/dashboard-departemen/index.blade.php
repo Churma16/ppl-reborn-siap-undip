@@ -18,11 +18,11 @@
                         <h4 class="mb-0">{{ $mahasiswa->jumlah_mahasiswa }}</h4>
                     </div>
                 </div>
-                <hr class="dark horizontal my-0" />
-                <div class="card-footer p-3">
-                    <p class="mb-0">
+
+                <div class="card-footer p-1">
+                    {{-- <p class="mb-0">
                         <span class="text-success text-sm font-weight-bolder">+55% </span>than last week
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
@@ -40,11 +40,11 @@
                         <h4 class="mb-0">{{ $dosen->jumlah_dosen }}</h4>
                     </div>
                 </div>
-                <hr class="dark horizontal my-0" />
-                <div class="card-footer p-3">
-                    <p class="mb-0">
+
+                <div class="card-footer p-1">
+                    {{-- <p class="mb-0">
                         <span class="text-success text-sm font-weight-bolder">+3% </span>than last month
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
@@ -59,15 +59,15 @@
                         <p class="text-sm mb-0 text-capitalize">
                             Mahasiswa Aktif
                         </p>
-                        <h4 class="mb-0">3,462</h4>
+                        <h4 class="mb-0">{{ $jumlahMhsAktif }}</h4>
                     </div>
                 </div>
-                <hr class="dark horizontal my-0" />
-                <div class="card-footer p-3">
-                    <p class="mb-0">
+
+                <div class="card-footer p-1">
+                    {{-- <p class="mb-0">
                         <span class="text-danger text-sm font-weight-bolder">-2%</span>
                         than yesterday
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
@@ -82,14 +82,14 @@
                         <p class="text-sm mb-0 text-capitalize">
                             Mahasiswa Non-Aktif
                         </p>
-                        <h4 class="mb-0">$103,430</h4>
+                        <h4 class="mb-0">{{ $mahasiswa->jumlah_mahasiswa - $jumlahMhsAktif }}</h4>
                     </div>
                 </div>
-                <hr class="dark horizontal my-0" />
-                <div class="card-footer p-3">
-                    <p class="mb-0">
+
+                <div class="card-footer p-1">
+                    {{-- <p class="mb-0">
                         <span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
@@ -1002,7 +1002,9 @@
                     pointRadius: 2,
                     borderWidth: 1,
                     backgroundColor: ['#17c1e8', '#3A416F'],
-                    data: [{{ $mahasiswa->jumlah_status_pkl['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_pkl['belum_ambil']  }}],
+                    data: [
+                        {{ $mahasiswa->jumlah_status_pkl['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_pkl['belum_ambil'] }}
+                    ],
                     fill: false
                 }],
             },
@@ -1059,8 +1061,10 @@
                     tension: 0.9,
                     pointRadius: 2,
                     borderWidth: 1,
-                    backgroundColor: ['#17c1e8','#3A416F'],
-                    data: [{{ $pkl->jumlah_kelulusan['lulus'] . ',' . $pkl->jumlah_kelulusan['belum_lulus'] }}],
+                    backgroundColor: ['#17c1e8', '#3A416F'],
+                    data: [
+                        {{ $pkl->jumlah_kelulusan['lulus'] . ',' . $pkl->jumlah_kelulusan['belum_lulus'] }}
+                    ],
                     fill: false
                 }],
             },
@@ -1118,7 +1122,9 @@
                     pointRadius: 2,
                     borderWidth: 1,
                     backgroundColor: ['#17c1e8', '#3A416F'],
-                    data: [{{ $mahasiswa->jumlah_status_skripsi['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_skripsi['belum_ambil']  }}],
+                    data: [
+                        {{ $mahasiswa->jumlah_status_skripsi['sudah_ambil'] . ',' . $mahasiswa->jumlah_status_skripsi['belum_ambil'] }}
+                    ],
                     fill: false
                 }],
             },
@@ -1176,7 +1182,9 @@
                     pointRadius: 2,
                     borderWidth: 1,
                     backgroundColor: ['#17c1e8', '#3A416F'],
-                    data: [{{ $skripsi->jumlah_kelulusan['lulus'] . ',' . $skripsi->jumlah_kelulusan['belum_lulus'] }}],
+                    data: [
+                        {{ $skripsi->jumlah_kelulusan['lulus'] . ',' . $skripsi->jumlah_kelulusan['belum_lulus'] }}
+                    ],
                     fill: false
                 }],
             },

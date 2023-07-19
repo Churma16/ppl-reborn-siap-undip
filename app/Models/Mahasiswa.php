@@ -96,6 +96,10 @@ class Mahasiswa extends Model
         return $this->irs()->min('jumlah_sks');
     }
 
+    public function getStatusAktifAttribute()
+    {
+        return $this->khs()->where('semester', $this->khs()->max('semester'))->value('status_mahasiswa');
+    }
 
     // Relasi
     public function dosen()
@@ -125,12 +129,12 @@ class Mahasiswa extends Model
 
     public function provinsi()
     {
-        return $this->belongsTo(Provinsi::class,'provinsi_kode_provinsi', 'kode_provinsi');
+        return $this->belongsTo(Provinsi::class, 'provinsi_kode_provinsi', 'kode_provinsi');
         // return $this->hasOne(Provinsi::class);
-    } 
+    }
 
     public function kabupaten()
     {
-        return $this->belongsTo(Kabupaten::class,'kabupaten_kode_kabupaten', 'kode_kabupaten');
-    }   
+        return $this->belongsTo(Kabupaten::class, 'kabupaten_kode_kabupaten', 'kode_kabupaten');
+    }
 }

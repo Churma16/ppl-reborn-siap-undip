@@ -12,7 +12,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
+                {{-- <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
                     <div class="d-flex flex-row">
                         @foreach ($angkatans as $angkatan)
                             <div class="mx-2" style="width:100vw">
@@ -21,12 +21,15 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
+                                        No
+                                    </th>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
                                         Foto
                                     </th>
@@ -46,11 +49,6 @@
                                     </th>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ps-2">
                                         Instansi PKL
-                                    </th>
-
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Status Konfirmasi
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
@@ -74,6 +72,13 @@
                             <tbody>
                                 @foreach ($mahasiswas as $mahasiswa)
                                     <tr>
+                                        <td>
+                                            <div class="d-flex px-3 py-1">
+                                                <p class="text-sm font-weight-bold mb-0 ps-1">
+                                                    {{ $loop->iteration }}
+                                                </p>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex px-3 py-1">
                                                 <div>
@@ -114,14 +119,16 @@
                                                 {{ $mahasiswa->pkl ? $mahasiswa->pkl->nama_perusahaan : '-' }}
                                             </p>
                                         </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold text-center mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }}
-                                            </p>
-                                        </td>
+
                                         <td>
                                             <p class="text-sm font-weight-bold text-center  mb-0">
-                                                {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_lulus : '-' }}
+                                                @if ($mahasiswa->pkl == null)
+                                                    <span class="badge bg-gradient-danger">Belum PKL</span>
+                                                @elseif ($mahasiswa->pkl->status_lulus == 'Lulus')
+                                                    <span class="badge bg-gradient-success">Lulus</span>
+                                                @elseif($mahasiswa->pkl->status_lulus == 'Belum Lulus')
+                                                    <span class="badge bg-gradient-info">Belum Lulus</span>
+                                                @endif
                                             </p>
                                         </td>
                                         <td>

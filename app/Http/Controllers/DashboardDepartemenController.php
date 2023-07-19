@@ -23,11 +23,39 @@ class DashboardDepartemenController extends Controller
         $pkl = new Pkl();
         $skripsi = new Skripsi();
 
+        // $mahasiswas = Mahasiswa::all();
+
+
+        // $statusAktif = [];
+        // foreach ($mahasiswas as $m) {
+        //     $statusAktif[] = $m->getStatusAktifAttribute();
+        // }
+
+        // $jumlahMhsAktif = 0;
+        // foreach ($statusAktif as $s) {
+        //     if ($s == 'Aktif') {
+        //         $jumlahMhsAktif++;
+        //     }
+        // }
+        
+        // Retrieve all Mahasiswa records
+        $mahasiswas = Mahasiswa::all();
+
+        // Filter the collection to include only Mahasiswa with status 'Aktif'
+        $filteredMahasiswas = $mahasiswas->filter(function ($m) {
+            return $m->getStatusAktifAttribute() === 'Aktif';
+        });
+
+        // Count the number of Mahasiswa with status 'Aktif'
+        $jumlahMhsAktif = $filteredMahasiswas->count();
+
+
         return view('dashboard-departemen.index', [
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
             'pkl' => $pkl,
             'skripsi' => $skripsi,
+            'jumlahMhsAktif' => $jumlahMhsAktif,
         ]);
     }
 

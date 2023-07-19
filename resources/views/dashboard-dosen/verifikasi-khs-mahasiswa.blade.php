@@ -12,16 +12,16 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
+                {{-- <div class="card-body px-0 pb-2 ms-3" style="overflow-x: scroll;" id="scrollContainer">
                     <div class="d-flex flex-row">
-                        {{-- @foreach ($angkatans as $angkatan)
+                        @foreach ($angkatans as $angkatan)
                             <div class="mx-2" style="width:100vw">
                                 <button id="angkatanSelector" type="button" class="btn btn-secondary"
                                     data-angkatan="{{ $angkatan->angkatan }}">{{ $angkatan->angkatan }}</button>
                             </div>
-                        @endforeach --}}
+                        @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
@@ -50,10 +50,6 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
                                         IP Semester
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">
-                                        Jumlah SKS
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-s font-weight-bolder opacity-10">

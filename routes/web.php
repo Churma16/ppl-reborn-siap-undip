@@ -51,6 +51,16 @@ Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenCont
     ->where('action', 'terima|tolak');
 
 Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiKhs']);
+Route::get('/dashboard-dosen/verifikasi-khs/{action}/{khs}', [DashboardDosenController::class, 'verifikasiKhsKeputusan'])
+    ->where('action', 'terima|tolak');
+
+Route::get('/dashboard-dosen/verifikasi-pkl', [DashboardDosenController::class, 'verifikasiPkl']);
+Route::get('/dashboard-dosen/verifikasi-pkl/{action}/{pkl}', [DashboardDosenController::class, 'verifikasiPklKeputusan'])
+    ->where('action', 'terima|tolak');
+
+Route::get('/dashboard-dosen/verifikasi-skripsi', [DashboardDosenController::class, 'verifikasiSkripsi']);
+Route::get('/dashboard-dosen/verifikasi-skripsi/{action}/{skripsi}', [DashboardDosenController::class, 'verifikasiSkripsiKeputusan'])
+    ->where('action', 'terima|tolak');
 
 // Mahasiswa
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
@@ -68,4 +78,3 @@ Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasisw
 Route::get('/dashboard-admin', [DashboardAdminController::class, 'index']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru', [DashboardAdminController::class, 'tambahMahasiswaBaru']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru/create', [DashboardAdminController::class, 'createMahasiswa']);
-
