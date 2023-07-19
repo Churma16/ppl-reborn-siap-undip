@@ -71,27 +71,28 @@
                                         <strong>Email</strong>
                                         <div class="input-group input-group-outline ">
                                             <input type="email" name="email" id="email" class="form-control p-2"
-                                                placeholder="08128745698" value="{{ $mahasiswa->email }}">
+                                                placeholder="08128745698" value="{{ $mahasiswa->email }}" required>
                                         </div>
                                     </div>
                                     <div class="mt-2 ">
                                         <strong>Nomor Telepon</strong>
                                         <div class="input-group input-group-outline ">
                                             <input type="text" name="no_hp" id="no_hp" class="form-control p-2"
-                                                placeholder="08128745698" value="{{ $mahasiswa->no_hp }}">
+                                                placeholder="08128745698" value="{{ $mahasiswa->no_hp }}" required>
                                         </div>
                                     </div>
                                     <div class="mt-2">
                                         <strong>Alamat</strong>
                                         <div class="input-group input-group-outline ">
                                             <input type="text" name="alamat" id="alamat" class="form-control p-2"
-                                                placeholder="Jl. lenteng agung B6/65" value="{{ $mahasiswa->alamat }}">
+                                                placeholder="Jl. lenteng agung B6/65" value="{{ $mahasiswa->alamat }}"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="mt-2">
                                         <strong>Provinsi</strong>
                                         <div class="input-group input-group-outline">
-                                            <select name="provinsi" id="provinsi" class="form-control p-2">
+                                            <select name="provinsi" id="provinsi" class="form-control p-2" required>
                                                 @foreach ($provinsis as $provinsi)
                                                     <option value="{{ $provinsi->kode_provinsi }}"
                                                         {{ $mahasiswa->provinsi_kode_provinsi == $provinsi->kode_provinsi ? 'selected' : '' }}>
@@ -103,7 +104,10 @@
                                     <div class="mt-2">
                                         <strong>Kabupaten/Kota</strong>
                                         <div class="input-group input-group-outline ">
-                                            <select name="kabupaten" id="kabupaten" class="form-control p-2"></select>
+                                            <select name="kabupaten" id="kabupaten" class="form-control p-2" required>
+                                                <option value="{{ $mahasiswa->kabupaten_kode_kabupaten }}">
+                                                    {{ $mahasiswa->kabupaten->nama }}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -123,6 +127,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Script will run when the document is ready
+
             $('#provinsi').on('change', function() {
                 var provinsiID = $(this).val();
 
@@ -142,7 +148,7 @@
 
                                 // Add a hidden option for the kabupaten dropdown
                                 $('#kabupaten').append(
-                                    '<option hidden>Choose kabupaten</option>');
+                                    '<option hidden>Pilih Kabupaten</option>');
 
                                 // Iterate over each kabupaten and add options to the dropdown
                                 $.each(data, function(key, kabupaten) {
@@ -166,6 +172,7 @@
     </script>
 
 
+
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             var disabledInputs = document.querySelectorAll('input[disabled]');
@@ -177,9 +184,12 @@
                 input.addEventListener('mouseover', function() {
                     input.tooltip = new bootstrap.Tooltip(input);
                 });
+
             });
         });
     </script>
+
+
 
     <script>
         $(document).ready(function() {
