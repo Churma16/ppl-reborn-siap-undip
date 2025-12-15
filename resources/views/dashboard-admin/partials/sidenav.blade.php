@@ -40,6 +40,24 @@
                     <span class="nav-link-text ms-1">Tambah Mahasiswa Baru</span>
                 </a>
             </li>
+                        <li class="nav-item">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/kelola-semester') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/kelola-semester">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">people</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Data Semester</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/kelola-semester/create') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/kelola-semester/create">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person_add</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Tambah Semester Baru</span>
+                </a>
+            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">
                     Account pages
