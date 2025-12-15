@@ -1,6 +1,23 @@
 {{-- @dd($mahasiswas) --}}
 @extends('dashboard-admin.layouts.main')
 
+@section('styles')
+    <style>
+        /* Target the DataTable body rows */
+        table.dataTable tbody td {
+            border: 1px solid #e0e0e0;
+            border-left: none;
+            border-right: none
+                /* Set the border color to gray (#ccc) */
+        }
+    </style>
+    <style>
+        .dataTables_filter {
+            display: none;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -22,9 +39,36 @@
                         @endforeach
                     </div>
                 </div> --}}
-                <div class="card-body px-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
+                <div class="card-body px-0 pb-4">
+                    <div class="row px-4 pb-4">
+                        <h6>Cari Berdasarkan</h6>
+                        <div class="col input-group input-group-outline">
+                            <input type="text" name="nimSearch" id="nimSearch" class="form-control p-2" placeholder="NIM"
+                                required>
+                        </div>
+                        <div class="col input-group input-group-outline">
+                            <input type="text" name="namaSearch" id="namaSearch" class="form-control p-2"
+                                placeholder="Nama" required>
+                        </div>
+                        <div class="col input-group input-group-outline">
+                            <select name="kodeWaliSearch" id="kodeWaliSearch" class="form-control p-2">
+                                <option class="text-secondary" value="" selected>Kode Wali</option>
+                                @foreach ($dosens as $dosen)
+                                    <option value="{{ $dosen->kode_wali }}">{{ $dosen->kode_wali }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col input-group input-group-outline">
+                            <input type="text" name="angkatanSearch" id="angkatanSearch" class="form-control p-2"
+                                placeholder="Angkatan" required>
+                        </div>
+                        {{-- <div class="col input-group input-group-outline">
+                            <input type="text" name="statusSearch" id="statusSearch" class="form-control p-2"
+                                placeholder="Status" required>
+                        </div> --}}
+                    </div>
+                    <div class="table-responsive p-0 mx-4">
+                        <table class="table align-items-center mb-0 " id="mahasiswaTable">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-s font-weight-bolder opacity-10 ">
@@ -154,7 +198,8 @@
     </div>
 @endsection
 
-@section('script')
+@section('scripts')
+@section('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -174,6 +219,51 @@
                     }
                 });
             });
+
+            var dataTable = $('#mahasiswaTable').DataTable({
+                // DataTable initialization options
+                columnDefs: [{
+                        targets: [ 1, 10],
+                        orderable: false
+                    }, // Disable sorting for columns 1 and 2 (column indexes start from 0)
+                    {
+                        targets: [2, 3, 4, 5, 6],
+                        searchable: true
+                    }
+                ]
+            });
+
+            // Search by NIM
+            $('#nimSearch').on('keyup', function() {
+                dataTable.column(2).search(this.value).draw();
+            });
+
+            // Search by Nama
+            $('#namaSearch').on('keyup', function() {
+                dataTable.column(3).search(this.value).draw();
+            });
+
+            // Search by Kode Wali (using select dropdown)
+            $('#kodeWaliSearch').on('change', function() {
+                var selectedValue = $(this).val();
+                dataTable.column(4).search(selectedValue).draw();
+            });
+
+            // Search by Angkatan
+            $('#angkatanSearch').on('keyup', function() {
+                dataTable.column(6).search(this.value).draw();
+            });
+
+            // Search by Status
+            $('#statusSearch').on('keyup', function() {
+                var searchTerm = this.value.toLowerCase();
+                dataTable.column(5).search(function(cellData, searchData) {
+                    var badgeContent = $(cellData).find('.badge').text().toLowerCase();
+                    return badgeContent === searchTerm;
+                }).draw();
+            });
+
+
         });
     </script>
 @endsection
