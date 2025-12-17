@@ -58,8 +58,8 @@ This system implements **Multi-User Authentication** with four distinct roles:
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/yourusername/siap-undip-remake.git](https://github.com/yourusername/siap-undip-remake.git)
-    cd siap-undip-remake
+    git clone https://github.com/Churma16/ppl-reborn-siap-undip/
+    cd ppl-reborn-siap-undip
     ```
 
 2.  **Install dependencies**
