@@ -1,20 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminKelolaSemester;
+use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardDepartemenController;
+use App\Http\Controllers\DashboardDosenController;
+use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
-use App\Http\Controllers\BerandaGuestController;
-use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\MahasiswaKelolaSkripsi;
-
-use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\DashboardDosenController;
-use App\Http\Controllers\DashboardMahasiswaController;
-use App\Http\Controllers\DashboardDepartemenController;
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +34,18 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::resource('/', BerandaGuestController::class);
 
 // Departemen
-Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
+Route::middleware(['auth', 'role:2'])->group(function () {
+    Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
 
-Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
-Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
-Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
+    Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
+    Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
+    Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
+});
 
 
 // Dosen
+Route::middleware(['auth', 'role:3'])->group(function () {
+
 Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 
 Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
@@ -61,8 +63,10 @@ Route::get('/dashboard-dosen/verifikasi-pkl/{action}/{pkl}', [DashboardDosenCont
 Route::get('/dashboard-dosen/verifikasi-skripsi', [DashboardDosenController::class, 'verifikasiSkripsi']);
 Route::get('/dashboard-dosen/verifikasi-skripsi/{action}/{skripsi}', [DashboardDosenController::class, 'verifikasiSkripsiKeputusan'])
     ->where('action', 'terima|tolak');
+});
 
 // Mahasiswa
+Route::middleware(['auth', 'role:4'])->group(function () {
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
 Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class)->only(['index', 'create', 'store']);
 Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class)->only(['index', 'create', 'store']);
@@ -73,9 +77,14 @@ Route::get('/dashboard-mahasiswa/edit-profile', [DashboardMahasiswaController::c
 Route::get('/fetch-kabupatens/{id}', [DashboardMahasiswaController::class, 'fetchKabupaten']);
 Route::post('/dashboard-mahasiswa/edit-profile/update/{nim}', [DashboardMahasiswaController::class, 'update']);
 // Route::get('/dashboard-mhs', [DashboardMhsController::class, 'index']);
+});
 
 // Admin
+Route::middleware(['auth', 'role:1'])->group(function () {
 Route::get('/dashboard-admin', [DashboardAdminController::class, 'index']);
 Route::get('/dashboard-admin/data-mahasiswa', [DashboardAdminController::class, 'dataMahasiswa']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru', [DashboardAdminController::class, 'tambahMahasiswaBaru']);
 Route::get('/dashboard-admin/tambah-mahasiswa-baru/create', [DashboardAdminController::class, 'createMahasiswa']);
+Route::resource('/dashboard-admin/semester', AdminKelolaSemester::class);
+// Route::get('/dashboard-admin/semester', [DashboardAdminController::class, 'createSemester']);
+});
