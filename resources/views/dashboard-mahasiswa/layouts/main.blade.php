@@ -40,7 +40,7 @@
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" /> <!-- Nucleo Icons -->
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" /> <!-- Nucleo SVG Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css"> --}}
 
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
 
@@ -58,6 +58,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+
 
 
 </head>
@@ -123,6 +125,7 @@
     </script>
 
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 </body>
 
 </html>
