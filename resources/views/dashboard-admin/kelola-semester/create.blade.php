@@ -9,7 +9,7 @@
                     <!-- Card body -->
                     <div class="card-body ">
                         <h4 class="font-weight-normal mt-1 mb-1 ">Masukan Data</h4>
-                        <form method="post" action="/dashboard-admin/kelola-semester">
+                        <form method="post" action="/dashboard-admin/semester">
                             @csrf
                             <div class="row border-top pt-2">
                                 <div class="col-lg-6 col-md-12">

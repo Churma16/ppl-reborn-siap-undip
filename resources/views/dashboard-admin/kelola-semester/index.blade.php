@@ -159,7 +159,7 @@
                                             <a href="test" class="badge bg-gradient-warning">
                                                 <i class="material-icons opacity-10">edit</i>
                                             </a>
-                                            <form action="/dashboard-admin/kelola-semester/{{ $semester->id }}" method="POST"
+                                            <form action="/dashboard-admin/semester/{{ $semester->id }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('delete')
