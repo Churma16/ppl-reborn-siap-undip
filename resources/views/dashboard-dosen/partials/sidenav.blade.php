@@ -6,8 +6,8 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
             target="_blank">
-            <img src="/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+            <img src="img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo" />
+            <span class="ms-1 font-weight-bold text-white">SIAP UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
@@ -32,12 +32,22 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
+                {{-- 1. Add 'justify-content-between' to the main link to push items to edges --}}
+                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-dosen/verifikasi-khs">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                    {{-- 2. WRAPPER: Group Icon and Text together in this div so they stay on the left --}}
+                    <div class="d-flex align-items-center">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Verifikasi KHS Mahasiswa</span>
                     </div>
-                    <span class="nav-link-text ms-1">Verifikasi KHS Mahasiswa</span>
+                    {{-- 3. BADGE: This is now the "second item" in the flex container, so it goes to the far right --}}
+                    @if (isset($verifikasiKhsCount) && $verifikasiKhsCount > 0)
+                        <span class="badge bg-danger rounded-pill">
+                            {{ $verifikasiKhsCount }}
+                        </span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">
