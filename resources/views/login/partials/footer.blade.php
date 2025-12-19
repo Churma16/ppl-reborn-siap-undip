@@ -8,17 +8,15 @@
                         document.write(new Date().getFullYear())
                     </script>,
                     made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                    <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Creative
-                        Tim</a>
-                    for a better web.
+                    <a href="https://www.creative-tim.com" class="font-weight-bold text-white" target="_blank">Fathan Muhammad F</a>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="https://www.creative-tim.com" class="nav-link text-white" target="_blank">Creative
                             Tim</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="https://www.creative-tim.com/presentation" class="nav-link text-white"
                             target="_blank">About Us</a>

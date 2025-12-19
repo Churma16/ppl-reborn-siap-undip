@@ -6,7 +6,7 @@
                 class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                 <div class="container-fluid ps-2 pe-0">
                     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/pages/dashboard.html">
-                        Material Dashboard 2
+                        SIAP UNDIP
                     </a>
                     <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -19,7 +19,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
                                     href="/pages/dashboard.html">
                                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
@@ -43,17 +43,17 @@
                                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                                     Sign In
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                         <ul class="navbar-nav d-lg-flex d-none">
-                            <li class="nav-item d-flex align-items-center">
+                            {{-- <li class="nav-item d-flex align-items-center">
                                 <a class="btn btn-outline-primary btn-sm mb-0 me-2" target="_blank"
                                     href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online
                                     Builder</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="https://www.creative-tim.com/product/material-dashboard"
-                                    class="btn btn-sm mb-0 me-1 bg-gradient-dark">Free download</a>
+                                    class="btn btn-sm mb-0 me-1 bg-gradient-dark">Hubungi Admin</a>
                             </li>
                         </ul>
                     </div>
