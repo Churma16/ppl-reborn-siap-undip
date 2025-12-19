@@ -44,7 +44,9 @@
                                     </div>
                                     <div class="col-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
-                                            {{ $khs->status_konfirmasi }}
+                                            <span class="badge bg-gradient-{{ $khs->status_konfirmasi->color() }}">
+                                                {{ $khs->status_konfirmasi->value }}
+                                            </span>
                                         </p>
                                     </div>
                                 </div>

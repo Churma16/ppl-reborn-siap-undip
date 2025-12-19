@@ -42,11 +42,14 @@
                                     </div>
                                     <div class="col-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
-                                            {{ $irs->status_konfirmasi }}
+                                            <span class="badge bg-gradient-{{ $irs->status_konfirmasi->color() }}">
+                                                {{ $irs->status_konfirmasi->value }}
+                                            </span>
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ asset('storage/' . $irs->file_sks) }}" target="_blank" class="btn btn-info">Lihat File IRS</a>
+                                <a href="{{ asset('storage/' . $irs->file_sks) }}" target="_blank"
+                                    class="btn btn-info">Lihat File IRS</a>
                             </div>
                         </div>
                     @endforeach
