@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Enums\SkripsiStatusKonfirmasi;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PKL extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    protected $casts = [
+        'status_konfirmasi' => SkripsiStatusKonfirmasi::class,
+    ];
+
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
@@ -18,7 +24,7 @@ class PKL extends Model
     /**
      * This function counts the number of PKL records with the status "lulus" and "belum lulus" and returns
      * the counts as an associative array.
-     * 
+     *
      * @return an associative array with two keys: 'lulus' and 'belum_lulus'. The value of 'lulus' is the
      * count of PKL records where the status_lulus is "lulus", and the value of 'belum_lulus' is the count
      * of PKL records where the status_lulus is "belum lulus".
@@ -37,7 +43,7 @@ class PKL extends Model
 
     /**
      * The function "getTanggalMulaiFormattedAttribute" formats a given date in the "d M Y" format.
-     * 
+     *
      * @return The formatted date in the format "d M Y" is being returned.
      */
     public function getTanggalMulaiFormattedAttribute()
@@ -48,7 +54,7 @@ class PKL extends Model
 
     /**
      * The function "getTanggalSelesaiFormattedAttribute" formats a given date in the "d M Y" format.
-     * 
+     *
      * @return The formatted date in the format "d M Y" is being returned.
      */
     public function getTanggalSelesaiFormattedAttribute()
@@ -60,7 +66,7 @@ class PKL extends Model
     /**
      * The function "getTanggalDiunggahAttribute" returns the formatted date of the "created_at" attribute
      * in the format "dd M Y".
-     * 
+     *
      * @return the formatted date of the "created_at" attribute in the format "d M Y" (e.g. 01 Jan 2022).
      */
     public function getTanggalDiunggahAtrribute()
