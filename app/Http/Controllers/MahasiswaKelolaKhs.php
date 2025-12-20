@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IRS;
 use App\Models\KHS;
 use App\Models\Mahasiswa;
-use App\Models\IRS;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaKelolaKhs extends Controller
 {
@@ -26,7 +26,7 @@ class MahasiswaKelolaKhs extends Controller
         return view('dashboard-mahasiswa.mahasiswa-kelola-khs.index', [
             'title' => 'Kartu Hasil Studi (KHS)',
             'mahasiswa' => $mahasiswa,
-            'khss' => $khss
+            'khss' => $khss,
         ]);
     }
 
@@ -53,7 +53,7 @@ class MahasiswaKelolaKhs extends Controller
         $ipk = KHS::where('mahasiswa_nim', $mahasiswa->nim)->where('status_konfirmasi', 'Dikonfirmasi')->avg('ip_semester');
         if ($semesterAktif == null) {
             $semesterAktif = [
-                'semester_aktif' => '0'
+                'semester_aktif' => '0',
             ];
         }
 
@@ -63,31 +63,30 @@ class MahasiswaKelolaKhs extends Controller
             'khss' => $khss,
             'sksk' => $sksk,
             'semesterAktif' => $semesterAktif['semester_aktif'],
-            'ipk' => $ipk
+            'ipk' => $ipk,
         ]);
     }
 
     /**
      * Menyimpan data KHS yang diunggah.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         // Mendapatkan semester aktif terakhir
-        $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
+        $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->value('semester_aktif');
         if ($semesterAktif == null) {
-            $semesterAktif = [
-                'semester_aktif' => '0'
-            ];
+            $semesterAktif = 0;
         }
 
         // Mendapatkan SKS kumulatif
         $sksk = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('jumlah_sks');
 
         // Mendapatkan jumlah IPK
-        $jumlahIpk = KHS::where('mahasiswa_nim', Auth::user()->nip_nim)->where('status_konfirmasi', 'Dikonfirmasi')->sum('ip_semester');
+        $jumlahIpk = KHS::where('mahasiswa_nim', Auth::user()->nip_nim)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+            ->sum('ip_semester');
 
         // Validasi data input
         $validatedData = $request->validate([
@@ -95,13 +94,13 @@ class MahasiswaKelolaKhs extends Controller
             'ip_semester' => 'required|numeric|min:0.00|max:4.00',
         ]);
 
+        // Menghitung IP Kumulatif
+        $ipKumulatif = ($jumlahIpk + $validatedData['ip_semester']) / (($semesterAktif) );
+
         // Mengunggah file KHS
         if ($request->file('file_khs')) {
             $validatedData['file_khs'] = $request->file('file_khs')->store('file-khs');
         }
-
-        // Menghitung IP Kumulatif
-        $ipKumulatif = ($jumlahIpk + $validatedData['ip_semester']) / (($semesterAktif['semester_aktif']) + 1);
 
         // Menambahkan data KHS
         $validatedData['sks_kumulatif'] = $sksk;
@@ -109,16 +108,16 @@ class MahasiswaKelolaKhs extends Controller
         $validatedData['status_mahasiswa'] = 'Aktif';
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
-        $validatedData['semester'] = $semesterAktif['semester_aktif'];
+        $validatedData['semester'] = $semesterAktif;
 
         KHS::create($validatedData);
+
         return redirect('/dashboard-mahasiswa/kelola-khs')->with('success', 'KHS berhasil diunggah!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\KHS  $kHS
      * @return \Illuminate\Http\Response
      */
     public function show(KHS $kHS)
@@ -129,7 +128,6 @@ class MahasiswaKelolaKhs extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\KHS  $kHS
      * @return \Illuminate\Http\Response
      */
     public function edit(KHS $kHS)
@@ -140,8 +138,6 @@ class MahasiswaKelolaKhs extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\KHS  $kHS
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, KHS $kHS)
@@ -152,7 +148,6 @@ class MahasiswaKelolaKhs extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\KHS  $kHS
      * @return \Illuminate\Http\Response
      */
     public function destroy(KHS $kHS)
