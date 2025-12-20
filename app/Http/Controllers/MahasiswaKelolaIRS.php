@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\IrsStatusKonfirmasi;
 use App\Models\IRS;
 use App\Models\Mahasiswa;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaKelolaIrs extends Controller
 {
@@ -22,10 +24,14 @@ class MahasiswaKelolaIrs extends Controller
         // Mendapatkan IRS mahasiswa
         $irss = IRS::where('mahasiswa_nim', $mahasiswa->nim)->get();
 
+        // $status_irs = $irss?->status_konfirmasi ?? IrsStatusKonfirmasi::Belum_Ambil;
+
         return view('dashboard-mahasiswa.mahasiswa-kelola-irs.index', [
             'title' => 'Isian Rencana Studi (IRS)',
             'mahasiswa' => $mahasiswa,
-            'irss' => $irss
+            'irss' => $irss,
+            // 'status_irs' => $status_irs,
+
         ]);
     }
 
@@ -49,7 +55,7 @@ class MahasiswaKelolaIrs extends Controller
         $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('semester_aktif', 'desc')->first();
         if ($semesterAktif == null) {
             $semesterAktif = [
-                'semester_aktif' => '0'
+                'semester_aktif' => '0',
             ];
         }
 
@@ -65,7 +71,6 @@ class MahasiswaKelolaIrs extends Controller
     /**
      * Menyimpan data IRS yang diunggah.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -74,9 +79,12 @@ class MahasiswaKelolaIrs extends Controller
         $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
         if ($semesterAktif == null) {
             $semesterAktif = [
-                'semester_aktif' => '0'
+                'semester_aktif' => '0',
             ];
         }
+
+        // Mendapatkan periode semester terbaru
+        $latestSemester = Semester::latest()->value('id');
 
         // Validasi data input
         $validatedData = $request->validate([
@@ -84,6 +92,7 @@ class MahasiswaKelolaIrs extends Controller
             'jumlah_sks' => 'required|numeric|min:1|max:24',
         ]);
 
+        // dd($latestSemester);
         // Mengunggah file SKS
         if ($request->file('file_sks')) {
             $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
@@ -93,28 +102,28 @@ class MahasiswaKelolaIrs extends Controller
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
         $validatedData['semester_aktif'] = $semesterAktif['semester_aktif'] + 1;
+        $validatedData['semester_id'] = $latestSemester;
 
         IRS::create($validatedData);
+
         return redirect('/dashboard-mahasiswa/kelola-irs')->with('success', 'IRS berhasil diunggah!');
     }
 
     /**
      * Menampilkan halaman detail IRS.
      *
-     * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
      */
     public function show(IRS $iRS)
     {
         return view('dashboard-mahasiswa.mahasiswa-kelola-irs.show', [
-            'title' => 'Isian Rencana Studi IRS'
+            'title' => 'Isian Rencana Studi IRS',
         ]);
     }
 
     /**
      * Menampilkan halaman edit IRS.
      *
-     * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
      */
     public function edit(IRS $iRS)
@@ -125,8 +134,6 @@ class MahasiswaKelolaIrs extends Controller
     /**
      * Memperbarui data IRS.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, IRS $iRS)
@@ -137,7 +144,6 @@ class MahasiswaKelolaIrs extends Controller
     /**
      * Menghapus data IRS.
      *
-     * @param  \App\Models\IRS  $iRS
      * @return \Illuminate\Http\Response
      */
     public function destroy(IRS $iRS)
