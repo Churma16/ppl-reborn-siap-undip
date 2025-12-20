@@ -1,18 +1,20 @@
 <?php
 
-use App\Http\Controllers\AdminKelolaSemester;
-use App\Http\Controllers\BerandaGuestController;
-use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\DashboardDepartemenController;
-use App\Http\Controllers\DashboardDosenController;
-use App\Http\Controllers\DashboardMahasiswaController;
-use App\Http\Controllers\DashboardMhsController;
+use App\Enums\UserRole;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
+use App\Http\Controllers\AdminKelolaSemester;
+use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\MahasiswaKelolaSkripsi;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardDosenController;
+use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\DashboardDepartemenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +68,7 @@ Route::get('/dashboard-dosen/verifikasi-skripsi/{action}/{skripsi}', [DashboardD
 });
 
 // Mahasiswa
-Route::middleware(['auth', 'role:4'])->group(function () {
+Route::middleware(['auth', 'role:'.UserRole::Mahasiswa->value])->group(function () {
 Route::get('/dashboard-mahasiswa', [DashboardMahasiswaController::class, 'index']);
 Route::resource('/dashboard-mahasiswa/kelola-irs', MahasiswaKelolaIrs::class)->only(['index', 'create', 'store']);
 Route::resource('/dashboard-mahasiswa/kelola-khs', MahasiswaKelolaKhs::class)->only(['index', 'create', 'store']);
@@ -88,3 +90,9 @@ Route::get('/dashboard-admin/tambah-mahasiswa-baru/create', [DashboardAdminContr
 Route::resource('/dashboard-admin/semester', AdminKelolaSemester::class);
 // Route::get('/dashboard-admin/semester', [DashboardAdminController::class, 'createSemester']);
 });
+
+//API Routes
+
+// Route::prefix('api')->group(function () {
+//     Route::resource('/user', UserController::class);
+// });
