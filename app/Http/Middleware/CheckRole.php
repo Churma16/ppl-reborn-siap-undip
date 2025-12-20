@@ -16,13 +16,15 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role)
     {
         // 1. Check if user is logged in
+        // dd($role);
         if (! auth()->check()) {
             return redirect('login');
         }
 
         // 2. Check if the user's role matches the required role
         // Assuming your User model has a 'role' column
-        if (auth()->user()->role !== $role) {
+        // dd(auth()->user()->role);
+        if (auth()->user()->role->value !== $role) {
             abort(403, 'Unauthorized action'); // Or redirect to home
         }
 
