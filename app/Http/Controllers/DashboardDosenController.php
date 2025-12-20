@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Dosen;
-use App\Models\Mahasiswa;
 use App\Models\IRS;
 use App\Models\KHS;
+use App\Models\Mahasiswa;
 use App\Models\PKL;
+use App\Models\Semester;
 use App\Models\Skripsi;
-
-use Illuminate\Support\Facades\Auth;
 
 class DashboardDosenController extends Controller
 {
@@ -44,12 +42,177 @@ class DashboardDosenController extends Controller
             // ->where('status_mahasiswa', 'Aktif')
             ->count();
 
+        // // Ambil semua data mahasiswa perwalian
+        // $muridPerwalian = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        //     // ->where('status_mahasiswa', 'Aktif')
+        //     ->pluck('nim')->toArray();
+
+        // // ambil id semester yang aktif
+        // $semesterAktif = Semester::where('is_active',"1")->pluck('id')->toArray();
+
+        // $irsPerwalianAktif = IRS::whereIn('semester_id',$semesterAktif)->whereIn('mahasiswa_nim',$muridPerwalian)->pluck('mahasiswa_nim')->toArray();
+        // $muridPerwalianAktifSemesterTerbaru = Mahasiswa::whereIn('nim',$irsPerwalianAktif)->count();
+        // dd($muridPerwalianAktifSemesterTerbaru);
+
+        $jumlahPerwalianAktifSmtLatest = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', function ($query) {
+            // Filter IRS yang semesternya aktif
+            $query->whereHas('semester', function ($q) {
+                $q->where('is_active', '1');
+            });
+        })
+        ->count();
+
+        // $jumlahPerwalianSmtSebelumnya = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali);
+        // Ambil semua data mahasiswa perwalian
+        $muridPerwalian = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+            // ->where('status_mahasiswa', 'Aktif')
+            ->pluck('nim')->toArray();
+
+        // ambil id semester yang aktif
+        $semesterAktif = Semester::where('is_active', '1')->pluck('id')->toArray();
+
+        // ambil id 1 semester sebelumnya
+        $semesterSebelumnya = Semester::where('id', '<', max($semesterAktif))->orderBy('id', 'desc')->pluck('id')->first();
+
+        // $irsPerwalianAktif = IRS::where('semester_id', $semesterSebelumnya)->whereIn('mahasiswa_nim', $muridPerwalian)->pluck('mahasiswa_nim')->toArray();
+        // $muridPerwalianAktifSemesterSebelumnya = Mahasiswa::whereIn('nim', $irsPerwalianAktif)->count();
+
+        $muridPerwalianAktifSemesterSebelumnya = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereRelation('irs.semester', 'id', $semesterSebelumnya)->count();
+        // dd($muridPerwalianAktifSemesterSebelumnya);
+
+        //bawah ga kepake belajar aja
+        // $idSemester = 4;
+        // $mahasiswaSuram = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        //     ->whereHas('irs', fn ($q) => $q
+        //     ->where('semester_id', $idSemester)
+        //     ->where('jumlah_sks', '>', '22')
+        //     )
+
+        //     ->whereHas('khs', fn ($q) => $q
+        //     ->where('semester_id', $idSemester)
+        //     ->where('ip_semester', '<', 2.00)
+        //     )
+        //     ->get();
+
+        $perwalianDiff = $jumlahPerwalianAktifSmtLatest - $muridPerwalianAktifSemesterSebelumnya;
+
+        $perwalianTidakAktifSmtNow = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereDoesntHave('irs', fn ($q) => $q
+        ->where('semester_id', $semesterAktif))
+        ->count();
+
+        $perwalianTidakAktifSmtSebelumnya = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereDoesntHave('irs', fn ($q) => $q
+        ->where('semester_id', $semesterSebelumnya))
+        ->count();
+
+        $perwalianTidakAktifDiff = $perwalianTidakAktifSmtNow - $perwalianTidakAktifSmtSebelumnya;
+        $perwalianTidakAktifDiff = sprintf('%+d', $perwalianTidakAktifDiff);
+
+        $verifikasiKhsCount = KHS::whereIn('mahasiswa_nim', $dosen->getMahasiswaBimbinganAttribute())
+        ->where('status_konfirmasi', 'Belum Dikonfirmasi')
+        ->count();
+
+        $perwalianPklAktif = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereRelation('irs', 'status_konfirmasi', 'Dikonfirmasi')
+        ->whereRelation('irs', 'semester_id', $semesterAktif)
+        ->whereRelation('pkl', 'semester_id', $semesterAktif)
+        ->whereRelation('pkl', 'status_lulus', 'Belum Lulus')
+        ->get();
+
+        $perwalianPklAktifNow = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', fn ($q) => $q
+            ->where('semester_id', $semesterAktif)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->whereHas('pkl', fn ($q) => $q
+            ->where('semester_id', $semesterAktif)
+            ->where('status_lulus', 'Belum Lulus')
+        )
+        ->count();
+
+        $perwalianPklAktifSebelumnya = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', fn ($q) => $q
+            ->where('semester_id', $semesterSebelumnya)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->whereHas('pkl', fn ($q) => $q
+            ->where('semester_id', $semesterSebelumnya)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->count();
+
+        // dd($perwalianPklAktifSebelumnya);
+
+        $perwalianPklDiff = $perwalianPklAktifNow - $perwalianPklAktifSebelumnya;
+        $perwalianPklDiff = sprintf('%+d', $perwalianPklDiff);
+
+        $perwalianSkripsiAktifNow = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', fn ($q) => $q
+            ->where('semester_id', $semesterAktif)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->whereHas('skripsi', fn ($q) => $q
+            ->where('semester_id', $semesterAktif)
+            ->where('status_skripsi', 'Belum Lulus')
+        )
+        ->count();
+
+        $perwalianSkripsiAktifSebelumnya = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', fn ($q) => $q
+            ->where('semester_id', $semesterSebelumnya)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->whereHas('skripsi', fn ($q) => $q
+            ->where('semester_id', $semesterSebelumnya)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->count();
+
+        $perwalianSkripsiDiff = $perwalianSkripsiAktifNow - $perwalianSkripsiAktifSebelumnya;
+        $perwalianSkripsiDiff = sprintf('%+d', $perwalianSkripsiDiff);
+
+        // dd($perwalianSkripsiAktifSebelumnya);
+
+        $sidangTerdekat = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        ->whereHas('irs', fn ($q) => $q
+            ->where('semester_id', $semesterAktif)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+        )
+        ->whereHas('skripsi', fn ($q) => $q
+            ->whereNotNull('tanggal_sidang')
+            ->where('semester_id', $semesterAktif)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+            ->where('status_skripsi', 'Belum Lulus')
+        )
+        ->with(['skripsi' => fn ($q) => $q
+            ->whereNotNull('tanggal_sidang')
+            ->where('semester_id', $semesterAktif)
+            ->where('status_konfirmasi', 'Dikonfirmasi')
+            ->where('status_skripsi', 'Belum Lulus'),
+        ])
+        ->get();
+
+        // dd($sidangTerdekat);
         return view('dashboard-dosen.index', [
             'title' => 'Dashboard Dosen',
             'dosen' => $dosen,
             'muridPerwalianPkl' => $muridPerwalianPkl,
             'muridPerwalianSkripsi' => $muridPerwalianSkripsi,
             'muridPerwalianAktif' => $muridPerwalianAktif,
+            'jumlahPerwalianAktifSmtLatest' => $jumlahPerwalianAktifSmtLatest,
+            'muridPerwalianAktifSemesterSebelumnya' => $muridPerwalianAktifSemesterSebelumnya,
+            'perwalianDiff' => $perwalianDiff,
+            'perwalianTidakAktifDiff' => $perwalianTidakAktifDiff,
+            'perwalianTidakAktifSmtNow' => $perwalianTidakAktifSmtNow,
+            'verifikasiKhsCount' => $verifikasiKhsCount,
+            'perwalianPklDiff' => $perwalianPklDiff,
+            'perwalianPklAktifNow' => $perwalianPklAktifNow,
+            'perwalianSkripsiDiff' => $perwalianSkripsiDiff,
+            'perwalianSkripsiAktifNow' => $perwalianSkripsiAktifNow,
+            'sidangTerdekats' => $sidangTerdekat,
         ]);
     }
 
@@ -85,8 +248,7 @@ class DashboardDosenController extends Controller
     /**
      * Verifikasi keputusan IRS mahasiswa perwalian.
      *
-     * @param string $action
-     * @param IRS $irs
+     * @param  string  $action
      * @return \Illuminate\Http\RedirectResponse
      */
     public function verifikasiIrsKeputusan($action, IRS $irs)
@@ -136,7 +298,6 @@ class DashboardDosenController extends Controller
         ]);
     }
 
-
     /**
      * The function verifikasiKhsKeputusan takes an action and a KHS object as parameters, and updates the
      * status of the KHS confirmation based on the action.
@@ -144,7 +305,6 @@ class DashboardDosenController extends Controller
      * @param action The action parameter is a string that represents the action to be performed. It can
      * have two possible values: 'terima' or 'tolak'.
      * @param KHS khs The parameter `` is an instance of the `KHS` class.
-     *
      * @return a redirect back to the previous page.
      */
     public function verifikasiKhsKeputusan($action, KHS $khs)
@@ -203,7 +363,6 @@ class DashboardDosenController extends Controller
      * PKL (Praktek Kerja Lapangan) object. It can have two possible values: "terima" (accept) or "tolak"
      * (reject).
      * @param PKL pkl The parameter `` is an instance of the `PKL` class.
-     *
      * @return a redirect back to the previous page.
      */
     public function verifikasiPklKeputusan($action, PKL $pkl)
@@ -262,7 +421,6 @@ class DashboardDosenController extends Controller
      * (thesis). It can have two possible values: 'terima' (accept) or 'tolak' (reject).
      * @param Skripsi skripsi The parameter `` is an instance of the `Skripsi` class. It represents
      * a skripsi (thesis) object that needs to be verified.
-     *
      * @return a redirect back to the previous page.
      */
     public function verifikasiSkripsiKeputusan($action, Skripsi $skripsi)
