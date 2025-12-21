@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\api\AuthController;
-use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\api\DashboardController;
+use App\Http\Controllers\api\IrsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //     return $request->user();
     // });
     Route::apiResource('/user', UserController::class);
+    Route::apiResource('/irs', IrsController::class);
+
+    Route::get('/me',[DashboardController::class,'getMyProfile']);
+    Route::get('/my-irs',[DashboardController::class,'getMyIrs']);
 });
