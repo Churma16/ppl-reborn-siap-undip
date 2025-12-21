@@ -19,6 +19,8 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'role' => $this->role->label(),
             'tanggal_gabung' => $this->created_at->format('d F Y'),
+
+            'profile_mhs' => new MahasiswaResource($this->whenLoaded('mahasiswa')) 
         ];
     }
 }
