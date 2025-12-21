@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     use HasFactory;
+
     protected $primaryKey = 'nim';
 
     protected $guarded = ['id'];
@@ -136,5 +137,10 @@ class Mahasiswa extends Model
     public function kabupaten()
     {
         return $this->belongsTo(Kabupaten::class, 'kabupaten_kode_kabupaten', 'kode_kabupaten');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'nim','nip_nim');
     }
 }
