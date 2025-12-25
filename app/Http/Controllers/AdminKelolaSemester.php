@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Semester;
 use Carbon\Carbon;
+use App\Models\Semester;
 use Illuminate\Http\Request;
+use App\Enums\SemesterStatusAktif;
 
 class AdminKelolaSemester extends Controller
 {
@@ -18,10 +19,13 @@ class AdminKelolaSemester extends Controller
         $semesters = Semester::with('irs')->get();
 
         // dd($semesters);
+        // $statusSemesterAktif = SemesterStatusAktif::cases();
 
+        // dd($statusSemesterAktif);
         return view('dashboard-admin.kelola-semester.index', [
             'title' => 'Data Semester',
             'semesters' => $semesters,
+            // 'statusSemesterAktif' => $statusSemesterAktif,
         ]);
     }
 
