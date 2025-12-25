@@ -26,7 +26,7 @@
                     <!-- Card body -->
                     <div class="card-body ">
                         <h4 class="font-weight-normal mt-1 mb-1 ">Masukan Data</h4>
-                        <form method="POST" action="/dashboard-mahasiswa/kelola-irs" enctype="multipart/form-data">
+                        <form method="POST" action="/dashboard-mahasiswa/irs" enctype="multipart/form-data">
                             @csrf
                             <div class="row border-top pt-3 mb-3">
                                 <div class="col-md-6">
@@ -50,11 +50,12 @@
                                     <ul>
                                         <li>
                                             <small class="ms-1">Pastikan file berformat .pdf dan ukuran dibawah 10mb
-                                                </small>
+                                            </small>
                                         </li>
                                         <li>
-                                            <small class="ms-1">Pastikan nama file berformat nama_nim_semester.pdf. cth: bruce_1900018312_1.pdf
-                                                </small>
+                                            <small class="ms-1">Pastikan nama file berformat nama_nim_semester.pdf. cth:
+                                                bruce_1900018312_1.pdf
+                                            </small>
                                         </li>
                                     </ul>
                                 </div>
