@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Skripsi;
-use App\Models\Mahasiswa;
 use App\Models\PKL;
+use App\Models\Skripsi;
+use App\Models\Semester;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Enums\SemesterStatusAktif;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaKelolaSkripsi extends Controller
 {
@@ -68,6 +70,7 @@ class MahasiswaKelolaSkripsi extends Controller
         if (request('file_skripsi')) {
             $validatedData['file_skripsi'] = $request->file('file_skripsi')->store('file_skripsi');
         }
+        $latestSemester = Semester::where('is_active', SemesterStatusAktif::AKTIF)->latest()->value('id');
 
         // Tambah Data
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
@@ -78,6 +81,7 @@ class MahasiswaKelolaSkripsi extends Controller
         } else {
             $validatedData['tanggal_mulai'] = Carbon::now()->format('Y-m-d');
         }
+        $validatedData['semester_id'] = $latestSemester;
 
         // dd($validatedData);
         Skripsi::create($validatedData);
