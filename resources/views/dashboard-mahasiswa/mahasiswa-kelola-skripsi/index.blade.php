@@ -47,7 +47,7 @@
                     </div>
                 @endif
             </div>
-            
+
             <h5 class="mb-0 ms-4 mt-4">Daftar Progress</h5>
             <div class="row mx-4">
                 @if (count($skripsis) == 0)
@@ -76,7 +76,9 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
-                                            {{ $skripsi->status_konfirmasi }}
+                                            <span
+                                                class="badge bg-gradient-{{ $skripsi->status_konfirmasi->color() }}">
+                                            {{ $skripsi->status_konfirmasi->value }}</span>
 
                                         </p>
                                     </div>
@@ -94,6 +96,7 @@
 
         </div>
     </div>
+    
 @endsection
 
 @section('scripts')
