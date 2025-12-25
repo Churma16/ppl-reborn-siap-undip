@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaKelolaIrs extends Controller
 {
@@ -75,6 +76,10 @@ class MahasiswaKelolaIrs extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'file_sks' => 'required|mimes:pdf|max:10000',
+            'jumlah_sks' => 'required|numeric|min:1|max:24',
+        ]);
         // Mendapatkan semester aktif terakhir
         $semesterAktif = IRS::where('mahasiswa_nim', Auth::user()->nip_nim)->orderBy('semester_aktif', 'desc')->first();
         if ($semesterAktif == null) {
@@ -87,10 +92,6 @@ class MahasiswaKelolaIrs extends Controller
         $latestSemester = Semester::latest()->value('id');
 
         // Validasi data input
-        $validatedData = $request->validate([
-            'file_sks' => 'required|mimes:pdf|max:10000',
-            'jumlah_sks' => 'required|numeric|min:1|max:24',
-        ]);
 
         // dd($latestSemester);
         // Mengunggah file SKS
@@ -106,7 +107,7 @@ class MahasiswaKelolaIrs extends Controller
 
         IRS::create($validatedData);
 
-        return redirect('/dashboard-mahasiswa/kelola-irs')->with('success', 'IRS berhasil diunggah!');
+        return redirect('/dashboard-mahasiswa/irs')->with('success', 'IRS berhasil diunggah!');
     }
 
     /**
@@ -136,9 +137,24 @@ class MahasiswaKelolaIrs extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IRS $iRS)
+    public function update(Request $request, IRS $irs)
     {
-        //
+        $validatedData = $request->validate([
+            'file_sks' => 'required|mimes:pdf|max:10000',
+            'jumlah_sks' => 'required|numeric|min:1|max:24',
+        ]);
+
+        // Mengunggah file SKS
+        if ($request->file('file_sks')) {
+            Storage::delete($irs->file_sks);
+            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
+        }
+
+        // Memperbarui data IRS
+        $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
+        $irs->update($validatedData);
+
+        return redirect('/dashboard-mahasiswa/irs')->with('success', 'IRS berhasil diajukan ulang!');
     }
 
     /**
