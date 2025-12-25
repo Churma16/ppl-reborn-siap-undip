@@ -18,4 +18,14 @@ enum UserRole: string
             self::Mahasiswa => 'Mahasiswa',
         };
     }
+
+    public function mainPage(): string
+    {
+        return match ($this) {
+            self::Admin => '/dashboard-admin',
+            self::Departemen => '/dashboard-departemen',
+            self::Dosen => '/dashboard-dosen',
+            self::Mahasiswa => '/dashboard-mahasiswa',
+        };
+    }
 }
