@@ -48,19 +48,81 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="d-flex justify-content-between"></div>
                                 <a href="{{ asset('storage/' . $irs->file_sks) }}" target="_blank"
                                     class="btn btn-info">Lihat File IRS</a>
+                                @if ($irs->status_konfirmasi->value == "Ditolak")
+                                    <a type="button" class="btn btn-block btn-warning " data-bs-toggle="modal"
+                                        data-bs-target="#ajukanUlang{{ $irs->id }}">Ajukan Ulang</a>
+                                @endif
+                            </div>
+                        </div>
+                        {{-- Modal Ajukan Ulang --}}
+                        <div class="col-md-8">
+                            <div class="modal fade" id="ajukanUlang{{ $irs->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="ajukanUlang{{ $irs->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered " role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="card card-plain">
+                                                <div class="card-header pb-0 text-left">
+                                                    <h5 class="">Masukan Data IRS</h5>
+                                                    <p class="mb-0">Masukkan data IRS Anda dengan benar</p>
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <form method="POST"
+                                                        action="/dashboard-mahasiswa/irs/{{ $irs->id }}"
+                                                        enctype="multipart/form-data" role="form text-left">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <strong>Jumlah SKS</strong>
+                                                        <div class="input-group input-group-outline mb-3">
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $irs->jumlah_sks }}" name="jumlah_sks"
+                                                                onfocus="focused(this)" onfocusout="defocused(this)"
+                                                                required>
+                                                        </div>
+                                                        <strong>File SKS</strong>
+                                                        <div class="input-group input-group-outline mb-3">
+                                                            @if ($irs->file_sks)
+                                                                <div class="mb-2">
+                                                                    <small>File lama:</small>
+                                                                    <a href="{{ asset('storage/' . $irs->file_sks) }}"
+                                                                        target="_blank" class="text-primary"
+                                                                        name="file_sks">
+                                                                        {{ $irs->file_sks }}
+                                                                    </a>
+                                                                </div>
+                                                            @endif
+                                                            <input type="file" class="form-control" name="file_sks"
+                                                                onfocus="focused(this)" onfocusout="defocused(this)">
+                                                        </div>
+                                                        <input type="hidden" name="file_sks_lama"
+                                                            value="{{ $irs->file_sks }}">
+                                                        <div class="text-center">
+                                                            <button type="submit"
+                                                                class="btn btn-round bg-gradient-info btn-lg w-100 mb-0">Kirim</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-irs/create" class="btn btn-primary">Unggah IRS</a>
+                <a href="/dashboard-mahasiswa/irs/create" class="btn btn-primary">Unggah IRS</a>
             </div>
 
         </div>
     </div>
+
+
 @endsection
 
 @section('scripts')
