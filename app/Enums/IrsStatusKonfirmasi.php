@@ -11,7 +11,7 @@ enum IrsStatusKonfirmasi: string{
         return match($this){
             self::Dikonfirmasi => 'success',
             self::Ditolak => 'danger',
-            self::Belum_Dikonfirmasi => 'warning',
+            self::Belum_Dikonfirmasi => 'info',
             self::Belum_Ambil => 'secondary',
         };
     }
