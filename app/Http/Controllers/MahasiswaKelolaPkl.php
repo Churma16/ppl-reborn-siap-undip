@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SemesterStatusAktif;
 use App\Models\Mahasiswa;
 use App\Models\PKL;
-
+use App\Models\Semester;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaKelolaPkl extends Controller
 {
@@ -27,7 +28,7 @@ class MahasiswaKelolaPkl extends Controller
         return view('dashboard-mahasiswa.mahasiswa-kelola-pkl.index', [
             'title' => 'Kelola PKL',
             'mahasiswa' => $mahasiswa,
-            'pkls' => $pkls
+            'pkls' => $pkls,
         ]);
     }
 
@@ -47,14 +48,13 @@ class MahasiswaKelolaPkl extends Controller
         return view('dashboard-mahasiswa.mahasiswa-kelola-pkl.create', [
             'title' => 'Unggah PKL',
             'mahasiswa' => $mahasiswa,
-            'progressKe' => $progressKe + 1
+            'progressKe' => $progressKe + 1,
         ]);
     }
 
     /**
      * Menyimpan data PKL yang diunggah.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -70,6 +70,7 @@ class MahasiswaKelolaPkl extends Controller
             'nama_perusahaan' => 'required|max:50',
         ]);
 
+        $latestSemester = Semester::where('is_active', SemesterStatusAktif::AKTIF)->latest()->value('id');
         // Mengunggah file PKL
         if ($request->file('file_pkl')) {
             $validatedData['file_pkl'] = $request->file('file_pkl')->store('file-pkl');
@@ -78,25 +79,24 @@ class MahasiswaKelolaPkl extends Controller
         // Tambah Data
         $validatedData['status_lulus'] = 'Belum Lulus';
 
-        if($request->progress_ke == 1){
+        if ($request->progress_ke == 1) {
             $validatedData['tanggal_mulai'] = Carbon::now()->format('Y-m-d');
-        }
-        else{
+        } else {
             $validatedData['nama_perusahaan'] = $pkl->nama_perusahaan;
             $validatedData['tanggal_mulai'] = $pkl->tanggal_mulai;
-            
         }
         $validatedData['status_konfirmasi'] = 'Belum Dikonfirmasi';
         $validatedData['mahasiswa_nim'] = Auth::user()->nip_nim;
+        $validatedData['semester_id'] = $latestSemester;
 
         PKL::create($validatedData);
+
         return redirect('/dashboard-mahasiswa/kelola-pkl')->with('success', 'PKL berhasil diunggah!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PKL  $pKL
      * @return \Illuminate\Http\Response
      */
     public function show(PKL $pKL)
@@ -107,7 +107,6 @@ class MahasiswaKelolaPkl extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PKL  $pKL
      * @return \Illuminate\Http\Response
      */
     public function edit(PKL $pKL)
@@ -118,8 +117,6 @@ class MahasiswaKelolaPkl extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PKL  $pKL
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, PKL $pKL)
@@ -130,7 +127,6 @@ class MahasiswaKelolaPkl extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PKL  $pKL
      * @return \Illuminate\Http\Response
      */
     public function destroy(PKL $pKL)
