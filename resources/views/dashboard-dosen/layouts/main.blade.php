@@ -42,11 +42,36 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 
-
     <script src="https://unpkg.com/feather-icons"></script>
 
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .border-left-primary {
+            border-left: 0.25rem solid #4e73df !important;
+        }
+
+        .border-left-info {
+            border-left: 0.25rem solid #0dcaf0 !important;
+        }
+
+        .border-left-success {
+            border-left: 0.25rem solid #198754 !important;
+        }
+
+        .border-left-danger {
+            border-left: 0.25rem solid #dc3545 !important;
+        }
+
+        .progress-circle {
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-gray-800 {
+            color: #2e59d9;
+        }
+    </style>
 
 </head>
 
