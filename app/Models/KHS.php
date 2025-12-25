@@ -16,9 +16,8 @@ class KHS extends Model
     protected $casts =[
         'status_konfirmasi' => KhsStatusKonfirmasi::class
     ];
-    
-    // Accessor
 
+    // Accessor
 
     // Relasi
     public function mahasiswa()
