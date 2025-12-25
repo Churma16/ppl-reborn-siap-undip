@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\IRS;
+use App\Enums\SemesterStatusAktif;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Mahasiswa extends Model
 {
@@ -92,6 +94,24 @@ class Mahasiswa extends Model
         ];
     }
 
+    public function irsAktif()
+    {
+        return $this->hasOne(IRS::class, 'mahasiswa_nim', 'nim')
+        ->whereRelation('semester', 'is_active', SemesterStatusAktif::AKTIF->value)
+        ->latest('semester_aktif');
+    }
+
+    public function getStatusAkademikAttribute()
+    {
+        $irsTerakhir = $this->irsAktif;
+
+        if (! $irsTerakhir || ! ($irsTerakhir->status_konfirmasi == 'Dikonfirmasi')) {
+            return 'Tidak Aktif';
+        }
+
+        return  'Aktif';
+    }
+
     public function getIrsTerendahAttribute()
     {
         return $this->irs()->min('jumlah_sks');
@@ -115,12 +135,12 @@ class Mahasiswa extends Model
 
     public function pkl()
     {
-        return $this->hasOne(Pkl::class);
+        return $this->hasMany(Pkl::class);
     }
 
     public function skripsi()
     {
-        return $this->hasOne(Skripsi::class);
+        return $this->hasMany(Skripsi::class);
     }
 
     public function khs()
@@ -141,6 +161,6 @@ class Mahasiswa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'nim','nip_nim');
+        return $this->belongsTo(User::class, 'nim', 'nip_nim');
     }
 }
