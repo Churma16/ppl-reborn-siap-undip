@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\KhsStatusKonfirmasi;
+use App\Enums\SemesterStatusAktif;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,4 +27,6 @@ class IRS extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+
+
 }
