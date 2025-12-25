@@ -3,7 +3,7 @@
         <div class="col-12">
 
             <nav
-                class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4 opacity-7">
                 <div class="container-fluid ps-2 pe-0">
                     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/pages/dashboard.html">
                         SIAP UNDIP
@@ -53,7 +53,7 @@
                             </li> --}}
                             <li class="nav-item">
                                 <a href="https://www.creative-tim.com/product/material-dashboard"
-                                    class="btn btn-sm mb-0 me-1 bg-gradient-dark">Hubungi Admin</a>
+                                    class="btn btn-sm mb-0 me-1 btn-outline-dark">Hubungi Admin</a>
                             </li>
                         </ul>
                     </div>
