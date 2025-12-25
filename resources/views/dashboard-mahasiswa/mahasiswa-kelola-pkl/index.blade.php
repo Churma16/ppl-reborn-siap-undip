@@ -73,7 +73,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <p class="card-text text-sm"><strong>Status Konfirmasi:</strong>
-                                            {{ $pkl->status_konfirmasi }}
+                                            <span
+                                                class="badge bg-gradient-{{ $pkl->status_konfirmasi->color() }}">{{ $pkl->status_konfirmasi->value }}</span>
                                         </p>
                                     </div>
                                 </div>
