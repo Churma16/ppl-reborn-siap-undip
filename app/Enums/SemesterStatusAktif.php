@@ -14,4 +14,11 @@ enum SemesterStatusAktif: int
             self::TIDAK_AKTIF => 'Tidak Aktif',
         };
     }
+    public function color(): string
+    {
+        return match ($this) {
+            self::AKTIF => 'success',
+            self::TIDAK_AKTIF => 'danger',
+        };
+    }
 }
