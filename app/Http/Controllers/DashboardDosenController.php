@@ -96,7 +96,7 @@ class DashboardDosenController extends Controller
         //     )
         //     ->get();
 
-        $perwalianDiff = $jumlahPerwalianAktifSmtLatest - $muridPerwalianAktifSemesterSebelumnya;
+        $perwalianDiff = sprintf('%+d', $jumlahPerwalianAktifSmtLatest - $muridPerwalianAktifSemesterSebelumnya);
 
         $perwalianTidakAktifSmtNow = Mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
         ->whereDoesntHave('irs', fn ($q) => $q
@@ -115,12 +115,12 @@ class DashboardDosenController extends Controller
         ->where('status_konfirmasi', 'Belum Dikonfirmasi')
         ->count();
 
-        $perwalianPklAktif = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
-        ->whereRelation('irs', 'status_konfirmasi', 'Dikonfirmasi')
-        ->whereRelation('irs', 'semester_id', $semesterAktif)
-        ->whereRelation('pkl', 'semester_id', $semesterAktif)
-        ->whereRelation('pkl', 'status_lulus', 'Belum Lulus')
-        ->get();
+        // $perwalianPklAktif = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
+        // ->whereRelation('irs', 'status_konfirmasi', 'Dikonfirmasi')
+        // ->whereRelation('irs', 'semester_id', $semesterAktif)
+        // ->whereRelation('pkl', 'semester_id', $semesterAktif)
+        // ->whereRelation('pkl', 'status_lulus', 'Belum Lulus')
+        // ->get();
 
         $perwalianPklAktifNow = mahasiswa::where('dosen_kode_wali', $dosen->kode_wali)
         ->whereHas('irs', fn ($q) => $q
@@ -195,7 +195,45 @@ class DashboardDosenController extends Controller
         ])
         ->get();
 
-        // dd($sidangTerdekat);
+        $permintaanKhsTerbaru = KHS::with('mahasiswa')->where('status_konfirmasi', 'Belum Dikonfirmasi')
+        ->whereIn('mahasiswa_nim', $dosen->mahasiswa_bimbingan)
+        ->get()
+        ->map(function ($item) {
+            $item->type = 'KHS';
+            return $item;
+        });
+
+        $permintaanIrsTerbaru = IRS::with('mahasiswa')->where('status_konfirmasi', 'Belum Dikonfirmasi')
+        ->whereIn('mahasiswa_nim', $dosen->mahasiswa_bimbingan)
+        ->get()
+        ->map(function ($item) {
+            $item->type = 'IRS';
+            return $item;
+        });
+
+        $permintaanPklTerbaru = PKL::with('mahasiswa')->where('status_konfirmasi', 'Belum Dikonfirmasi')
+        ->whereIn('mahasiswa_nim', $dosen->mahasiswa_bimbingan)
+        ->get()
+        ->map(function ($item) {
+            $item->type = 'PKL';
+            return $item;
+        });
+
+        $permintaanSkripsiTerbaru = Skripsi::with('mahasiswa')->where('status_konfirmasi', 'Belum Dikonfirmasi')
+        ->whereIn('mahasiswa_nim', $dosen->mahasiswa_bimbingan)
+        ->get()
+        ->map(function ($item) {
+            $item->type = 'Skripsi';
+            return $item;
+        });
+
+        $permintaanTerbaru = collect()
+            ->merge($permintaanKhsTerbaru)
+            ->merge($permintaanIrsTerbaru)
+            ->merge($permintaanPklTerbaru)
+            ->merge($permintaanSkripsiTerbaru)
+            ->sortByDesc('created_at');
+
         return view('dashboard-dosen.index', [
             'title' => 'Dashboard Dosen',
             'dosen' => $dosen,
@@ -213,6 +251,12 @@ class DashboardDosenController extends Controller
             'perwalianSkripsiDiff' => $perwalianSkripsiDiff,
             'perwalianSkripsiAktifNow' => $perwalianSkripsiAktifNow,
             'sidangTerdekats' => $sidangTerdekat,
+            'permintaanTerbarus' => $permintaanTerbaru,
+            'permintaanKhsTerbaru' => $permintaanKhsTerbaru,
+            'permintaanIrsTerbaru' => $permintaanIrsTerbaru,
+            'permintaanPklTerbaru' => $permintaanPklTerbaru,
+            'permintaanSkripsiTerbaru' => $permintaanSkripsiTerbaru,
+
         ]);
     }
 
