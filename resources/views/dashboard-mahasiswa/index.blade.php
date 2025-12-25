@@ -282,92 +282,105 @@
         </div>
 
         <div class="row mt-xl-4">
-            <div class="col-6">
-                <div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Profile</h5>
+            <div class="col-12 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header pb-0 p-3">
+                        <h5 class="mb-0">Profil Mahasiswa</h5>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar avatar-xl position-relative me-3">
+                                <img src="/assets/img/bruce-mars.jpg" alt="profile_image"
+                                    class="w-100 border-radius-lg shadow-sm">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h5 class="mb-0 text-gradient text-dark font-weight-bold">
+                                    {{ $mahasiswa->nama }}
+                                </h5>
+                                <p class="mb-0 font-weight-normal text-sm text-secondary">
+                                    {{ $mahasiswa->nim }}
+                                </p>
+                                <span class="badge badge-sm bg-gradient-info mt-1" style="width: fit-content;">
+                                    Aktif
+                                </span>
+                            </div>
+                        </div>
+                        <hr class="horizontal dark my-3">
+                        <ul class="list-group">
+                            <li class="list-group-item border-0 ps-0 pt-0 text-sm">
+                                <strong class="text-dark">Jurusan:</strong> &nbsp; Informatika
+                            </li>
+                            <li class="list-group-item border-0 ps-0 text-sm">
+                                <strong class="text-dark">Angkatan:</strong> &nbsp; {{ $mahasiswa->angkatan }}
+                            </li>
+                            <li class="list-group-item border-0 ps-0 text-sm">
+                                <strong class="text-dark">Fakultas:</strong> &nbsp; Sains dan Matematika
+                            </li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="/dashboard-mahasiswa/edit-profile" class="btn btn-outline-primary btn-sm w-100 mb-0">
+                                Lihat & Edit Biodata Lengkap
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="card">
+
+            <div class="col-12 col-xl-8 mb-4">
+                <div class="card h-100">
                     <div class="card-body">
                         <h5>Riwayat Aktivitas Terakhir</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body  mt-4">
-            <div class="row gx-4 mb-2 ms-1">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="/assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                        <h4 class="mb-1">
-                            {{ $mahasiswa->nama }}
-                        </h4>
-                        <p class="mb-0 font-weight-normal text-sm">
-                            {{ $mahasiswa->nim }}
-                        </p>
-                    </div>
-                </div>
 
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="col-12 col-xl-12">
-                        <div class="card card-plain">
-                            <div class="card-body p-3">
-                                <h5 class="mb-2">Data Diri</h5>
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6">
-                                        <hr class="horizontal gray-light my-1">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 ps-0 pt-0 "><strong
-                                                    class="text-dark">Angkatan:</strong> &nbsp;
-                                                {{ $mahasiswa->angkatan }}
-                                            </li>
-                                            <li class="list-group-item border-0 ps-0 "><strong class="text-dark">Jalur
-                                                    Masuk:</strong> &nbsp;
-                                                {{ $mahasiswa->jalur_masuk }}</li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Jurusan:</strong> &nbsp;
-                                                Informatika</li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Fakultas:</strong> &nbsp;
-                                                Sains dan Matematika</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 ps-0 pt-0 "><strong
-                                                    class="text-dark">Email:</strong> &nbsp; {{ $mahasiswa->email }}
-                                            </li>
-                                            <li class="list-group-item border-0 ps-0 "><strong class="text-dark">No
-                                                    HP:</strong> &nbsp;
-                                                {{ $mahasiswa->no_hp ? $mahasiswa->no_hp : '-' }}
-                                            </li>
-                                            <li class="list-group-item border-0 ps-0 "><strong
-                                                    class="text-dark">Alamat:</strong>&nbsp;
-                                                {{ $mahasiswa->alamat ? $mahasiswa->alamat : '-' }}
-                                            </li>
-                                            <li class="list-group-item border-0 ps-0">
-                                                <strong class="text-dark">Provinsi:</strong> &nbsp;
-                                                {{ $mahasiswa->provinsi ? $mahasiswa->provinsi->nama : '-' }}
-                                            </li>
-                                            <li class="list-group-item border-0 ps-0">
-                                                <strong class="text-dark">Kabupaten:</strong> &nbsp;
-                                                {{ $mahasiswa->kabupaten ? $mahasiswa->kabupaten->nama : '-' }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+
+                            <table class="table align-items-center mb-0" id="lastActivityTable">
+                                <thead class="position-sticky top-0 bg-white z-index-1">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-md font-weight-bolder opacity-7"
+                                            style="width: auto; white-space: nowrap;">
+                                            Kategori
+                                        </th>
+                                        <th
+                                            class="text-uppercase text-secondary text-md font-weight-bolder opacity-7 ps-2">
+                                            Tanggal diunggah</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-md font-weight-bolder opacity-7 ps-2">
+                                            File Terkait</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lastActivities as $lastActivity)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2">
+                                                    <div class="my-auto ms-2">
+                                                        <h6 class="mb-0 text-md">{{ $lastActivity->type }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="d-flex">
+                                                    <div class="my-auto">
+                                                        <h6 class="mb-0 text-md font-weight-normal">
+                                                            {{ $lastActivity->created_at->format('d M Y') }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="my-auto">
+                                                        <h6 class="mb-0 text-md font-weight-normal">
+                                                            <span class="btn btn-outline-info px-2 py-2 mb-0">
+                                                                <i class="material-icons opacity-10">file_present</i>
+                                                            </span>
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -473,21 +486,15 @@
         });
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. Inisialisasi Stepper
-            var stepperElement = document.querySelector('#stepper-skripsi');
-            var stepper = new Stepper(stepperElement, {
-                linear: true,
-                animation: true
+        $(document).ready(function() {
+            $('#lastActivityTable').DataTable({
+                paging: false,
+                searching: false,
+                scrollY: '400px',
+                scrollCollapse: true,
+                info: false,
+                ordering: false
             });
-
-            // 2. Lompat ke langkah aktif (Data dari Laravel)
-            // Kita loop sebanyak index status mahasiswa
-            var targetStep = {{ $currentStepIndex }};
-
-            for (var i = 0; i < targetStep; i++) {
-                stepper.next();
-            }
         });
     </script>
 @endsection
