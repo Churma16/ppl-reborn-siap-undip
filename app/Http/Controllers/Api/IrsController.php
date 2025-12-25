@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Enums\IrsStatusKonfirmasi;
-use App\Enums\SemesterStatusAktif;
+use App\Actions\Irs\SubmitIrsAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreIrsRequest;
 use App\Http\Resources\IrsResource;
 use App\Models\IRS;
-use App\Models\KHS;
-use App\Models\Semester;
 use Illuminate\Http\Request;
 
 class IrsController extends Controller
@@ -27,35 +25,19 @@ class IrsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreIrsRequest $request, SubmitIrsAction $submitIrsAction)
     {
-        $request->validate([
-            'jumlah_sks' => 'required|numeric|min:1',
-            'file_sks' => 'required|mimes:pdf|max:10000',
-        ]);
+        $validated = $request->validated();
 
-        $validated['semester_aktif'] = KHS::where('mahasiswa_nim', auth()->id())
-                ->latest()
-                ->value('semester') + 1 ;
-
-
-        $validated['mahasiswa_nim'] = auth()->id();
-
-        $validated['semester_id'] = Semester::where('is_active', SemesterStatusAktif::AKTIF->value)->value('id');
-
-        $validated['status_konfirmasi'] = IrsStatusKonfirmasi::Belum_Dikonfirmasi->value;
-
-        $validated['jumlah_sks'] = $request->jumlah_sks;
-
-        $file = $request->file('file_sks');
-        $fileName = $file->hashName();
-        $path = $file->storeAs('public/uploads/users', $fileName);
-        $dbPath = str_replace('public/', '', $path);
-        $validated['file_sks'] = $dbPath;
+        $irs = $submitIrsAction->execute(
+            $validated, $request->file('file_sks'),
+            auth()->id()
+        );
 
         return response()->json([
-            'message' =>'Irs Berhasil diunggah',
-            'data' => new IrsResource($validated),
+            'message' => 'Irs Berhasil diunggah',
+            'data' => new IrsResource($irs),
+            // 'data' => new IrsResource($validated),
         ]);
     }
 
