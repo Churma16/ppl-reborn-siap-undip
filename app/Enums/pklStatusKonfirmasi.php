@@ -1,7 +1,7 @@
 <?php
 namespace App\Enums;
 
-enum SkripsiStatusKonfirmasi: string {
+enum PklStatusKonfirmasi: string {
     case Dikonfirmasi = 'Dikonfirmasi';
     case Ditolak = 'Ditolak';
     case Belum_Dikonfirmasi = 'Belum Dikonfirmasi';
