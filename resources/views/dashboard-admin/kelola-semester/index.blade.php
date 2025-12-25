@@ -129,11 +129,8 @@
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                @if ($semester->is_active == 1)
-                                                    <span class="badge bg-gradient-success">Aktif</span>
-                                                @else
-                                                    <span class="badge bg-gradient-danger">Tidak Aktif</span>
-                                                @endif
+                                                <span
+                                                    class="badge bg-gradient-{{ $semester->is_active->color() }}">{{ $semester->is_active->label() }}</span>
                                             </p>
                                         </td>
                                         <td>
