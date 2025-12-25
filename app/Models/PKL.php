@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\Enums\SkripsiStatusKonfirmasi;
+use App\Enums\PklStatusKonfirmasi;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,7 +13,7 @@ class PKL extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'status_konfirmasi' => SkripsiStatusKonfirmasi::class,
+        'status_konfirmasi' => PklStatusKonfirmasi::class,
     ];
 
     public function mahasiswa()
