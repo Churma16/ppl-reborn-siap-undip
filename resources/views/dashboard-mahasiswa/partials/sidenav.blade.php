@@ -24,7 +24,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-irs*') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-mahasiswa/kelola-irs">
+                    href="/dashboard-mahasiswa/irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">description</i>
                     </div>
@@ -64,7 +64,9 @@
                 </h6>
             </li>
             <li class="nav-item ">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/edit-profile') ? 'bg-gradient-primary' : '' }}" href="/dashboard-mahasiswa/edit-profile" {{ Request::is('dashboard-mahasiswa/edit-profile') ? 'bg-gradient-primary' : '' }}>
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/edit-profile') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-mahasiswa/edit-profile"
+                    {{ Request::is('dashboard-mahasiswa/edit-profile') ? 'bg-gradient-primary' : '' }}>
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">edit_note</i>
                     </div>
