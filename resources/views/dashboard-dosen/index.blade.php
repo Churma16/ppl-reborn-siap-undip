@@ -24,7 +24,7 @@
                             class="text-{{ $perwalianDiff > 0 ? 'success' : 'danger' }} text-sm font-weight-bolder">{{ $perwalianDiff }}
                         </span>
                         <span class="text-secondary text-sm">
-                        vs sem. lalu</span>
+                            vs sem. lalu</span>
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
     </div>
     <div class=" mt-4">
         <div class="row">
-            <div class="col-lg-9 ">
+            <div class="col-lg-8 ">
                 <div class="card">
                     <div class="card-header">
                         <h5>Permintaan Validasi Baru</h5>
@@ -159,11 +159,15 @@
                                                         class="btn btn-outline-info px-2 py-1" title="Lihat">
                                                         <i class="material-icons">visibility</i>
                                                     </a>
-                                                    <a href="/dashboard-dosen/validasi/{{ $permintaanTerbaru->id }}/approve"
+
+                                                    <a href="javascript:void(0)"
+                                                        onclick="handleValidation({{ $permintaanTerbaru->id }}, 'approve')"
                                                         class="btn btn-outline-success px-2 py-1" title="Setujui">
                                                         <i class="material-icons">check</i>
                                                     </a>
-                                                    <a href="/dashboard-dosen/validasi/{{ $permintaanTerbaru->id }}/reject"
+
+                                                    <a href="javascript:void(0)"
+                                                        onclick="handleValidation({{ $permintaanTerbaru->id }}, 'reject')"
                                                         class="btn btn-outline-danger px-2 py-1" title="Tolak">
                                                         <i class="material-icons">close</i>
                                                     </a>
@@ -177,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4 mt-xl-0 mt-4">
                 <div class="card">
                     <div class="card-header">
                         <h5>Jadwal Sidang Bulan Ini</h5>
@@ -224,10 +228,9 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-xl-4 mt-4">
         <div class="col-lg-6">
-
-            <div class="card mt-4 border-0 shadow-lg">
+            <div class="card  border-0 shadow-lg">
                 <div class="card-body">
                     <!-- Profile Header -->
                     <div class="row align-items-center mb-4 pb-3 border-bottom">
@@ -276,7 +279,70 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-6 mt-xl-0 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Perlu Ditegur (Absen Bimbingan) Skripsi</h5>
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0" id="validationRequestsTable">
+                            @if ($mhsSkripsiMangkraks->isEmpty())
+                                <p class="text-center font-weight-bold">Tidak ada mahasiswa kritis.</p>
+                            @else
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-md font-weight-bolder opacity-7 "
+                                            style="width: auto; white-space: nowrap;">
+                                            Nama
+                                        </th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-md font-weight-bolder opacity-7 ">
+                                            Terakhir<br> Bimbingan</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-md font-weight-bolder opacity-7 ">
+                                            Status</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-md font-weight-bolder opacity-7 ">
+                                            Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($mhsSkripsiMangkraks as $mhsSkripsiMangkrak)
+                                        <tr>
+                                            <td style="width: auto; white-space: nowrap;">
+                                                <div class="px-0">
+                                                    <div class="my-auto ms-2">
+                                                        <h6 class="mb-0 text-md">
+                                                            {{ $mhsSkripsiMangkrak->nama }}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-md font-weight-normal  mb-0">
+                                                    {{ $mhsSkripsiMangkrak->hari_mangkrak }} Hari</p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p
+                                                    class="text-md text-{{ $mhsSkripsiMangkrak->warna_status }} font-weight-normal  mb-0">
+                                                    {{ $mhsSkripsiMangkrak->status_mangkrak == 'Kritis' ? '🔴' : '🟡' }}{{ $mhsSkripsiMangkrak->status_mangkrak }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="/dashboard-dosen/validasi/"
+                                                    class="btn btn-outline-success px-2 py-1" title="Hubungi Mahasiswa">
+                                                    <i class="material-icons">call</i>
+                                                </a>
 
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            @endif
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
