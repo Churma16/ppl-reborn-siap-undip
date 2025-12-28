@@ -52,8 +52,12 @@
                                     Builder</a>
                             </li> --}}
                             <li class="nav-item">
-                                <a href="https://www.creative-tim.com/product/material-dashboard"
-                                    class="btn btn-sm mb-0 me-1 btn-outline-dark">Hubungi Admin</a>
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-sm mb-0 me-1 btn-outline-dark"
+                                    data-bs-toggle="modal" data-bs-target="#modalHubungiAdmin">
+                                    Hubungi Admin
+                                </button>
+                            </li>
                             </li>
                         </ul>
                     </div>
