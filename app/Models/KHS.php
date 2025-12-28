@@ -8,13 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class KHS extends Model
 {
-
     use HasFactory;
-    protected $guarded = ['id'];
 
+    protected $guarded = ['id'];
+    protected $fillable = [
+
+        'status_konfirmasi',
+
+    ];
     // Casts
-    protected $casts =[
-        'status_konfirmasi' => KhsStatusKonfirmasi::class
+    protected $casts = [
+        'status_konfirmasi' => KhsStatusKonfirmasi::class,
     ];
 
     // Accessor
@@ -23,5 +27,10 @@ class KHS extends Model
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
     }
 }
