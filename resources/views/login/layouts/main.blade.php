@@ -72,7 +72,7 @@
 
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-100"
-            style="background-image: url('/img/backgroundUndip.jpg'); background-color: rgba(16, 30, 70, 0.8);">
+            style="background-image: url('/img/backgroundUndip.png'); background-color: rgba(16, 30, 70, 0.8);">
             @yield('content')
 
             @include('login.partials.footer')

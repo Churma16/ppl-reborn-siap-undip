@@ -173,7 +173,7 @@
 
 
     <header class="header-2">
-        <div class="page-header min-vh-75 relative" style="background-image: url('/img/backgroundUndip.jpg')">
+        <div class="page-header min-vh-75 relative" style="background-image: url('/img/backgroundUndip.png')">
             <span class="mask bg-gradient-dark opacity-8"></span>
             <div class="container">
                 <div class="row">
