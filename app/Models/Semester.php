@@ -21,4 +21,21 @@ class Semester extends Model
     {
         return $this->hasMany(Irs::class, 'semester_id', 'id');
     }
+    public function khs()
+    {
+        return $this->hasMany(KHS::class, 'semester_id', 'id');
+    }
+    public function skripsi()
+    {
+        return $this->hasMany(Skripsi::class, 'semester_id', 'id');
+    }
+    public function pkl()
+    {
+        return $this->hasMany(PKL::class, 'semester_id', 'id');
+    }
+
+    public function scopeSemesterAktif($query)
+    {
+        return $query->where('is_active', SemesterStatusAktif::AKTIF);
+    }
 }
