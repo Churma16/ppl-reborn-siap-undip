@@ -5,7 +5,7 @@
             <nav
                 class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4 opacity-7">
                 <div class="container-fluid ps-2 pe-0">
-                    <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/pages/dashboard.html">
+                    <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/">
                         SIAP UNDIP
                     </a>
                     <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
