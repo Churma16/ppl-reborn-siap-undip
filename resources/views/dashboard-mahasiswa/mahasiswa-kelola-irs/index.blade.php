@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between"></div>
                                 <a href="{{ asset('storage/' . $irs->file_sks) }}" target="_blank"
-                                    class="btn btn-info">Lihat File IRS</a>
+                                    class="btn btn-outline-info">Lihat File IRS</a>
                                 @if ($irs->status_konfirmasi->value == "Ditolak")
                                     <a type="button" class="btn btn-block btn-warning " data-bs-toggle="modal"
                                         data-bs-target="#ajukanUlang{{ $irs->id }}">Ajukan Ulang</a>
@@ -116,7 +116,7 @@
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/irs/create" class="btn btn-primary">Unggah IRS</a>
+                <a href="/dashboard-mahasiswa/irs/create" class="btn btn-dark">Unggah IRS</a>
             </div>
 
         </div>
