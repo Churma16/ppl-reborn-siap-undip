@@ -79,14 +79,14 @@
                                     </div>
                                 </div>
                                 <a href="{{ asset('storage/' . $pkl->file_pkl) }}" target="_blank"
-                                    class="btn btn-info">Lihat File pkl</a>
+                                    class="btn btn-outline-info">Lihat File PKL</a>
                             </div>
                         </div>
                     @endforeach
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-pkl/create" class="btn btn-primary">Unggah pkl</a>
+                <a href="/dashboard-mahasiswa/kelola-pkl/create" class="btn btn-dark">Unggah pkl</a>
             </div>
 
         </div>
