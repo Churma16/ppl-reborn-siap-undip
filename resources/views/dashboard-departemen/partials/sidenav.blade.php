@@ -27,7 +27,7 @@
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-departemen/data-mahasiswa">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i class="material-icons opacity-10">groups</i>
                     </div>
                     <span class="nav-link-text ms-1">Data Mahasiswa</span>
                 </a>
@@ -36,7 +36,7 @@
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa-pkl') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-departemen/data-mahasiswa-pkl">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                        <i class="material-icons opacity-10">work</i>
                     </div>
                     <span class="nav-link-text ms-1">Daftar Mahasiswa PKL</span>
                 </a>
@@ -45,7 +45,7 @@
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa-skripsi') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-departemen/data-mahasiswa-skripsi">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
+                        <i class="material-icons opacity-10">book</i>
                     </div>
                     <span class="nav-link-text ms-1">Daftar Mahasiswa Skripsi</span>
                 </a>
