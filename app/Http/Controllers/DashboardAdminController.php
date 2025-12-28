@@ -177,7 +177,7 @@ class DashboardAdminController extends Controller
         $provinsis = Provinsi::all();
         $kabupaten = Kabupaten::all();
         $dosens = Dosen::all();
-
+        // dd($dosens);
         return view('dashboard-admin.tambah-mahasiswa-baru', [
             'title' => 'Tambah Mahasiswa Baru',
             'provinsis' => $provinsis,
@@ -229,8 +229,8 @@ class DashboardAdminController extends Controller
     {
         $mahasiswa = Mahasiswa::all();
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
-        $dosens = Dosen::get('kode_wali', 'nama');
-
+        $dosens = Dosen::get(['kode_wali', 'nama']);
+        // dd($dosens);
         return view('dashboard-admin.data-mahasiswa', [
             'mahasiswas' => $mahasiswa,
             'angkatans' => $angkatan,
