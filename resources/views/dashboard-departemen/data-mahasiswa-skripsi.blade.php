@@ -10,7 +10,7 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">
-                            Data Mahasiswa PKL
+                            Data Mahasiswa Skripsi
                         </h6>
                     </div>
                 </div>
@@ -43,7 +43,8 @@
                                 <option value="Belum Lulus">Belum Lulus</option>
                             </select>
                             {{-- Tombol Export --}}
-                            <button class="btn btn-sm btn-outline-success mb-0">Export Excel</button>
+                            <button class="btn btn-sm btn-outline-success mb-0" data-bs-toggle="modal"
+                                data-bs-target="#modalExport">Export Excel</button>
                         </div>
 
                         {{-- Search Bar --}}
@@ -132,7 +133,7 @@
                                                 <span class="badge badge-sm bg-gradient-success">Lulus</span>
                                             @else
                                                 <span
-                                                    class="badge badge-sm bg-gradient-warning">{{ $mahasiswa->skripsiTerakhir->status_skripsi}}</span>
+                                                    class="badge badge-sm bg-gradient-warning">{{ $mahasiswa->skripsiTerakhir->status_skripsi }}</span>
                                             @endif
                                         </td>
 
@@ -201,7 +202,8 @@
                                                             </div>
 
                                                             <div class="ms-auto text-end d-none d-md-block">
-                                                                <span class="badge bg-gradient-{{ ($mahasiswa->skripsiTerakhir->status_skripsi == "Lulus")?'success':'warning' }} mb-1">Status:
+                                                                <span
+                                                                    class="badge bg-gradient-{{ $mahasiswa->skripsiTerakhir->status_skripsi == 'Lulus' ? 'success' : 'warning' }} mb-1">Status:
                                                                     {{ $mahasiswa->skripsiTerakhir->status_skripsi }}</span>
                                                                 <p class="text-xxs text-secondary mb-0">
                                                                     Periode:{{ $mahasiswa->skripsiTerakhir->tanggal_mulai_formatted }}
@@ -271,6 +273,79 @@
             </div>
         </div>
     </div>
+    {{-- ? MODAL EXPORT EXCEL --}}
+    <div class="modal fade" id="modalExport" tabindex="-1" aria-labelledby="modalExportLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-dark">
+                    <h6 class="modal-title text-white" id="modalExportLabel">Export Data Mahasiswa PKL</h6>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-sm text-secondary mb-4">Silakan pilih filter data yang ingin diexport:</p>
+
+                    <form action="/dashboard-departemen/skripsi/export" method="POST" id="exportFilteredForm"
+                        class="row g-3">
+                        @csrf
+
+                        <div class="col-md-4">
+                            <div class="input-group input-group-outline is-filled">
+                                <label class="form-label">Dosen Wali</label>
+                                <select name="dosen_kode_wali" class="form-control" style="appearance: auto;">
+                                    <option value="" selected>Semua</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->kode_wali }}">{{ $dosen->kode_wali }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="input-group input-group-outline is-filled">
+                                <label class="form-label">Angkatan</label>
+                                <select name="angkatan" class="form-control" style="appearance: auto;">
+                                    <option value="" selected>Semua</option>
+                                    @foreach ($angkatans as $angkatan)
+                                        <option value="{{ $angkatan }}">{{ $angkatan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="input-group input-group-outline is-filled">
+                                <label class="form-label">Status</label>
+                                <select name="status_lulus" class="form-control" style="appearance: auto;">
+                                    <option value="" selected>Semua</option>
+                                    <option value="Lulus">Lulus</option>
+                                    <option value="Belum Lulus">Belum Lulus</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Action Buttons --}}
+                        <div class="col-12 mt-4">
+                            <div class="d-flex gap-2">
+                                {{-- Button: Export Filtered --}}
+                                <button type="submit" class="btn btn-info w-100 mb-0">
+                                    <i class="material-icons text-sm me-2">filter_alt</i>
+                                    Export Terfilter
+                                </button>
+                                <a href="skripsi/export" class="btn btn-outline-success w-100 mb-0">
+                                    <i class="material-icons text-sm me-2">download</i>
+                                    Export Semua
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -281,7 +356,7 @@
                 responsive: true,
                 "dom": 'rtp',
                 columnDefs: [{
-                        targets: [5],
+                        targets: [6],
                         orderable: false
                     },
                     //     {
@@ -303,7 +378,7 @@
                 // $ = End of line
                 // true = Enable Regex
                 // false = Disable Smart Search (important!)
-                dataTable.column(4).search(val ? '^' + val + '$' : '', true, false).draw();
+                dataTable.column(5).search(val ? '^' + val + '$' : '', true, false).draw();
             });
             // $('#namaSearch').on('keyup', function() {
             //     dataTable.column(3).search(this.value).draw();
