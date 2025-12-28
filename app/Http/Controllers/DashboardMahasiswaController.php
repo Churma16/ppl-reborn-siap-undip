@@ -26,13 +26,15 @@ class DashboardMahasiswaController extends Controller
         // Mendapatkan data mahasiswa berdasarkan NIM pengguna yang sedang login
         $mahasiswa = Mahasiswa::where('nim', auth()->user()->nip_nim)->first();
 
+        $nim = $mahasiswa->nim;
+
         // Menghitung IPK kumulatif
-        $ipKumulatifNotFormatted = number_format(KHS::where('mahasiswa_nim', $mahasiswa->nim)
+        $ipKumulatifNotFormatted = number_format(KHS::where('mahasiswa_nim', $nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')
             ->avg('ip_semester'), 2);
         $ipk = $ipKumulatifNotFormatted;
 
-        $ipkSmtBefore = KHS::where('mahasiswa_nim', $mahasiswa->nim)
+        $ipkSmtBefore = KHS::where('mahasiswa_nim', $nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')
             ->skip(1)
             ->take(1)
@@ -40,7 +42,7 @@ class DashboardMahasiswaController extends Controller
 
         // dd($ipkSmtBefore);
         // Mendapatkan semester aktif terakhir
-        $semesterAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)
+        $semesterAktif = IRS::where('mahasiswa_nim', $nim)
             ->orderBy('semester_aktif', 'desc')
             ->first();
         if ($semesterAktif == null) {
@@ -50,74 +52,89 @@ class DashboardMahasiswaController extends Controller
         }
 
         $ipkDiff = ($ipk - $ipkSmtBefore);
-        $ipkDiff = $ipkDiff.($ipkDiff > 0 ? '▲' : '▼');
+        $ipkDiff = $ipkDiff . ($ipkDiff > 0 ? '▲' : '▼');
 
-        $ipPerSmt = KHS::where('mahasiswa_nim', $mahasiswa->nim)
-        ->orderBy('semester', 'asc')
-        ->pluck('ip_semester', 'semester');
+        $ipPerSmt = KHS::where('mahasiswa_nim', $nim)
+            ->orderBy('semester', 'asc')
+            ->pluck('ip_semester', 'semester');
 
-        $ipkPerSmt = KHS::where('mahasiswa_nim', $mahasiswa->nim)
-        ->orderBy('semester', 'asc')
-        ->pluck('ip_kumulatif', 'semester');
+        $ipkPerSmt = KHS::where('mahasiswa_nim', $nim)
+            ->orderBy('semester', 'asc')
+            ->pluck('ip_kumulatif', 'semester');
         // dd($ipPerSmt->keys());
 
         // Menghitung SKS kumulatif
-        $sksk = IRS::where('mahasiswa_nim', $mahasiswa->nim)
+        $sksk = IRS::where('mahasiswa_nim', $nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')
             ->sum('jumlah_sks');
 
-        $skskSmtBefore = IRS::where('mahasiswa_nim', $mahasiswa->nim)
+        $skskSmtBefore = IRS::where('mahasiswa_nim', $nim)
             ->where('status_konfirmasi', 'Dikonfirmasi')
             ->where('semester_aktif', '<=', $semesterAktif['semester_aktif'])
             ->orderBy('semester_aktif', 'desc')
             ->take(1)
-            ->value('jumlah_sks').'▲';
+            ->value('jumlah_sks') . '▲';
 
-        // $tglSmtAktif = IRS::where('mahasiswa_nim', $mahasiswa->nim)
+        // $tglSmtAktif = IRS::where('mahasiswa_nim', $nim)
         //     ->join('semesters', 'i_r_s.semester_id', '=', 'semesters.id')
         //     ->orderBy('semesters.tanggal_selesai', 'asc')
         //     // ->select('i_r_s.*')
         //     ->take(1)
         //     ->value('semesters.tanggal_selesai');
 
-        $tglSmtAktif = SEMESTER::whereHas('irs', fn ($q) => $q
-        ->where('mahasiswa_nim', $mahasiswa->nim)
+        $tglSmtAktif = SEMESTER::whereHas(
+            'irs',
+            fn($q) => $q
+                ->where('mahasiswa_nim', $nim)
         )
-        ->orderBy('tanggal_selesai', 'asc')
-        ->value('tanggal_selesai');
+            ->orderBy('tanggal_selesai', 'asc')
+            ->value('tanggal_selesai');
 
         // dd($tglSmtAktif);
         $countdownSemester = Carbon::parse($tglSmtAktif)->diffInDays(Carbon::now());
-        $khsSmtLatest = KHS::where('mahasiswa_nim', $mahasiswa->nim)
-        ->latest()
-        ->first();
+        $khsSmtLatest = KHS::where('mahasiswa_nim', $nim)
+            ->latest()
+            ->first();
 
-        $irsSmtLatest = IRS::where('mahasiswa_nim', $mahasiswa->nim)
-        ->latest()
-        ->first();
+        $irsSmtLatest = IRS::where('mahasiswa_nim', $nim)
+            ->latest()
+            ->first();
 
-        $skripsiSmtLatest = Skripsi::where('mahasiswa_nim', $mahasiswa->nim)
-        ->latest()
-        ->first();
+        $skripsiSmtLatest = Skripsi::where('mahasiswa_nim', $nim)
+            ->latest()
+            ->first();
 
-        $pklSmtLatest = PKL::where('mahasiswa_nim', $mahasiswa->nim)
-        ->latest()
-        ->first();
+        $pklSmtLatest = PKL::where('mahasiswa_nim', $nim)
+            ->latest()
+            ->first();
 
         $statusSkripsi = $skripsiSmtLatest?->status_konfirmasi ?? SkripsiStatusKonfirmasi::Belum_Ambil;
         $statusPkl = $pklSmtLatest?->status_konfirmasi ?? SkripsiStatusKonfirmasi::Belum_Ambil;
 
-        $steps = [
-            'Pengajuan Judul',
-            'Bimbingan Proposal',
-            'Seminar Proposal',
-            'Bimbingan Skripsi',
-            'Sidang Akhir',
-            'Lulus',
-        ];
+        $lastKhsActivity = KHS::where('mahasiswa_nim', $nim)->limit(2)->latest()->get()->map(function ($item) {
+            $item->type = 'KHS';
+            return $item;
+        });
+        $lastIrsActivity = IRS::where('mahasiswa_nim', $nim)->limit(2)->latest()->get()->map(function ($item) {
+            $item->type = 'IRS';
+            return $item;
+        });
+        $lastSkripsiActivity = Skripsi::where('mahasiswa_nim', $nim)->limit(2)->latest()->get()->map(function ($item) {
+            $item->type = 'Skripsi';
+            return $item;
+        });
+        $lastPklActivity = PKL::where('mahasiswa_nim', $nim)->limit(2)->latest()->get()->map(function ($item) {
+            $item->type = 'PKL';
+            return $item;
+        });
 
-        $currentStepIndex = 3; // Misalnya, langkah saat ini adalah "Bimbingan Skripsi"
-        // dd($khsSmtLatest);
+        $lastActivities = $lastKhsActivity->concat($lastIrsActivity)
+            ->concat($lastSkripsiActivity)
+            ->concat($lastPklActivity)
+            ->sortByDesc('created_at')
+            ->take(5);
+        // dd($lastActivities->semester);
+        //
         return view('dashboard-mahasiswa.index', [
             'title' => 'Dashboard Mahasiswa',
             'mahasiswa' => $mahasiswa,
@@ -133,8 +150,7 @@ class DashboardMahasiswaController extends Controller
             'irsSmtLatest' => $irsSmtLatest,
             'statusSkripsi' => $statusSkripsi,
             'statusPkl' => $statusPkl,
-            'steps' => $steps,
-            'currentStepIndex' => $currentStepIndex,
+            'lastActivities' => $lastActivities,
         ]);
     }
 
