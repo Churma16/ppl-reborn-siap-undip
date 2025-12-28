@@ -65,6 +65,8 @@
                                         Angkatan</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                         Instansi</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Terakhir<br>Bimbingan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Periode</th> {{-- Digabung --}}
@@ -103,7 +105,11 @@
                                             </p>
                                         </td>
 
-                                        {{-- PERIODE (GABUNGAN TGL MULAI & SELESAI) --}}
+                                        <td class="align-middle ">
+                                            <span
+                                                class="text-secondary text-xs font-weight-bold">{{ $mahasiswa->pklTerakhir->created_at->format('d M Y') }}</span>
+                                        </td>
+
                                         <td class="align-middle text-center">
                                             @if ($mahasiswa->pklTerakhir)
                                                 <span class="text-secondary text-xs font-weight-bold d-block">
@@ -119,7 +125,6 @@
                                         </td>
 
                                         <td class="align-middle text-center text-sm">
-                                            {{-- Badge Status (Kode Anda sudah oke) --}}
                                             @if ($mahasiswa->pklTerakhir == null)
                                                 <span class="badge badge-sm bg-gradient-secondary">Belum PKL</span>
                                             @elseif ($mahasiswa->pklTerakhir->status_lulus == 'Lulus')
