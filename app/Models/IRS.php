@@ -28,5 +28,8 @@ class IRS extends Model
         return $this->belongsTo(Semester::class);
     }
 
-
+    public function details()
+    {
+        return $this->hasMany(IrsDetail::class, 'irs_id');
+    }
 }
