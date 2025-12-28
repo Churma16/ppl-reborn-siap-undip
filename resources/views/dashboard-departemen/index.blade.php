@@ -94,8 +94,8 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-8">
+    <div class="row mt-0 mt-xl-4">
+        <div class="col-12 col-md-6 col-xl-8">
             <div class="card">
                 <div class="card-body">
                     <h5>Monitoring Tingkat Akhir</h5>
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-md-6 col-xl-4 mt-4 mt-md-0 mt-xl-0">
             <div class="card">
                 <div class="card-body">
                     <h5>Beban Dosen</h5>
