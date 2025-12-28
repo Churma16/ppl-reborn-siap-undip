@@ -18,6 +18,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    @yield('meta')
     <link rel="apple-touch-icon" sizes="76x76" href="img/logo-undip.png" />
     <link rel="icon" type="image/png" href="img/logo-undip.png" />
     <title>Siap Undip</title>
@@ -122,6 +123,8 @@
         feather.replace()
     </script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </body>
 
