@@ -18,9 +18,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
-    <title>Material Dashboard 2 by Creative Tim</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/logo-undip.png" />
+    <link rel="icon" type="image/png" href="/img/logo-undip.png" />
+    <title>{{ $title }} - Siap Undip</title>
 
     @yield('styles')
     <!--     Fonts and icons     -->
@@ -64,7 +64,6 @@
 
 
 
-    <!--   Core JS Files   -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
@@ -73,6 +72,8 @@
 
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="/assets/js/material-dashboard.min.js?v=3.0.5"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
