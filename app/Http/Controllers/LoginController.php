@@ -43,7 +43,8 @@ class LoginController extends Controller
 
         $user = $this->authService->authenticate(
             $credentials['username'],
-            $credentials['password']);
+            $credentials['password']
+        );
 
         // check apakah usernya ada
         if ($user) {
@@ -75,7 +76,9 @@ class LoginController extends Controller
             // }
         }
 
-        return back()->withInput()->withErrors(['loginError' => 'Username or password is incorrect!']);
+        return back()
+            ->withInput($request->only('username')) // Hanya kembalikan username, password jangan
+            ->withErrors(['loginError' => 'Username atau password salah!']);
     }
 
     /**
