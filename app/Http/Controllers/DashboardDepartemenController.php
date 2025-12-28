@@ -11,6 +11,9 @@ use App\Models\Semester;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Departemen\MahasiswaPKLExport;
+use App\Exports\Departemen\MahasiswaSkripsiExport;
 
 class DashboardDepartemenController extends Controller
 {
@@ -168,6 +171,7 @@ class DashboardDepartemenController extends Controller
         $rasioColor = $rasio > 30 ? 'text-danger' : 'text-success';
         // dd($bebanDoswal->keys());
         return view('dashboard-departemen.index', [
+            'title' => 'Dashboard Departemen',
             'mahasiswa' => $mahasiswa,
             'dosen' => $dosen,
             'pkl' => $pkl,
@@ -186,6 +190,7 @@ class DashboardDepartemenController extends Controller
             'rasioColor' => $rasioColor,
             'calonWisudaBeforeCount' => $calonWisudaBeforeCount,
             'calonWisudaDiff' => $calonWisudaDiff,
+            
         ]);
     }
 
@@ -203,6 +208,7 @@ class DashboardDepartemenController extends Controller
 
         // dd($mahasiswa->pklTerakhir);
         return view('dashboard-departemen.data-mahasiswa', [
+            'title' => 'Data Mahasiswa',
             'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,
             'dosens' => $dosens,
@@ -226,12 +232,15 @@ class DashboardDepartemenController extends Controller
             ->orderBy('angkatan', 'desc')
             ->get();
 
+        $dosens = Dosen::get(['kode_wali', 'nama']);
         // dd($mahasiswas);
-        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+        $angkatans = Mahasiswa::select('angkatan')->distinct()->pluck('angkatan');
 
         return view('dashboard-departemen.data-mahasiswa-pkl', [
             'mahasiswas' => $mahasiswas,
-            'angkatans' => $angkatan,
+            'angkatans' => $angkatans,
+            'dosens' => $dosens,
+            'title' => 'Data Mahasiswa PKL',
         ]);
     }
 
@@ -242,15 +251,99 @@ class DashboardDepartemenController extends Controller
      */
     public function dataMahasiswaSkripsi()
     {
-        $mahasiswas = Mahasiswa::with('skripsiTerakhir', 'skripsi')->
-        whereHas('skripsi')
-        ->get();
+        $mahasiswas = Mahasiswa::with('skripsiTerakhir', 'skripsi')->whereHas('skripsi')
+            ->get();
 
-
-        $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+        $dosens = Dosen::get(['kode_wali', 'nama']);
+        $angkatans = Mahasiswa::select('angkatan')->distinct()->pluck('angkatan');
         return view('dashboard-departemen.data-mahasiswa-skripsi', [
+            'title' => 'Data Mahasiswa Skripsi',
             'mahasiswas' => $mahasiswas,
-            'angkatans' => $angkatan,
+            'angkatans' => $angkatans,
+            'dosens' => $dosens,
+
         ]);
+    }
+
+    public function exportPklExcel(Request $request)
+    {
+        $request->validate([
+            'angkatan' => 'nullable|integer',
+            'dosen_kode_wali' => 'nullable|string',
+            'status_lulus' => 'nullable|string',
+        ]);
+
+        $query = Mahasiswa::with('pklTerakhir')->whereHas('pkl');
+
+        $query
+            ->when($request->filled('angkatan'), function ($q) use ($request) {
+                return $q->where('angkatan', $request->angkatan);
+            })
+            ->when($request->filled('dosen_kode_wali'), function ($q) use ($request) {
+                return $q->where('dosen_kode_wali', $request->dosen_kode_wali);
+            })
+            ->when($request->filled('status_lulus'), function ($q) use ($request) {
+                return $q->whereHas('pklTerakhir', function ($sub) use ($request) {
+                    $sub->where('status_lulus', $request->status_lulus);
+                });
+            });
+
+        $mahasiswas = $query->orderBy('angkatan', 'desc')->get();
+
+        $filters = [
+            $request->angkatan,
+            $request->dosen_kode_wali,
+            $request->status_lulus,
+            Carbon::now()->format('Ymd_His')
+        ];
+
+        $fileNameSuffix = collect($filters)->filter()->implode('_');
+
+        return Excel::download(
+            new MahasiswaPKLExport($mahasiswas),
+            "Data_Mahasiswa_PKL_{$fileNameSuffix}.xlsx"
+        );
+    }
+
+
+    public function exportSkripsiExcel(Request $request)
+    {
+        $request->validate([
+            'angkatan' => 'nullable|integer',
+            'dosen_kode_wali' => 'nullable|string',
+            'status_lulus' => 'nullable|string',
+        ]);
+
+        $query = Mahasiswa::with('skripsiTerakhir')->whereHas('skripsi');
+
+        $query
+            ->when($request->filled('angkatan'), function ($q) use ($request) {
+                return $q->where('angkatan', $request->angkatan);
+            })
+            ->when($request->filled('dosen_kode_wali'), function ($q) use ($request) {
+                return $q->where('dosen_kode_wali', $request->dosen_kode_wali);
+            })
+            ->when($request->filled('status_lulus'), function ($q) use ($request) {
+                return $q->whereHas('skripsiTerakhir', function ($sub) use ($request) {
+                    $sub->where('status_skripsi', $request->status_lulus);
+                });
+            });
+
+        $mahasiswas = $query->orderBy('angkatan', 'desc')->get();
+
+        // 3. Penamaan File (Seperti saran sebelumnya)
+        $filters = [
+            $request->angkatan,
+            $request->dosen_kode_wali,
+            $request->status_lulus,
+            Carbon::now()->format('Ymd_His')
+        ];
+
+        $fileNameSuffix = collect($filters)->filter()->implode('_');
+
+        return Excel::download(
+            new MahasiswaSkripsiExport($mahasiswas),
+            "Data_Mahasiswa_Skripsi_{$fileNameSuffix}.xlsx"
+        );
     }
 }

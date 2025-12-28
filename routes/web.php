@@ -40,10 +40,11 @@ Route::resource('/', BerandaGuestController::class);
 // Departemen
 Route::middleware(['auth', 'role:' . UserRole::Departemen->value])->group(function () {
     Route::get('/dashboard-departemen', [DashboardDepartemenController::class, 'index']);
-
     Route::get('/dashboard-departemen/data-mahasiswa', [DashboardDepartemenController::class, 'dataMahasiswa']);
     Route::get('/dashboard-departemen/data-mahasiswa-pkl', [DashboardDepartemenController::class, 'dataMahasiswaPkl']);
     Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
+    Route::match(['get', 'post'], '/dashboard-departemen/pkl/export', [DashboardDepartemenController::class, 'exportPklExcel']);
+    Route::match(['get', 'post'], '/dashboard-departemen/skripsi/export', [DashboardDepartemenController::class, 'exportSkripsiExcel']);
 });
 
 // Dosen
