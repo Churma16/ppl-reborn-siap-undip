@@ -23,4 +23,13 @@ enum PklStatusKonfirmasi: string {
             default => $this->value,
         };
     }
+
+        public function icon(): string {
+        return match($this) {
+            self::Dikonfirmasi => 'check_circle',
+            self::Ditolak => 'cancel',
+            self::Belum_Dikonfirmasi => 'hourglass_empty',
+            self::Belum_Ambil => 'secondary', // Warna abu-abu
+        };
+    }
 }
