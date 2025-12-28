@@ -35,6 +35,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css"> --}}
+
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
@@ -58,30 +63,31 @@
     @include('partials.plugin')
 
 
-    
+
     <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="/assets/js/plugins/chartjs.min.js"></script>
-    @yield('scripts')
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="/assets/js/material-dashboard.min.js?v=3.0.5"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <script>
         var win = navigator.platform.indexOf("Win") > -1;
         if (win && document.querySelector("#sidenav-scrollbar")) {
             var options = {
-                damping: "0.5",
+                damping: "0.5"
             };
-            Scrollbar.init(
-                document.querySelector("#sidenav-scrollbar"),
-                options
-            );
+            Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
         }
     </script>
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="/assets/js/material-dashboard.min.js?v=3.0.5"></script>
+
+    @yield('scripts')
 </body>
 
 </html>
