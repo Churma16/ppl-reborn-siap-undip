@@ -56,9 +56,20 @@ class Skripsi extends Model
         $date = Carbon::parse($this->tanggal_sidang);
         return $date->format('d M Y');
     }
+    public function getStatusColorAttribute()
+    {
+        if (is_null($this->status_lulus)) {
+            return 'secondary';
+        }
 
+        return $this->status_lulus == 'Lulus' ? 'success' : 'warning';
+    }
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
+    }
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
     }
 }
