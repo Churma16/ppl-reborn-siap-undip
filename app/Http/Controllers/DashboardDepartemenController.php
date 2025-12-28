@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa;
-use App\Models\Dosen;
+use Carbon\Carbon;
 use App\Models\KHS;
 use App\Models\Pkl;
-use App\Models\Semester;
+use App\Models\Dosen;
 use App\Models\Skripsi;
+use App\Models\Semester;
 
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class DashboardDepartemenController extends Controller
@@ -218,8 +219,12 @@ class DashboardDepartemenController extends Controller
         // $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
         //     return $mahasiswa->semester_aktif >= 6;
         // });
-
-        $mahasiswas = Mahasiswa::with('pklTerakhir','pkl')->whereHas('pkl')->get();
+        $batasAngkatan = Carbon::now()->year - 21;
+        $mahasiswas = Mahasiswa::with('pklTerakhir', 'pkl')
+            ->whereHas('pkl')
+            // ->where('angkatan', '>=', $batasAngkatan)
+            ->orderBy('angkatan', 'desc')
+            ->get();
 
         // dd($mahasiswas);
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
@@ -237,9 +242,8 @@ class DashboardDepartemenController extends Controller
      */
     public function dataMahasiswaSkripsi()
     {
-        $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
-            return $mahasiswa->semester_aktif >= 7;
-        });
+        $mahasiswas = Mahasiswa::with('skripsiTerakhir', 'skripsi')->whereHas('skripsi')->get();
+
 
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
 
