@@ -4,10 +4,11 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
+        <a class="navbar-brand m-0" href=" /dashboard-departemen" "
             target="_blank">
-            <img src="/assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
+            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo"
+                style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));" />
+            <span class="ms-1 text-white">SIAP</span> <span class=" font-weight-bold text-white">UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
