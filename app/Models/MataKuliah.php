@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class MataKuliah extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function irsDetails() {
+        return $this->hasMany(IrsDetail::class, 'mata_kuliah_id');
+    }
 }
