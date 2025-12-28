@@ -1,5 +1,8 @@
 @extends('dashboard-dosen.layouts.main')
 
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('content')
     <div class="row">
@@ -134,46 +137,8 @@
                                                 Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach ($permintaanTerbarus as $permintaanTerbaru)
-                                            <tr>
-                                                <td style="width: auto; white-space: nowrap;">
-                                                    <div class="px-0">
-                                                        <div class="my-auto ms-2">
-                                                            <h6 class="mb-0 text-md">
-                                                                {{ $permintaanTerbaru->mahasiswa->nama }}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-md font-weight-normal  mb-0">
-                                                        {{ $permintaanTerbaru->type }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-md font-weight-normal  mb-0">
-                                                        {{ $permintaanTerbaru->created_at->format('d M Y') }}</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="/dashboard-dosen/validasi/{{ $permintaanTerbaru->id }}"
-                                                        class="btn btn-outline-info px-2 py-1" title="Lihat">
-                                                        <i class="material-icons">visibility</i>
-                                                    </a>
-
-                                                    <a href="javascript:void(0)"
-                                                        onclick="handleValidation({{ $permintaanTerbaru->id }}, 'approve')"
-                                                        class="btn btn-outline-success px-2 py-1" title="Setujui">
-                                                        <i class="material-icons">check</i>
-                                                    </a>
-
-                                                    <a href="javascript:void(0)"
-                                                        onclick="handleValidation({{ $permintaanTerbaru->id }}, 'reject')"
-                                                        class="btn btn-outline-danger px-2 py-1" title="Tolak">
-                                                        <i class="material-icons">close</i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    <tbody id="tableBody">
+                                        @include('dashboard-dosen.partials.validation_rows')
                                     </tbody>
                                 @endif
                             </table>
@@ -362,5 +327,65 @@
                 info: false
             });
         });
+
+        function refreshTable() {
+            fetch('/dashboard-dosen/validasi/table')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('tableBody').innerHTML = html;
+                });
+        }
+
+
+
+
+        function handleValidation(id, action, type) {
+            // 1. Confirm action (Optional but recommended)
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: action === 'approve' ? "Ingin menyetujui permintaan ini?" : "Ingin menolak permintaan ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Lanjutkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 2. Perform AJAX Request
+                    performAjax(id, action, type);
+                }
+            });
+        }
+
+        function performAjax(id, action, type) {
+            // Construct the URL based on action
+            let url = `/dashboard-dosen/validasi/${id}/${action}/${type}`;
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) return response.json();
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    // SUCCESS: Instead of removing row, we REFRESH the table
+                    refreshTable();
+                    // console.log("Message from Controller:", data.message);
+                    Swal.fire('Berhasil!', `Permintaan telah di-${action}.`, 'success');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire(
+                        'Gagal!',
+                        'Terjadi kesalahan saat memproses permintaan.',
+                        'error'
+                    );
+                });
+        }
     </script>
 @endsection
