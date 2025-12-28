@@ -27,8 +27,7 @@
     @yield('styles')
     <link rel="canonical" href="{{ url('/') }}" />
 
-    <meta name="keywords"
-        content="siap undip, student information system, undip dashboard, academic portal">
+    <meta name="keywords" content="siap undip, student information system, undip dashboard, academic portal">
     <meta name="description"
         content="Siap Undip adalah sistem informasi akademik terintegrasi untuk mahasiswa Universitas Diponegoro.">
 
@@ -56,6 +55,9 @@
 
     <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
 
+    <!-- Sweet Alert 2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <style>
         .async-hide {
             opacity: 0 !important
@@ -77,7 +79,8 @@
         </div>
     </main>
 
-    @yield('scripts')
+    <!-- Sweet Alert 2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -93,6 +96,7 @@
     </script>
 
     <script src="/assets/js/material-dashboard.min.js?v=3.1.0"></script>
+    @yield('scripts')
 </body>
 
 </html>
