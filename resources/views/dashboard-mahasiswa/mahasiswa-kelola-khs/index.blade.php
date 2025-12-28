@@ -51,14 +51,14 @@
                                     </div>
                                 </div>
                                 <a href="{{ asset('storage/' . $khs->file_sks) }}" target="_blank"
-                                    class="btn btn-info">Lihat File khs</a>
+                                    class="btn btn-outline-info">Lihat File khs</a>
                             </div>
                         </div>
                     @endforeach
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-khs/create" class="btn btn-primary">Unggah khs</a>
+                <a href="/dashboard-mahasiswa/kelola-khs/create" class="btn btn-dark">Unggah khs</a>
             </div>
 
         </div>
