@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kode')->unique();
             $table->string('nama');
             $table->integer('sks');
+            $table->string('sifat');
             $table->string('semester');
             $table->timestamps();
         });
