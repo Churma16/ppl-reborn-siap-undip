@@ -4,10 +4,11 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-            target="_blank">
-            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white">SIAP UNDIP</span>
+        <a class="navbar-brand m-0" href=" /dashboard-mahasiswa" "
+            >
+            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo"
+                style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));" />
+            <span class="ms-1 text-white">SIAP</span> <span class=" font-weight-bold text-white">UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
@@ -23,12 +24,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/kelola-irs*') ? 'bg-gradient-primary' : '' }}"
+                <a class="nav-link text-white {{ Request::is('dashboard-mahasiswa/irs*') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-mahasiswa/irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">description</i>
                     </div>
-                    <span class="nav-link-text ms-1">Isian Rencana Studi (IRS)</span>
+                    <span class="nav-link-text ms-1">Isian Rencana Studi</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -37,7 +38,7 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">menu_book</i>
                     </div>
-                    <span class="nav-link-text ms-1">Kartu Hasil Studi (KHS)</span>
+                    <span class="nav-link-text ms-1">Kartu Hasil Studi</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -46,7 +47,7 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">badge</i>
                     </div>
-                    <span class="nav-link-text ms-1">Praktek Kerja Lapangan (PKL)</span>
+                    <span class="nav-link-text ms-1">Praktik Kerja Lapangan</span>
                 </a>
             </li>
             <li class="nav-item">
