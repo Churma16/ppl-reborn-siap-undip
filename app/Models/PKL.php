@@ -2,25 +2,43 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Enums\PklStatusKonfirmasi;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PKL extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
 
     protected $casts = [
         'status_konfirmasi' => PklStatusKonfirmasi::class,
     ];
 
+    public function scopeBelumDikonfirmasi($q)
+    {
+        return $q->where('status_konfirmasi', PklStatusKonfirmasi::Belum_Dikonfirmasi);
+    }
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class);
     }
 
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function getStatusColorAttribute()
+    {
+        if (is_null($this->status_lulus)) {
+            return 'secondary';
+        }
+
+        return $this->status_lulus == 'Lulus' ? 'success' : 'warning';
+    }
     /**
      * This function counts the number of PKL records with the status "lulus" and "belum lulus" and returns
      * the counts as an associative array.
@@ -49,6 +67,7 @@ class PKL extends Model
     public function getTanggalMulaiFormattedAttribute()
     {
         $date = Carbon::parse($this->tanggal_mulai);
+
         return $date->format('d M Y');
     }
 
@@ -59,7 +78,12 @@ class PKL extends Model
      */
     public function getTanggalSelesaiFormattedAttribute()
     {
+        if (is_null($this->tanggal_selesai)) {
+            return null;
+        }
+        
         $date = Carbon::parse($this->tanggal_selesai);
+
         return $date->format('d M Y');
     }
 
@@ -72,6 +96,7 @@ class PKL extends Model
     public function getTanggalDiunggahAtrribute()
     {
         $date = Carbon::parse($this->created_at);
+
         return $date->format('d M Y');
     }
 }
