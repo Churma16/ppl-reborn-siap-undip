@@ -84,19 +84,19 @@
                                     </div>
                                 </div>
                                 <a href="{{ asset('storage/' . $skripsi->file_skripsi) }}" target="_blank"
-                                    class="btn btn-info">Lihat File Skripsi</a>
+                                    class="btn btn-outline-info">Lihat File Skripsi</a>
                             </div>
                         </div>
                     @endforeach
                 @endif
             </div>
             <div class="ms-auto me-4 mt-5">
-                <a href="/dashboard-mahasiswa/kelola-skripsi/create" class="btn btn-primary">Unggah Skripsi</a>
+                <a href="/dashboard-mahasiswa/kelola-skripsi/create" class="btn btn-dark">Unggah Skripsi</a>
             </div>
 
         </div>
     </div>
-    
+
 @endsection
 
 @section('scripts')
