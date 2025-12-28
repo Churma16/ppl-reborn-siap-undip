@@ -26,13 +26,34 @@ class DashboardDepartemenController extends Controller
         $skripsi = new Skripsi();
 
         $semesterAktif = Semester::semesterAktif()->first();
-        $rerataMhsSemesterLalu = round(KHS::where('semester_id',  $semesterAktif->id)
-            ->avg('ip_semester'), 2);
+        $semesterLalu = Semester::where('id', '<', $semesterAktif->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+
+        if ($semesterLalu) {
+            $rerataMhsSemesterLalu = round(KHS::where('semester_id', $semesterLalu->id)
+                ->avg('ip_semester'), 2);
+        } else {
+            $rerataMhsSemesterLalu = 0;
+        }
 
         $calonWisudaCount = Skripsi::where('status_skripsi', 'Lulus')
             ->where('semester_id', $semesterAktif->id)
             ->count();
+
+        if ($semesterLalu) {
+            $calonWisudaBeforeCount = Skripsi::where('status_skripsi', 'Lulus')
+                ->where('semester_id', $semesterLalu->id)
+                ->count() ?? 0;
+        } else {
+            $calonWisudaBeforeCount = 0;
+        }
+        // dd($calonWisudaBeforeCount);
+        $calonWisudaDiff =  $calonWisudaCount - $calonWisudaBeforeCount;
+        $calonWisudaDiff = sprintf('%+d', $calonWisudaDiff);
         // dd($calonWisudaCount);
+
 
         $mhsKritis = Mahasiswa::whereRelation('irs', 'status_mahasiswa', 'Aktif')
             ->whereHas('khsTerakhir', function ($q) {
@@ -162,6 +183,8 @@ class DashboardDepartemenController extends Controller
             // 'totalDosen' => $totalDosen,
             'rasioDosenMahasiswa' => $rasioDosenMahasiswa,
             'rasioColor' => $rasioColor,
+            'calonWisudaBeforeCount' => $calonWisudaBeforeCount,
+            'calonWisudaDiff' => $calonWisudaDiff,
         ]);
     }
 
@@ -172,12 +195,16 @@ class DashboardDepartemenController extends Controller
      */
     public function dataMahasiswa()
     {
-        $mahasiswa = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::with('pklTerakhir', 'skripsiTerakhir', 'khsTerakhir', 'irsAktif')->get();
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
+        $dosens = Dosen::get(['kode_wali', 'nama']);
 
+
+        // dd($mahasiswa->pklTerakhir);
         return view('dashboard-departemen.data-mahasiswa', [
-            'mahasiswas' => $mahasiswa,
+            'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,
+            'dosens' => $dosens,
         ]);
     }
 
@@ -188,10 +215,13 @@ class DashboardDepartemenController extends Controller
      */
     public function dataMahasiswaPkl()
     {
-        $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
-            return $mahasiswa->semester_aktif >= 6;
-        });
+        // $mahasiswas = Mahasiswa::all()->filter(function ($mahasiswa) {
+        //     return $mahasiswa->semester_aktif >= 6;
+        // });
 
+        $mahasiswas = Mahasiswa::with('pklTerakhir','pkl')->whereHas('pkl')->get();
+
+        // dd($mahasiswas);
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
 
         return view('dashboard-departemen.data-mahasiswa-pkl', [
