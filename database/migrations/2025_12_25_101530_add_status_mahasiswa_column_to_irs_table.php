@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mata_kuliahs', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode')->unique();
-            $table->string('nama');
-            $table->integer('sks');
-            $table->string('semester');
-            $table->timestamps();
+        Schema::table('i_r_s', function (Blueprint $table) {
+            // Add status_mahasiswa column
+            $table->string('status_mahasiswa')->nullable()->after('status_konfirmasi')->default('Aktif');
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mata_kuliahs');
+        Schema::table('i_r_s', function (Blueprint $table) {
+            // Drop status_mahasiswa column
+            $table->dropColumn('status_mahasiswa');
+        });
     }
 };
