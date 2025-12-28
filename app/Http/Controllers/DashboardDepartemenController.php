@@ -242,11 +242,12 @@ class DashboardDepartemenController extends Controller
      */
     public function dataMahasiswaSkripsi()
     {
-        $mahasiswas = Mahasiswa::with('skripsiTerakhir', 'skripsi')->whereHas('skripsi')->get();
+        $mahasiswas = Mahasiswa::with('skripsiTerakhir', 'skripsi')->
+        whereHas('skripsi')
+        ->get();
 
 
         $angkatan = Mahasiswa::select('angkatan')->distinct()->get();
-
         return view('dashboard-departemen.data-mahasiswa-skripsi', [
             'mahasiswas' => $mahasiswas,
             'angkatans' => $angkatan,
