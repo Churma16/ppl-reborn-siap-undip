@@ -4,10 +4,11 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-            target="_blank">
-            <img src="/img/Undip.png" class="navbar-brand-img h-100 mb-2" alt="main_logo" />
-            <span class="ms-1 font-weight-bold text-white text-lg">SIAP UNDIP</span>
+        <a class="navbar-brand m-0" href=" /dashboard-admin"
+            >
+            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo"
+                style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));" />
+            <span class="ms-1 text-white">SIAP</span> <span class=" font-weight-bold text-white">UNDIP</span>
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
@@ -23,8 +24,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/data-mahasiswa') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/data-mahasiswa">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/mahasiswa') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/mahasiswa">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">people</i>
                     </div>
@@ -32,30 +33,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/tambah-mahasiswa-baru') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/tambah-mahasiswa-baru">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">person_add</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Tambah Mahasiswa Baru</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-admin/semester') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-admin/semester">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">people</i>
+                        <i class="material-icons opacity-10">calendar_month</i>
                     </div>
                     <span class="nav-link-text ms-1">Data Semester</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-admin/semester/create') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-admin/semester/create">
+                <a class="nav-link text-white {{ Request::is('dashboard-admin/mata-kuliah') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-admin/mata-kuliah">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">person_add</i>
+                        <i class="material-icons opacity-10">book</i>
                     </div>
-                    <span class="nav-link-text ms-1">Tambah Semester Baru</span>
+                    <span class="nav-link-text ms-1">Data Mata Kuliah</span>
                 </a>
             </li>
             <li class="nav-item mt-3">
