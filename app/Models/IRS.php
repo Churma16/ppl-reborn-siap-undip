@@ -17,6 +17,18 @@ class IRS extends Model
         'status_konfirmasi' => KhsStatusKonfirmasi::class,
     ];
 
+    public function ScopeBelumDikonfirmasi($query)
+    {
+        return $query->where('status_konfirmasi', KhsStatusKonfirmasi::Belum_Dikonfirmasi);
+    }
+
+    public function scopeMilikDosen($query, $kode_dosen)
+    {
+        return $query->whereHas('mahasiswa', function ($q) use ($kode_dosen) {
+            $q->where('dosen_kode_wali', $kode_dosen);
+        });
+    }
+
     public function mahasiswa()
     {
         // return $this->belongsTo(Mahasiswa::class, 'irs_id');

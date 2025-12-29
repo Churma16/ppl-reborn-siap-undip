@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\MataKuliahController;
 use App\Http\Controllers\DashboardMahasiswaController;
 use App\Http\Controllers\DashboardDepartemenController;
+use App\Http\Controllers\Departemen\DosenController;
+use App\Http\Controllers\Dosen\IrsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,12 +47,16 @@ Route::middleware(['auth', 'role:' . UserRole::Departemen->value])->group(functi
     Route::get('/dashboard-departemen/data-mahasiswa-skripsi', [DashboardDepartemenController::class, 'dataMahasiswaSkripsi']);
     Route::match(['get', 'post'], '/dashboard-departemen/pkl/export', [DashboardDepartemenController::class, 'exportPklExcel']);
     Route::match(['get', 'post'], '/dashboard-departemen/skripsi/export', [DashboardDepartemenController::class, 'exportSkripsiExcel']);
+    Route::get('/dashboard-departemen/dosen', [DosenController::class, 'index']);
+    Route::get('/dashboard-departemen/cetak-perwalian/{nip}', [DosenController::class, 'cetakPdfPerwalian']);
 });
 
 // Dosen
 Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function () {
     Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 
+    Route::get('/dashboard-dosen/verifikasi-irs/table', [IrsController::class, 'getIrsVerificationTable']);
+    Route::post('/dashboard-dosen/irs/validate/{id}/{action}', [IrsController::class, 'verifikasiIrs']);
     Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
     Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
         ->where('action', 'terima|tolak');
@@ -69,6 +75,8 @@ Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function ()
 
     Route::get('/dashboard-dosen/validasi/table', [DashboardDosenController::class, 'getValidationTable']);
     Route::post('/dashboard-dosen/validasi/{id}/{action}/{type}', [DashboardDosenController::class, 'verifyDashboardRequest']);
+
+
 });
 
 // Mahasiswa
