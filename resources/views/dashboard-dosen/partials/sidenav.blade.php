@@ -4,9 +4,8 @@
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-            target="_blank">
-            <img src="img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo"
+        <a class="navbar-brand m-0" href=" /dashboard-dosen " target="_blank">
+            <img src="/img/logo-undip.png" class="navbar-brand-img h-100" alt="main_logo"
                 style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));" />
             <span class="ms-1 text-white">SIAP</span> <span class=" font-weight-bold text-white">UNDIP</span>
         </a>
@@ -24,13 +23,18 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">
+                    Verifikasi Mahasiswa
+                </h6>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-dosen/irs') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-dosen/irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">assignment</i>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Verifikasi IRS Mahasiswa</span>
+                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Isian Rencana Studi</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -41,7 +45,7 @@
                             <i class="material-icons opacity-10">assessment</i>
                         </div>
                         <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">
-                            Verifikasi KHS Mahasiswa
+                            Kartu Hasil Studi
                         </span>
                     </div>
                     {{-- BAGIAN KANAN: Badge --}}
@@ -59,7 +63,7 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">work</i>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Verifikasi Mahasiswa PKL</span>
+                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Praktik Kerja Lapangan</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -68,7 +72,7 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">school</i>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Verifikasi Mahasiswa
+                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">
                         Skripsi</span>
                 </a>
             </li>
