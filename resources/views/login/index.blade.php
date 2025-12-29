@@ -82,6 +82,34 @@
 
 @section('scripts')
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ambil semua elemen input di dalam grup outline
+            const inputs = document.querySelectorAll('.input-group-outline input');
+
+            inputs.forEach(input => {
+                // 1. Cek saat halaman dimuat (untuk menangani Autofill browser)
+                if (input.value !== "") {
+                    input.parentElement.classList.add('is-filled');
+                }
+
+                // 2. Cek saat user mengetik atau klik area luar
+                input.addEventListener('focusout', function() {
+                    if (this.value !== "") {
+                        this.parentElement.classList.add('is-filled');
+                    } else {
+                        this.parentElement.classList.remove('is-filled');
+                    }
+                });
+
+                // 3. Listener tambahan khusus untuk mendeteksi autofill modern
+                input.addEventListener('animationstart', function(e) {
+                    if (e.animationName === 'onAutoFillStart') {
+                        this.parentElement.classList.add('is-filled');
+                    }
+                });
+            });
+        });
+        
         @if (session('error'))
             Swal.fire({
                 icon: 'error',
