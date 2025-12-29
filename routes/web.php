@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
+use App\Http\Controllers\Dosen\IrsController;
+use App\Http\Controllers\Dosen\KhsController;
 use App\Http\Controllers\BerandaGuestController;
 use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\MahasiswaKelolaSkripsi;
@@ -15,10 +17,9 @@ use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardDosenController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\MataKuliahController;
+use App\Http\Controllers\Departemen\DosenController;
 use App\Http\Controllers\DashboardMahasiswaController;
 use App\Http\Controllers\DashboardDepartemenController;
-use App\Http\Controllers\Departemen\DosenController;
-use App\Http\Controllers\Dosen\IrsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,14 +58,11 @@ Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function ()
 
     Route::get('/dashboard-dosen/irs/', [IrsController::class, 'index']);
     Route::get('/dashboard-dosen/verifikasi-irs/table', [IrsController::class, 'getIrsVerificationTable']);
-    Route::post('/dashboard-dosen/irs/validate/{id}/{action}', [IrsController::class, 'verifikasiIrs']);
-    // Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
-    // Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
-    //     ->where('action', 'terima|tolak');
+    Route::post('/dashboard-dosen/irs/{id}/{action}', [IrsController::class, 'verifikasiIrs']);
 
-    Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiKhs']);
-    Route::get('/dashboard-dosen/verifikasi-khs/{action}/{khs}', [DashboardDosenController::class, 'verifikasiKhsKeputusan'])
-        ->where('action', 'terima|tolak');
+    Route::get('/dashboard-dosen/khs/', [KhsController::class, 'index']);
+    Route::get('/dashboard-dosen/verifikasi-khs/table', [KhsController::class, 'getKhsVerificationTable']);
+    Route::post('/dashboard-dosen/khs/{id}/{action}', [KhsController::class, 'verifikasiKhs']);
 
     Route::get('/dashboard-dosen/verifikasi-pkl', [DashboardDosenController::class, 'verifikasiPkl']);
     Route::get('/dashboard-dosen/verifikasi-pkl/{action}/{pkl}', [DashboardDosenController::class, 'verifikasiPklKeputusan'])

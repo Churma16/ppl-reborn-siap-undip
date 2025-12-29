@@ -21,6 +21,17 @@ class KHS extends Model
         'status_konfirmasi' => KhsStatusKonfirmasi::class,
     ];
 
+    public function scopeBelumDikonfirmasi($query)
+    {
+        return $query->where('status_konfirmasi', KhsStatusKonfirmasi::Belum_Dikonfirmasi);
+    }
+
+    public function scopeMilikDosen($query, $kode_wali)
+    {
+        return $query->whereHas('mahasiswa', function ($q) use ($kode_wali) {
+            $q->where('dosen_kode_wali', $kode_wali);
+        });
+    }
     // Accessor
 
     // Relasi
