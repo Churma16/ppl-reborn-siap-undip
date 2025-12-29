@@ -44,21 +44,21 @@ class IrsController extends Controller
 
     public function verifikasiIrs($id, $action)
     {
-        // 1. Cari Data
+
         $irs = IRS::find($id);
 
         if (!$irs) {
             return response()->json(['message' => 'Data IRS tidak ditemukan.'], 404);
         }
-        // return response()->json(['message' => $irs], 400);
+
 
         if (!in_array($action, ['approve', 'reject'])) {
             return response()->json(['message' => 'Aksi tidak valid.'], 400);
         }
 
-        // 4. Update Status (Logika Inti)
+
         if ($action === 'approve') {
-            $irs->status_konfirmasi = 'Dikonfirmasi'; // Pastikan string ini sesuai dengan ENUM di database Anda
+            $irs->status_konfirmasi = 'Dikonfirmasi';
         } elseif ($action === 'reject') {
             $irs->status_konfirmasi = 'Ditolak';
         }
@@ -69,7 +69,7 @@ class IrsController extends Controller
         // 6. Return Sukses
         return response()->json([
             'message' => 'Verifikasi IRS berhasil.',
-            'data' => $irs // Opsional: kirim data balik jika perlu update UI parsial
+            'data' => $irs
         ], 200);
     }
 }
