@@ -129,7 +129,7 @@
 
         function performAjax(id, action) {
             // Construct the URL based on action
-            let url = `/dashboard-dosen/irs/validate/${id}/${action}`;
+            let url = `/dashboard-dosen/irs/${id}/${action}`;
 
             fetch(url, {
                     method: 'POST',
