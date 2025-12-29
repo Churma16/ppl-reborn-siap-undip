@@ -38,8 +38,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/verifikasi-khs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-khs">
+                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/khs') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-dosen/khs">
                     <div class="d-flex align-items-center">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">assessment</i>

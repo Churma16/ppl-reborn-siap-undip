@@ -64,6 +64,7 @@ Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function ()
     Route::get('/dashboard-dosen/verifikasi-khs/table', [KhsController::class, 'getKhsVerificationTable']);
     Route::post('/dashboard-dosen/khs/{id}/{action}', [KhsController::class, 'verifikasiKhs']);
 
+
     Route::get('/dashboard-dosen/verifikasi-pkl', [DashboardDosenController::class, 'verifikasiPkl']);
     Route::get('/dashboard-dosen/verifikasi-pkl/{action}/{pkl}', [DashboardDosenController::class, 'verifikasiPklKeputusan'])
         ->where('action', 'terima|tolak');
@@ -74,8 +75,6 @@ Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function ()
 
     Route::get('/dashboard-dosen/validasi/table', [DashboardDosenController::class, 'getValidationTable']);
     Route::post('/dashboard-dosen/validasi/{id}/{action}/{type}', [DashboardDosenController::class, 'verifyDashboardRequest']);
-
-
 });
 
 // Mahasiswa

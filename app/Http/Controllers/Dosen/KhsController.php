@@ -3,11 +3,37 @@
 namespace App\Http\Controllers\Dosen;
 
 use App\Models\KHS;
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class KhsController extends Controller
 {
+
+    public function index()
+    {
+        // Mengambil data dosen berdasarkan NIP pengguna yang sedang login
+        $dosen = auth()->user()->dosen;
+
+        // Mengambil data mahasiswa perwalian dosen
+        $mahasiswas = Mahasiswa::milikDosen($dosen)->get();
+
+        // Mendapatkan daftar nim mahasiswa perwalian dosen
+        $mahasiswa_perwalian = $dosen->getMahasiswaBimbinganAttribute();
+
+        // Mengambil data KHS mahasiswa perwalian yang belum dikonfirmasi
+        $khss = KHS::whereIn('mahasiswa_nim', $mahasiswa_perwalian)
+            ->where('status_konfirmasi', 'Belum Dikonfirmasi')
+            ->get();
+
+        return view('dashboard-dosen.verifikasi-khs-mahasiswa', [
+            'title' => 'Verifikasi KHS',
+            'mahasiswas' => $mahasiswas,
+            'dosen' => $dosen,
+            'khss' => $khss,
+        ]);
+    }
     public function getKhsVerificationTable()
     {
         $dosen = auth()->user()->dosen;
