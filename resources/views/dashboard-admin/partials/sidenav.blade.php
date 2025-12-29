@@ -12,7 +12,8 @@
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
-    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main"
+        style="height: calc(100vh - 100px); overflow-y: auto;">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-admin') ? 'bg-gradient-primary' : '' }} "

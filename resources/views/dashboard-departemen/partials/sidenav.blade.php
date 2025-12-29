@@ -12,7 +12,8 @@
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2" />
-    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main"
+        style="height: calc(100vh - 100px); overflow-y: auto;">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen') ? 'bg-gradient-primary' : '' }} "
@@ -23,6 +24,20 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">
+                    Master Data
+                </h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ Request::is('dashboard-departemen/dosen') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-departemen/dosen">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">school</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Data Dosen</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-departemen/data-mahasiswa">
@@ -31,6 +46,11 @@
                     </div>
                     <span class="nav-link-text ms-1">Data Mahasiswa</span>
                 </a>
+            </li>
+                 <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">
+                    Akademik
+                </h6>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ Request::is('dashboard-departemen/data-mahasiswa-pkl') ? 'bg-gradient-primary' : '' }}"
@@ -65,11 +85,11 @@
             </li>
         </ul>
     </div>
-    <div class="sidenav-footer position-absolute w-100 bottom-0">
+    {{-- <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
             <a class="btn bg-gradient-primary mt-4 w-100"
                 href="https://www.creative-tim.com/product/material-dashboard-pro?ref=sidebarfree"
                 type="button">Upgrade to pro</a>
         </div>
-    </div>
+    </div> --}}
 </aside>
