@@ -130,42 +130,48 @@
 
         /* --- BEAUTIFY SHOW ENTRIES & SEARCH --- */
 
-/* 1. Styling Dropdown "Show Entries" */
-.dataTables_wrapper .dataTables_length select {
-    border: 1px solid #d2d6da !important; /* Border abu halus */
-    border-radius: 0.375rem !important;    /* Sudut melengkung */
-    padding: 5px 10px !important;
-    color: #495057;
-    background-color: #fff;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.2s ease;
-}
+        /* 1. Styling Dropdown "Show Entries" */
+        .dataTables_wrapper .dataTables_length select {
+            border: 1px solid #d2d6da !important;
+            /* Border abu halus */
+            border-radius: 0.375rem !important;
+            /* Sudut melengkung */
+            padding: 5px 10px !important;
+            color: #495057;
+            background-color: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+        }
 
-/* 2. Styling Kotak Pencarian (Search) */
-.dataTables_wrapper .dataTables_filter input {
-    border: 1px solid #d2d6da !important;
-    border-radius: 0.375rem !important;
-    padding: 5px 10px !important;
-    margin-left: 5px;
-    outline: none;
-    transition: all 0.2s ease;
-}
+        /* 2. Styling Kotak Pencarian (Search) */
+        .dataTables_wrapper .dataTables_filter input {
+            border: 1px solid #d2d6da !important;
+            border-radius: 0.375rem !important;
+            padding: 5px 10px !important;
+            margin-left: 5px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
 
-/* 3. Efek FOKUS Oranye (Saat diklik) */
-.dataTables_wrapper .dataTables_length select:focus,
-.dataTables_wrapper .dataTables_filter input:focus {
-    border-color: #f3722c !important; /* Warna Oranye Tema Anda */
-    box-shadow: 0 0 0 2px rgba(243, 114, 44, 0.25) !important; /* Efek kilau oranye transparan */
-}
+        /* 3. Efek FOKUS Oranye (Saat diklik) */
+        .dataTables_wrapper .dataTables_length select:focus,
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: #f3722c !important;
+            /* Warna Oranye Tema Anda */
+            box-shadow: 0 0 0 2px rgba(243, 114, 44, 0.25) !important;
+            /* Efek kilau oranye transparan */
+        }
 
-/* 4. Merapikan Label Teks (Show .. entries) */
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter {
-    color: #7b809a; /* Warna teks abu-abu sekunder yang pas dimata */
-    font-size: 0.875rem;
-    margin-bottom: 10px; /* Beri jarak sedikit ke tabel */
-}
+        /* 4. Merapikan Label Teks (Show .. entries) */
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter {
+            color: #7b809a;
+            /* Warna teks abu-abu sekunder yang pas dimata */
+            font-size: 0.875rem;
+            margin-bottom: 10px;
+            /* Beri jarak sedikit ke tabel */
+        }
     </style>
 </head>
 
