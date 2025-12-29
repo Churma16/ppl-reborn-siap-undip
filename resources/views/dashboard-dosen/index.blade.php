@@ -337,8 +337,6 @@
         }
 
 
-
-
         function handleValidation(id, action, type) {
             // 1. Confirm action (Optional but recommended)
             Swal.fire({
@@ -373,7 +371,6 @@
                     throw new Error('Network response was not ok.');
                 })
                 .then(data => {
-                    // SUCCESS: Instead of removing row, we REFRESH the table
                     refreshTable();
                     // console.log("Message from Controller:", data.message);
                     Swal.fire('Berhasil!', `Permintaan telah di-${action}.`, 'success');
