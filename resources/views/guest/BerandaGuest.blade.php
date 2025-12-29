@@ -48,7 +48,8 @@
     <link id="pagestyle" href="./assets/css/material-kit.css?v=3.0.4" rel="stylesheet" />
 
 
-
+    <style>
+    </style>
 </head>
 
 <body class="index-page bg-gray-200">
@@ -58,120 +59,46 @@
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <nav
-                    class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-                    <div class="container-fluid px-0">
-                        <a class="navbar-brand font-weight-bolder ms-sm-3"
-                            href="https://demos.creative-tim.com/material-kit/index" rel="tooltip"
-                            title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-                            <img src="img/Undip.png" alt="Logo" width="30" height="24"
-                                class="d-inline-block">Informatika
-                        </a>
-                        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon mt-2">
-                                <span class="navbar-toggler-bar bar1"></span>
-                                <span class="navbar-toggler-bar bar2"></span>
-                                <span class="navbar-toggler-bar bar3"></span>
-                            </span>
-                        </button>
-                        <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
-                            <ul class="navbar-nav navbar-nav-hover ms-auto">
-                                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
-                                    <a class="nav-link ps-2 d-flex cursor-pointer align-items-center"
-                                        id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="material-icons opacity-6 me-2 text-md">dashboard</i>
-                                        Pages
-                                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                            class="arrow ms-auto ms-md-2">
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
-                                        aria-labelledby="dropdownMenuPages">
-                                        <div class="d-none d-lg-block">
-                                            <h6
-                                                class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                                                Landing Pages
-                                            </h6>
-                                            <a href="./pages/about-us.html" class="dropdown-item border-radius-md">
-                                                <span>About Us</span>
-                                            </a>
-                                            <a href="./pages/contact-us.html" class="dropdown-item border-radius-md">
-                                                <span>Contact Us</span>
-                                            </a>
-                                            <a href="./pages/author.html" class="dropdown-item border-radius-md">
-                                                <span>Author</span>
-                                            </a>
-                                            <h6
-                                                class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
-                                                Account
-                                            </h6>
-                                            <a href="./pages/sign-in.html" class="dropdown-item border-radius-md">
-                                                <span>Sign In</span>
-                                            </a>
-                                        </div>
+           <nav class="navbar navbar-expand-lg border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4"
+    style="background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5);">
 
-                                        <div class="d-lg-none">
-                                            <h6
-                                                class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                                                Landing Pages
-                                            </h6>
+    <div class="container-fluid px-0">
+        <a class="navbar-brand font-weight-bolder ms-sm-3 d-flex align-items-center"
+           href="#" rel="tooltip" title="Designed and Coded by Creative Tim"
+           data-placement="bottom" target="_blank"
+           style="color: #101E46;"> <img src="img/Undip.png" alt="Logo" width="30" height="24" class="d-inline-block me-2">
+            Informatika
+        </a>
 
-                                            <a href="./pages/about-us.html" class="dropdown-item border-radius-md">
-                                                <span>About Us</span>
-                                            </a>
-                                            <a href="./pages/contact-us.html" class="dropdown-item border-radius-md">
-                                                <span>Contact Us</span>
-                                            </a>
-                                            <a href="./pages/author.html" class="dropdown-item border-radius-md">
-                                                <span>Author</span>
-                                            </a>
+        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1 bg-dark"></span>
+                <span class="navbar-toggler-bar bar2 bg-dark"></span>
+                <span class="navbar-toggler-bar bar3 bg-dark"></span>
+            </span>
+        </button>
 
-                                            <h6
-                                                class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
-                                                Account
-                                            </h6>
-                                            <a href="./pages/sign-in.html" class="dropdown-item border-radius-md">
-                                                <span>Sign In</span>
-                                            </a>
+        <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+            <ul class="navbar-nav navbar-nav-hover ms-auto">
 
-                                        </div>
+                <li class="nav-item d-flex align-items-center">
+                    <a href="/login" class="btn btn-sm mb-0 me-1 text-white"
+                       style="background-color: #101E46; border: none; font-weight: bold; box-shadow: 0 4px 6px rgba(16, 30, 70, 0.2);">
+                        <span class="material-icons" style="font-size: 16px; vertical-align: middle; margin-right: 4px;">login</span>
+                        Masuk
+                    </a>
+                </li>
 
-                                    </div>
-                                </li> --}}
-
-                                <li class="nav-item d-flex align-items-center">
-                                    <a href="/login"
-                                        class="btn btn-sm mb-0 me-1 btn-outline-info"><span class="material-icons">login</span> Masuk</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+            </ul>
+        </div>
+    </div>
+</nav>
                 <!-- End Navbar -->
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <header class="header-2">
         <div class="page-header min-vh-75 relative" style="background-image: url('/img/backgroundUndip.png')">
             <span class="mask bg-gradient-dark opacity-8"></span>
@@ -217,7 +144,7 @@
                             <div class="col-md-6 mt-3">
                                 <i class="material-icons text-gradient text-primary text-3xl">assignment_turned_in</i>
                                 <h5 class="font-weight-bolder mt-3">Administrasi Digital</h5>
-                                <p class="pe-5">Efisiensi layanan akademik. Ajukan cuti, surat keterangan mahasiswa,
+                                <p class="pe-5">Efisiensi layanan akademik. Ajukan cuti
                                     dan validasi berkas tanpa perlu antre fisik di fakultas.</p>
                             </div>
 
