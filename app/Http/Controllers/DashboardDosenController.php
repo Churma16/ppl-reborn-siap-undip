@@ -280,59 +280,6 @@ class DashboardDosenController extends Controller
     }
 
     /**
-     * Menampilkan halaman verifikasi IRS mahasiswa perwalian.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function verifikasiIrs()
-    {
-        // Mengambil data dosen berdasarkan NIP pengguna yang sedang login
-        $dosen = Dosen::where('nip', auth()->user()->nip_nim)->first();
-
-        // Mengambil data mahasiswa perwalian dosen
-        $mahasiswas = Mahasiswa::milikDosen($dosen)->get();
-
-        // Mendapatkan daftar nim mahasiswa perwalian dosen
-        $mahasiswa_perwalian = $dosen->getMahasiswaBimbinganAttribute();
-
-        // Mengambil data IRS mahasiswa perwalian yang belum dikonfirmasi
-        $irss = IRS::whereIn('mahasiswa_nim', $mahasiswa_perwalian)
-            ->where('status_konfirmasi', 'Belum Dikonfirmasi')
-            ->get();
-
-        return view('dashboard-dosen.verifikasi-irs-mahasiswa', [
-            'title' => 'Verifikasi IRS',
-            'mahasiswas' => $mahasiswas,
-            'dosen' => $dosen,
-            'irss' => $irss,
-        ]);
-    }
-
-    /**
-     * Verifikasi keputusan IRS mahasiswa perwalian.
-     *
-     * @param  string  $action
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function verifikasiIrsKeputusan($action, IRS $irs)
-    {
-        // Jika aksi adalah 'terima', maka ubah status konfirmasi IRS menjadi 'Dikonfirmasi'
-        if ($action === 'terima') {
-            $irs->update([
-                'status_konfirmasi' => 'Dikonfirmasi',
-            ]);
-        }
-        // Jika aksi adalah 'tolak', maka ubah status konfirmasi IRS menjadi 'Ditolak'
-        elseif ($action === 'tolak') {
-            $irs->update([
-                'status_konfirmasi' => 'Ditolak',
-            ]);
-        }
-
-        return redirect()->back();
-    }
-
-    /**
      * Menampilkan halaman verifikasi KHS mahasiswa perwalian.
      *
      * @return \Illuminate\Contracts\View\View

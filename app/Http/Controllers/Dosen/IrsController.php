@@ -4,19 +4,16 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Models\IRS;
 use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Mahasiswa;
 
 class IrsController extends Controller
 {
-
-    public function getIrsVerificationTable()
+    public function index()
     {
-        // Cek apakah user login memiliki relasi dosen
         $dosen = Dosen::where('nip', auth()->user()->nip_nim)->first();
 
-        // Mengambil data mahasiswa perwalian dosen
         $mahasiswas = Mahasiswa::milikDosen($dosen)->get();
 
         // Mendapatkan daftar nim mahasiswa perwalian dosen
@@ -27,7 +24,22 @@ class IrsController extends Controller
             ->where('status_konfirmasi', 'Belum Dikonfirmasi')
             ->get();
 
-        return view('dashboard-dosen.partials.verifikasi-irs-table', compact(['irss', 'mahasiswas', 'dosen']));
+        return view('dashboard-dosen.verifikasi-irs-mahasiswa', [
+            'title' => 'Verifikasi IRS',
+            'mahasiswas' => $mahasiswas,
+            'dosen' => $dosen,
+            'irss' => $irss,
+        ]);
+    }
+
+    public function getIrsVerificationTable()
+    {
+        $dosen = auth()->user()->dosen;
+        $irss = IRS::belumDikonfirmasi()->milikDosen($dosen->kode_wali)
+            ->with(['mahasiswa', 'semester'])
+            ->get();
+
+        return view('dashboard-dosen.partials.verifikasi-irs-table', compact('irss'));
     }
 
     public function verifikasiIrs($id, $action)

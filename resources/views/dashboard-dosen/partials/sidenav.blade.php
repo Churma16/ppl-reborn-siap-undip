@@ -25,8 +25,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-irs') ? 'bg-gradient-primary' : '' }}"
-                    href="/dashboard-dosen/verifikasi-irs">
+                <a class="nav-link text-white {{ Request::is('dashboard-dosen/irs') ? 'bg-gradient-primary' : '' }}"
+                    href="/dashboard-dosen/irs">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">assignment</i>
                     </div>

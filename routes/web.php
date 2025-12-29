@@ -55,11 +55,12 @@ Route::middleware(['auth', 'role:' . UserRole::Departemen->value])->group(functi
 Route::middleware(['auth', 'role:' . UserRole::Dosen->value])->group(function () {
     Route::get('/dashboard-dosen', [DashboardDosenController::class, 'index']);
 
+    Route::get('/dashboard-dosen/irs/', [IrsController::class, 'index']);
     Route::get('/dashboard-dosen/verifikasi-irs/table', [IrsController::class, 'getIrsVerificationTable']);
     Route::post('/dashboard-dosen/irs/validate/{id}/{action}', [IrsController::class, 'verifikasiIrs']);
-    Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
-    Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
-        ->where('action', 'terima|tolak');
+    // Route::get('/dashboard-dosen/verifikasi-irs', [DashboardDosenController::class, 'verifikasiIrs']);
+    // Route::get('/dashboard-dosen/verifikasi-irs/{action}/{irs}', [DashboardDosenController::class, 'verifikasiIrsKeputusan'])
+    //     ->where('action', 'terima|tolak');
 
     Route::get('/dashboard-dosen/verifikasi-khs', [DashboardDosenController::class, 'verifikasiKhs']);
     Route::get('/dashboard-dosen/verifikasi-khs/{action}/{khs}', [DashboardDosenController::class, 'verifikasiKhsKeputusan'])
