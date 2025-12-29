@@ -162,7 +162,6 @@
                                         aria-labelledby="modalDetailLabel" aria-hidden="true" style="z-index: 1050;">
                                         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                                             <div class="modal-content">
-
                                                 <div
                                                     class="modal-header bg-gradient-dark d-flex justify-content-between align-items-center p-3">
                                                     <h6 class="modal-title text-white m-0" id="modalDetailLabel">Detail
