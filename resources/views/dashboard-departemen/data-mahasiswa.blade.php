@@ -150,14 +150,15 @@
                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                                     <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title font-weight-normal">Detail Mahasiswa
-                                                            </h5>
-                                                            <button type="button" class="btn-close text-dark"
-                                                                data-bs-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
+                                                        <diiv
+                                                    class="modal-header bg-gradient-dark d-flex justify-content-between align-items-center p-3">
+                                                    <h6 class="modal-title text-white m-0" id="modalDetailLabel">Detail
+                                                        Mahasiswa</h6>
+                                                    <button type="button" class="btn-close text-white"
+                                                        data-bs-dismiss="modal" aria-label="Close"
+                                                        style="color: white !important;">
+                                                    </button>
+                                                </diiv>
                                                         <div class="modal-body text-start">
 
                                                             <div class="row mb-4">
