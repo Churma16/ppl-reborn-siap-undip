@@ -115,7 +115,7 @@
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                <a href="{{ $pkl->file_pkl }}" target="_blank"><i class="fas fa-eye"></i>
+                                                <a href="{{ Str::startsWith($pkl->file_pkl, 'http') ? $pkl->file_pkl : asset('storage/' . $pkl->file_pkl) }}" target="_blank"><i class="fas fa-eye"></i>
                                                     Lihat File</a>
 
                                                 {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }} --}}

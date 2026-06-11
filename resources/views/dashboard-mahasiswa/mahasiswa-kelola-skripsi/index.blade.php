@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-6">
                         <p class=""><strong>Tanggal Mulai:</strong> {{ $skripsis[0]->tanggal_mulai_formatted }}</p>
-                        <p class=""><strong>Tanggal Selesai:</strong> {{ $skripsis[0]->tanggal_sidang_formatted }}
+                        <p class=""><strong>Tanggal Selesai:</strong> {{ $skripsis[0]->tanggal_selesai_formatted }}
                         </p>
                     </div>
                 @endif
@@ -83,7 +83,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ asset('storage/' . $skripsi->file_skripsi) }}" target="_blank"
+                                <a href="{{ Str::startsWith($skripsi->file_skripsi, 'http') ? $skripsi->file_skripsi : asset('storage/' . $skripsi->file_skripsi) }}" target="_blank"
                                     class="btn btn-outline-info">Lihat File Skripsi</a>
                             </div>
                         </div>

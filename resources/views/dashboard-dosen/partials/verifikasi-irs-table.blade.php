@@ -41,7 +41,7 @@
         {{-- 7. Berkas --}}
         <td class="align-middle text-center">
             @if ($irs->file_sks)
-                <a href="{{ $irs->file_sks }}" target="_blank" class="btn btn-outline-info btn-sm mb-0 p-1 px-3">
+                <a href="{{ Str::startsWith($irs->file_sks, 'http') ? $irs->file_sks : asset('storage/' . $irs->file_sks) }}" target="_blank" class="btn btn-outline-info btn-sm mb-0 p-1 px-3">
                     <i class="fas fa-file-pdf me-1"></i> Lihat
                 </a>
             @else

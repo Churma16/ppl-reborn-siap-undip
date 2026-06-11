@@ -78,7 +78,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ asset('storage/' . $pkl->file_pkl) }}" target="_blank"
+                                <a href="{{ Str::startsWith($pkl->file_pkl, 'http') ? $pkl->file_pkl : asset('storage/' . $pkl->file_pkl) }}" target="_blank"
                                     class="btn btn-outline-info">Lihat File PKL</a>
                             </div>
                         </div>
