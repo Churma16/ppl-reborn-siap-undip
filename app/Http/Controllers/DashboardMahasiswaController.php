@@ -12,6 +12,9 @@ use App\Models\Provinsi;
 use App\Models\Semester;
 use App\Models\Skripsi;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class DashboardMahasiswaController extends Controller
@@ -19,7 +22,7 @@ class DashboardMahasiswaController extends Controller
     /**
      * Menampilkan halaman utama dashboard mahasiswa.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index()
     {
@@ -69,11 +72,11 @@ class DashboardMahasiswaController extends Controller
             ->sum('jumlah_sks');
 
         $skskSmtBefore = IRS::where('mahasiswa_nim', $nim)
-            ->where('status_konfirmasi', 'Dikonfirmasi')
-            ->where('semester_aktif', '<=', $semesterAktif['semester_aktif'])
-            ->orderBy('semester_aktif', 'desc')
-            ->take(1)
-            ->value('jumlah_sks') . '▲';
+                ->where('status_konfirmasi', 'Dikonfirmasi')
+                ->where('semester_aktif', '<=', $semesterAktif['semester_aktif'])
+                ->orderBy('semester_aktif', 'desc')
+                ->take(1)
+                ->value('jumlah_sks') . '▲';
 
         // $tglSmtAktif = IRS::where('mahasiswa_nim', $nim)
         //     ->join('semesters', 'i_r_s.semester_id', '=', 'semesters.id')
@@ -157,7 +160,7 @@ class DashboardMahasiswaController extends Controller
     /**
      * Menampilkan halaman edit profil mahasiswa.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function edit()
     {
@@ -176,8 +179,8 @@ class DashboardMahasiswaController extends Controller
     /**
      * Mengambil data kabupaten berdasarkan kode provinsi.
      *
-     * @param  string  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param string $id
+     * @return JsonResponse
      */
     public function fetchKabupaten($id)
     {
@@ -189,7 +192,7 @@ class DashboardMahasiswaController extends Controller
     /**
      * Memperbarui profil mahasiswa.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Mahasiswa $mahasiswa, Request $request)
     {

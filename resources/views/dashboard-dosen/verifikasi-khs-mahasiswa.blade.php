@@ -12,7 +12,7 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3 align-items-center d-flex">
-                            <span class="material-icons opacity-10 me-2">assignment</span>Verifikasi IRS Mahasiswa
+                            <span class="material-icons opacity-10 me-2">assessment</span>Verifikasi KHS Mahasiswa
                         </h6>
                     </div>
                 </div>

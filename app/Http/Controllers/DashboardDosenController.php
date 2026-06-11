@@ -9,13 +9,14 @@ use App\Models\Mahasiswa;
 use App\Models\PKL;
 use App\Models\Semester;
 use App\Models\Skripsi;
+use Illuminate\Contracts\View\View;
 
 class DashboardDosenController extends Controller
 {
     /**
      * Menampilkan halaman utama dashboard dosen.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index()
     {
@@ -311,8 +312,7 @@ class DashboardDosenController extends Controller
             $pkl->update([
                 'status_konfirmasi' => 'Dikonfirmasi',
             ]);
-        }
-        // Jika aksi adalah 'tolak', maka ubah status konfirmasi pkl menjadi 'Ditolak'
+        } // Jika aksi adalah 'tolak', maka ubah status konfirmasi pkl menjadi 'Ditolak'
         elseif ($action === 'tolak') {
             $pkl->update([
                 'status_konfirmasi' => 'Ditolak',
@@ -353,8 +353,7 @@ class DashboardDosenController extends Controller
             $skripsi->update([
                 'status_konfirmasi' => 'Dikonfirmasi',
             ]);
-        }
-        // Jika aksi adalah 'tolak', maka ubah status konfirmasi skripsi menjadi 'Ditolak'
+        } // Jika aksi adalah 'tolak', maka ubah status konfirmasi skripsi menjadi 'Ditolak'
         elseif ($action === 'tolak') {
             $skripsi->update([
                 'status_konfirmasi' => 'Ditolak',

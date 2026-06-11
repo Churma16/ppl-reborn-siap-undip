@@ -1,25 +1,23 @@
 <?php
 
 use App\Enums\UserRole;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\Admin\MataKuliahController;
+use App\Http\Controllers\Admin\SemesterController;
+use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardDepartemenController;
+use App\Http\Controllers\DashboardDosenController;
+use App\Http\Controllers\DashboardMahasiswaController;
+use App\Http\Controllers\Departemen\DosenController;
+use App\Http\Controllers\Dosen\IrsController;
+use App\Http\Controllers\Dosen\KhsController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\MahasiswaKelolaIrs;
 use App\Http\Controllers\MahasiswaKelolaKhs;
 use App\Http\Controllers\MahasiswaKelolaPkl;
-use App\Http\Controllers\Dosen\IrsController;
-use App\Http\Controllers\Dosen\KhsController;
-use App\Http\Controllers\BerandaGuestController;
-use App\Http\Controllers\DashboardMhsController;
 use App\Http\Controllers\MahasiswaKelolaSkripsi;
-use App\Http\Controllers\Admin\SemesterController;
-use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\DashboardDosenController;
-use App\Http\Controllers\Admin\MahasiswaController;
-use App\Http\Controllers\Admin\MataKuliahController;
-use App\Http\Controllers\Departemen\DosenController;
-use App\Http\Controllers\DashboardMahasiswaController;
-use App\Http\Controllers\DashboardDepartemenController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
