@@ -23,8 +23,26 @@
                 </p>
             </td>
             <td class="text-center">
-                <a href="/dashboard-dosen/validasi/{{ $permintaanTerbaru->id }}" class="btn btn-outline-info px-2 py-1"
-                    title="Lihat">
+                @php
+                    $filePath = null;
+                    switch (strtolower($permintaanTerbaru->type)) {
+                        case 'irs':
+                            $filePath = $permintaanTerbaru->file_sks;
+                            break;
+                        case 'khs':
+                            $filePath = $permintaanTerbaru->file_khs;
+                            break;
+                        case 'pkl':
+                            $filePath = $permintaanTerbaru->file_pkl;
+                            break;
+                        case 'skripsi':
+                            $filePath = $permintaanTerbaru->file_skripsi;
+                            break;
+                    }
+                    $fileUrl = $filePath ? (Str::startsWith($filePath, 'http') ? $filePath : asset('storage/' . $filePath)) : '#';
+                @endphp
+                <a href="{{ $fileUrl }}" target="_blank" class="btn btn-outline-info px-2 py-1 {{ $filePath ? '' : 'disabled' }}"
+                    title="Lihat Berkas">
                     <i class="material-icons">visibility</i>
                 </a>
 
