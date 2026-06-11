@@ -10,11 +10,11 @@ A simplified, web-based Academic Information System inspired by **SIAP UNDIP**. 
 
 <!--![System Dashboard](path/to/screenshot.png) -->
 
-## 🚀 Key Features by Role
+## Key Features by Role
 
 This system implements **Multi-User Authentication** with four distinct roles:
 
-### 👨‍🎓 1. Student (Mahasiswa)
+### 1. Student (Mahasiswa)
 * **Academic Submission:** Input and manage academic records including:
     * **IRS:** Study Plan entry for the active semester.
     * **KHS:** Submission of Study Results (Grades).
@@ -22,39 +22,39 @@ This system implements **Multi-User Authentication** with four distinct roles:
     * **Skripsi:** Thesis progress and final submission.
 * **Profile Management:** Update personal data and academic status.
 
-### 👨‍🏫 2. Lecturer / Academic Advisor (Dosen Wali)
+### 2. Lecturer / Academic Advisor (Dosen Wali)
 * **Verification Workflow:** Review and approve data submitted by students.
     * Verify/Reject IRS (Study Plans).
     * Validate KHS (Grades).
     * Approve PKL and Skripsi entries.
 * **Advisory Dashboard:** View list of students under supervision.
 
-### 🏢 3. Department (Departemen)
+### 3. Department (Departemen)
 * **Progress Monitoring:** Visual dashboard to track student milestones.
 * **Data Visualization:** Interactive **Charts** displaying:
     * Percentage of students who have completed PKL.
     * Percentage of students who have completed Thesis (Skripsi).
     * Student distribution by status.
 
-### 🛠 4. Administrator (Operator)
+### 4. Administrator (Operator)
 * **Master Data Management:** Full CRUD capabilities for **Student Data**.
 * **System Configuration:** Manage **Semester Data** (Set active semester, toggle academic periods).
 * **User Management:** Create and manage accounts for Lecturers and Department staff.
 
-## ⚙️ Technical Highlights
+## Technical Highlights
 
 * **Role-Based Access Control (RBAC):** Middleware implementation to secure routes based on user roles (Admin, Dosen, Mahasiswa, Departemen).
 * **Data Visualization:** Integration with Chart.js for Department analytics.
 * **Complex Relationships:** Handling One-to-Many and Many-to-Many relationships between Students, Courses, and Semesters.
 
-## 🛠️ Built With
+## Built With
 
 * **Backend:** [Laravel](https://laravel.com/) (PHP)
 * **Database:** MySQL
 * **Frontend:** Bootstrap  (Blade Templates)
 * **Charts:** Chart.js 
 
-## 💻 Installation
+## Installation
 
 1.  **Clone the repository**
     ```bash
@@ -92,7 +92,7 @@ This system implements **Multi-User Authentication** with four distinct roles:
     php artisan serve
     ```
 
-## 👤 Author
+## Author
 
 **Fathan Muhammad Faqih**
 * [LinkedIn](https://linkedin.com/in/YOUR-LINKEDIN)
