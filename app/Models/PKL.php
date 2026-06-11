@@ -93,7 +93,7 @@ class PKL extends Model
      *
      * @return the formatted date of the "created_at" attribute in the format "d M Y" (e.g. 01 Jan 2022).
      */
-    public function getTanggalDiunggahAtrribute()
+    public function getTanggalDiunggahAttribute()
     {
         $date = Carbon::parse($this->created_at);
 

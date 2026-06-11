@@ -34,6 +34,6 @@ class Dosen extends Model
 
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class, 'nip', 'nip_nim');
     }
 }
