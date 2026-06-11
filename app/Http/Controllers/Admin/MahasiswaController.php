@@ -101,7 +101,17 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'email' => 'required|email|unique:mahasiswas,email,' . $mahasiswa->nim . ',nim',
+            'angkatan' => 'required|numeric',
+            'jalur_masuk' => 'required',
+            'dosen_kode_wali' => 'required',
+        ]);
+
+        $mahasiswa->update($validatedData);
+
+        return redirect()->back()->with('success', 'Data mahasiswa ' . $mahasiswa->nama . ' berhasil diperbarui!');
     }
 
     /**
@@ -112,11 +122,36 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        $mahasiswa->update([
-            'status_aktif' => 0, // atau 'Undur Diri'
-            'tanggal_keluar' => now()
-        ]);
+        // Update KHS status to 'Tidak Aktif'
+        if ($mahasiswa->khs()->count() === 0) {
+            $mahasiswa->khs()->create([
+                'semester' => 1,
+                'status_mahasiswa' => 'Tidak Aktif',
+                'ip_semester' => 0.00,
+                'ip_kumulatif' => 0.00,
+                'sks_kumulatif' => 0,
+                'file_khs' => '',
+                'status_konfirmasi' => 'Dikonfirmasi'
+            ]);
+        } else {
+            $mahasiswa->khs()->update(['status_mahasiswa' => 'Tidak Aktif']);
+        }
 
-        return redirect()->back()->with('success', 'Status mahasiswa diubah menjadi Non-Aktif.');
+        // Update IRS status to 'Tidak Aktif'
+        if ($mahasiswa->irs()->count() === 0) {
+            $semesterAktif = \App\Models\Semester::where('is_active', \App\Enums\SemesterStatusAktif::AKTIF)->first();
+            $mahasiswa->irs()->create([
+                'semester_id' => $semesterAktif ? $semesterAktif->id : 1,
+                'semester_aktif' => 1,
+                'status_mahasiswa' => 'Tidak Aktif',
+                'jumlah_sks' => 0,
+                'file_irs' => '',
+                'status_konfirmasi' => \App\Enums\KhsStatusKonfirmasi::Dikonfirmasi->value
+            ]);
+        } else {
+            $mahasiswa->irs()->update(['status_mahasiswa' => 'Tidak Aktif']);
+        }
+
+        return redirect()->back()->with('success', 'Status mahasiswa ' . $mahasiswa->nama . ' berhasil diubah menjadi Tidak Aktif.');
     }
 }
