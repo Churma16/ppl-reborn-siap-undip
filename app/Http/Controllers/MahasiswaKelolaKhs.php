@@ -95,7 +95,8 @@ class MahasiswaKelolaKhs extends Controller
         ]);
 
         // Menghitung IP Kumulatif
-        $ipKumulatif = ($jumlahIpk + $validatedData['ip_semester']) / (($semesterAktif) );
+        $divisor = $semesterAktif > 0 ? $semesterAktif : 1;
+        $ipKumulatif = ($jumlahIpk + $validatedData['ip_semester']) / $divisor;
 
         // Mengunggah file KHS
         if ($request->file('file_khs')) {
