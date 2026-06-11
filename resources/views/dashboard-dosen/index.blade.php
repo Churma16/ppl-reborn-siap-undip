@@ -294,8 +294,15 @@
                                                 </p>
                                             </td>
                                             <td class="text-center">
-                                                <a href="/dashboard-dosen/validasi/"
-                                                    class="btn btn-outline-success px-2 py-1" title="Hubungi Mahasiswa">
+                                                @php
+                                                    $formattedPhone = $mhsSkripsiMangkrak->no_hp ? preg_replace('/[^0-9]/', '', $mhsSkripsiMangkrak->no_hp) : null;
+                                                    if ($formattedPhone && strpos($formattedPhone, '0') === 0) {
+                                                        $formattedPhone = '62' . substr($formattedPhone, 1);
+                                                    }
+                                                @endphp
+                                                <a href="{{ $formattedPhone ? 'https://wa.me/' . $formattedPhone : 'javascript:void(0)' }}"
+                                                    target="{{ $formattedPhone ? '_blank' : '' }}"
+                                                    class="btn btn-outline-success px-2 py-1 {{ $formattedPhone ? '' : 'disabled' }}" title="{{ $formattedPhone ? 'Hubungi Mahasiswa via WhatsApp' : 'No. HP Tidak Tersedia' }}">
                                                     <i class="material-icons">call</i>
                                                 </a>
 
