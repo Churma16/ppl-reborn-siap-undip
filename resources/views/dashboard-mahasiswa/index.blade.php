@@ -166,8 +166,8 @@
                                 <p class="mb-0 font-weight-normal text-sm text-secondary">
                                     {{ $mahasiswa->nim }}
                                 </p>
-                                <span class="badge badge-sm bg-gradient-info mt-1" style="width: fit-content;">
-                                    Aktif
+                                <span class="badge badge-sm bg-gradient-{{ $mahasiswa->status_aktif === 'Aktif' ? 'success' : ($mahasiswa->status_aktif === 'Cuti' ? 'warning' : 'danger') }} mt-1" style="width: fit-content;">
+                                    {{ $mahasiswa->status_aktif ?? 'Tidak Aktif' }}
                                 </span>
                             </div>
                         </div>

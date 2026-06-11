@@ -132,10 +132,12 @@
                                                 class="text-secondary text-xs font-weight-bold">{{ $mahasiswa->irsAktif->semester_aktif ?? 'N/A' }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            @if ($mahasiswa->status_aktif)
+                                            @if ($mahasiswa->status_aktif === 'Aktif')
                                                 <span class="badge badge-sm bg-gradient-success">Aktif</span>
+                                            @elseif ($mahasiswa->status_aktif === 'Cuti')
+                                                <span class="badge badge-sm bg-gradient-warning">Cuti</span>
                                             @else
-                                                <span class="badge badge-sm bg-gradient-danger">Tidak Aktif</span>
+                                                <span class="badge badge-sm bg-gradient-danger">{{ $mahasiswa->status_aktif ?? 'Tidak Aktif' }}</span>
                                             @endif
                                         </td>
                                         <td class="align-middle text-center"><span
@@ -153,14 +155,22 @@
                                                 </a>
 
                                                 <a href="#" class="text-secondary font-weight-bold text-xs me-3"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEdit{{ $mahasiswa->nim }}"
                                                     data-toggle="tooltip" title="Edit">
                                                     <i class="material-icons text-warning text-gradient">edit</i>
                                                 </a>
 
-                                                <a href="#" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" title="Hapus">
-                                                    <i class="material-icons text-danger text-gradient">person_off</i>
-                                                </a>
+                                                <form action="{{ route('mahasiswa.destroy', $mahasiswa->nim) }}"
+                                                    method="POST" class="d-inline form-delete">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="border-0 bg-transparent p-0 mb-0 btn-delete"
+                                                        data-toggle="tooltip" title="Hapus">
+                                                        <i class="material-icons text-danger text-gradient">person_off</i>
+                                                    </button>
+                                                </form>
                                             </div>
                                             {{-- ? Detail Modal --}}
                                             <div class="modal fade" id="modalDetail{{ $mahasiswa->nim }}" tabindex="-1"
@@ -214,13 +224,15 @@
                                                                         <li class="list-group-item border-0 ps-0 text-sm">
                                                                             <strong class="text-dark">Status
                                                                                 Mahasiswa:</strong> &nbsp;
-                                                                            @if ($mahasiswa->status_aktif)
+                                                                            @if ($mahasiswa->status_aktif === 'Aktif')
                                                                                 <span
                                                                                     class="badge bg-gradient-success">Aktif</span>
+                                                                            @elseif ($mahasiswa->status_aktif === 'Cuti')
+                                                                                <span
+                                                                                    class="badge bg-gradient-warning">Cuti</span>
                                                                             @else
                                                                                 <span
-                                                                                    class="badge bg-gradient-danger">Tidak
-                                                                                    Aktif</span>
+                                                                                    class="badge bg-gradient-danger">{{ $mahasiswa->status_aktif ?? 'Tidak Aktif' }}</span>
                                                                             @endif
                                                                         </li>
                                                                     </ul>
@@ -329,6 +341,70 @@
                                                                 data-bs-dismiss="modal">Tutup</button>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            {{-- ? Edit Modal --}}
+                                            <div class="modal fade" id="modalEdit{{ $mahasiswa->nim }}" tabindex="-1"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                             <h5 class="modal-title font-weight-normal">Edit Mahasiswa</h5>
+                                                             <button type="button" class="btn-close text-dark"
+                                                                 data-bs-dismiss="modal" aria-label="Close">
+                                                                 <span aria-hidden="true">&times;</span>
+                                                             </button>
+                                                         </div>
+                                                         <form method="POST" action="{{ route('mahasiswa.update', $mahasiswa->nim) }}">
+                                                             @csrf
+                                                             @method('PUT')
+                                                             <div class="modal-body text-start">
+                                                                 <div class="row">
+                                                                     <div class="col-lg-6 col-md-12">
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Nomor Induk Mahasiswa (NIM)</label>
+                                                                             <input type="text" class="form-control" value="{{ $mahasiswa->nim }}" readonly disabled>
+                                                                         </div>
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Nama Lengkap</label>
+                                                                             <input type="text" name="nama" class="form-control" value="{{ old('nama', $mahasiswa->nama) }}" required>
+                                                                         </div>
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Email</label>
+                                                                             <input type="email" name="email" class="form-control" value="{{ old('email', $mahasiswa->email) }}" required>
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="col-lg-6 col-md-12">
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Angkatan</label>
+                                                                             <input type="number" name="angkatan" class="form-control" value="{{ old('angkatan', $mahasiswa->angkatan) }}" required>
+                                                                         </div>
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Jalur Masuk</label>
+                                                                             <select name="jalur_masuk" class="form-control" required style="appearance: auto;">
+                                                                                 <option value="SNMPTN" {{ old('jalur_masuk', $mahasiswa->jalur_masuk) == 'SNMPTN' ? 'selected' : '' }}>SNMPTN</option>
+                                                                                 <option value="SBMPTN" {{ old('jalur_masuk', $mahasiswa->jalur_masuk) == 'SBMPTN' ? 'selected' : '' }}>SBMPTN</option>
+                                                                                 <option value="Mandiri" {{ old('jalur_masuk', $mahasiswa->jalur_masuk) == 'Mandiri' ? 'selected' : '' }}>Mandiri</option>
+                                                                             </select>
+                                                                         </div>
+                                                                         <div class="input-group input-group-outline mb-3 is-filled">
+                                                                             <label class="form-label">Dosen Wali</label>
+                                                                             <select name="dosen_kode_wali" class="form-control" required style="appearance: auto;">
+                                                                                 @foreach ($dosens as $d)
+                                                                                     <option value="{{ $d->kode_wali }}" {{ old('dosen_kode_wali', $mahasiswa->dosen_kode_wali) == $d->kode_wali ? 'selected' : '' }}>{{ $d->nama }}</option>
+                                                                                 @endforeach
+                                                                             </select>
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="modal-footer">
+                                                                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                 <button type="submit" class="btn bg-gradient-info">Perbarui Data</button>
+                                                             </div>
+                                                         </form>
+                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -492,6 +568,25 @@
                 });
                 myModal.show();
             @endif
+
+            // Delete/Deactivate Confirmation Alert
+            $('.btn-delete').click(function(e) {
+                e.preventDefault();
+                var form = $(this).closest('form');
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Status keaktifan mahasiswa ini akan diubah menjadi Tidak Aktif!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Nonaktifkan!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
         });
 
 

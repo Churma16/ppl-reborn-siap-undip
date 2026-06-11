@@ -115,10 +115,12 @@
                                                 class="text-secondary text-xs font-weight-bold">{{ $mahasiswa->irsAktif->semester_aktif ?? 'N/A' }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            @if ($mahasiswa->status_aktif)
+                                            @if ($mahasiswa->status_aktif === 'Aktif')
                                                 <span class="badge badge-sm bg-gradient-success">Aktif</span>
+                                            @elseif ($mahasiswa->status_aktif === 'Cuti')
+                                                <span class="badge badge-sm bg-gradient-warning">Cuti</span>
                                             @else
-                                                <span class="badge badge-sm bg-gradient-danger">Tidak Aktif</span>
+                                                <span class="badge badge-sm bg-gradient-danger">{{ $mahasiswa->status_aktif ?? 'Tidak Aktif' }}</span>
                                             @endif
                                         </td>
                                         <td class="align-middle text-center"><span
@@ -198,13 +200,15 @@
                                                                         <li class="list-group-item border-0 ps-0 text-sm">
                                                                             <strong class="text-dark">Status
                                                                                 Mahasiswa:</strong> &nbsp;
-                                                                            @if ($mahasiswa->status_aktif)
+                                                                            @if ($mahasiswa->status_aktif === 'Aktif')
                                                                                 <span
                                                                                     class="badge bg-gradient-success">Aktif</span>
+                                                                            @elseif ($mahasiswa->status_aktif === 'Cuti')
+                                                                                <span
+                                                                                    class="badge bg-gradient-warning">Cuti</span>
                                                                             @else
                                                                                 <span
-                                                                                    class="badge bg-gradient-danger">Tidak
-                                                                                    Aktif</span>
+                                                                                    class="badge bg-gradient-danger">{{ $mahasiswa->status_aktif ?? 'Tidak Aktif' }}</span>
                                                                             @endif
                                                                         </li>
                                                                     </ul>
