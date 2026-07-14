@@ -29,12 +29,20 @@
                 </h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/irs') ? 'bg-gradient-primary' : '' }}"
+                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/irs') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-dosen/irs">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">assignment</i>
+                    <div class="d-flex align-items-center">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">assignment</i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Isian Rencana Studi</span>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Isian Rencana Studi</span>
+                    @if (isset($verifikasiIrsCount) && $verifikasiIrsCount > 0)
+                        <span class="badge bg-danger rounded-pill ms-2 d-flex align-items-center justify-content-center"
+                            style="min-width: 24px; height: 24px; padding: 0;">
+                            {{ $verifikasiIrsCount }}
+                        </span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">
@@ -58,22 +66,37 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
+                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/verifikasi-pkl') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-dosen/verifikasi-pkl">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">work</i>
+                    <div class="d-flex align-items-center">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">work</i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Praktik Kerja Lapangan</span>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Praktik Kerja Lapangan</span>
+                    @if (isset($verifikasiPklCount) && $verifikasiPklCount > 0)
+                        <span class="badge bg-danger rounded-pill ms-2 d-flex align-items-center justify-content-center"
+                            style="min-width: 24px; height: 24px; padding: 0;">
+                            {{ $verifikasiPklCount }}
+                        </span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ Request::is('dashboard-dosen/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
+                <a class="nav-link text-white d-flex align-items-center justify-content-between {{ Request::is('dashboard-dosen/verifikasi-skripsi') ? 'bg-gradient-primary' : '' }}"
                     href="/dashboard-dosen/verifikasi-skripsi">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">school</i>
+                    <div class="d-flex align-items-center">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">school</i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">Skripsi</span>
                     </div>
-                    <span class="nav-link-text ms-1 text-wrap" style="line-height: 1.2;">
-                        Skripsi</span>
+                    @if (isset($verifikasiSkripsiCount) && $verifikasiSkripsiCount > 0)
+                        <span class="badge bg-danger rounded-pill ms-2 d-flex align-items-center justify-content-center"
+                            style="min-width: 24px; height: 24px; padding: 0;">
+                            {{ $verifikasiSkripsiCount }}
+                        </span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item mt-3">
