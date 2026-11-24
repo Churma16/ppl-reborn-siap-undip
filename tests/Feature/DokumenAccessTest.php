@@ -203,6 +203,14 @@ class DokumenAccessTest extends TestCase
         $response->assertNotFound();
     }
 
+    public function test_non_numeric_id_returns_404()
+    {
+        $response = $this->actingAs($this->adminUser)
+            ->get('/dokumen/irs/undefined');
+
+        $response->assertNotFound();
+    }
+
     public function test_external_url_document_is_blocked_for_unauthorized_users()
     {
         $semester = Semester::first();

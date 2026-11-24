@@ -41,7 +41,7 @@ Route::resource('/', BerandaGuestController::class);
 
 // Dokumen Terproteksi (IRS, KHS, PKL, Skripsi)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dokumen/{type}/{id}', [DokumenController::class, 'show'])->name('dokumen.show');
+    Route::get('/dokumen/{type}/{id}', [DokumenController::class, 'show'])->name('dokumen.show')->whereNumber('id');
 });
 
 // Departemen
