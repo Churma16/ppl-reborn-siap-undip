@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\IRS;
+use App\Models\KHS;
+use App\Models\PKL;
+use App\Models\Skripsi;
+use App\Policies\AcademicRecordPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,10 +17,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        \App\Models\IRS::class => \App\Policies\AcademicRecordPolicy::class,
-        \App\Models\KHS::class => \App\Policies\AcademicRecordPolicy::class,
-        \App\Models\PKL::class => \App\Policies\AcademicRecordPolicy::class,
-        \App\Models\Skripsi::class => \App\Policies\AcademicRecordPolicy::class,
+        IRS::class => AcademicRecordPolicy::class,
+        KHS::class => AcademicRecordPolicy::class,
+        PKL::class => AcademicRecordPolicy::class,
+        Skripsi::class => AcademicRecordPolicy::class,
     ];
 
     /**

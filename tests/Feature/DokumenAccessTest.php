@@ -5,8 +5,11 @@ namespace Tests\Feature;
 use App\Enums\UserRole;
 use App\Models\Dosen;
 use App\Models\IRS;
+use App\Models\KHS;
 use App\Models\Mahasiswa;
+use App\Models\PKL;
 use App\Models\Semester;
+use App\Models\Skripsi;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -239,7 +242,7 @@ class DokumenAccessTest extends TestCase
         Storage::disk('local')->put('file-khs/test-khs.pdf', '%PDF-1.4 Fake KHS');
         $semester = Semester::first();
 
-        $khs = \App\Models\KHS::create([
+        $khs = KHS::create([
             'semester' => 4,
             'status_konfirmasi' => 'Belum Dikonfirmasi',
             'sks_semester' => 20,
@@ -278,7 +281,7 @@ class DokumenAccessTest extends TestCase
         Storage::disk('local')->put('file-pkl/test-pkl.pdf', '%PDF-1.4 Fake PKL');
         $semester = Semester::first();
 
-        $pkl = \App\Models\PKL::create([
+        $pkl = PKL::create([
             'status_konfirmasi' => 'Belum Dikonfirmasi',
             'status_lulus' => 'Belum Lulus',
             'tanggal_mulai' => '2025-09-01',
@@ -311,7 +314,7 @@ class DokumenAccessTest extends TestCase
         Storage::disk('local')->put('file_skripsi/test-skripsi.pdf', '%PDF-1.4 Fake Skripsi');
         $semester = Semester::first();
 
-        $skripsi = \App\Models\Skripsi::create([
+        $skripsi = Skripsi::create([
             'judul' => 'Sistem Informasi Akademik',
             'status_konfirmasi' => 'Belum Dikonfirmasi',
             'status_skripsi' => 'Belum Lulus',
