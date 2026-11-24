@@ -31,8 +31,7 @@ class IRS extends Model
 
     public function mahasiswa()
     {
-        // return $this->belongsTo(Mahasiswa::class, 'irs_id');
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_nim', 'nim');
     }
 
     public function semester()

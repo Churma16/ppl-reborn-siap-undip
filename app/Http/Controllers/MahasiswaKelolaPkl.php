@@ -73,7 +73,7 @@ class MahasiswaKelolaPkl extends Controller
         $latestSemester = Semester::where('is_active', SemesterStatusAktif::AKTIF)->latest()->value('id');
         // Mengunggah file PKL
         if ($request->file('file_pkl')) {
-            $validatedData['file_pkl'] = $request->file('file_pkl')->store('file-pkl');
+            $validatedData['file_pkl'] = $request->file('file_pkl')->store('file-pkl', 'local');
         }
 
         // Tambah Data

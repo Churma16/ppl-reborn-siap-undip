@@ -12,7 +12,7 @@ class Dosen extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $guarded = ['id'];
 
 
     // Accessor

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Actions\Irs\SubmitIrsAction;
 use App\Http\Controllers\Controller;

@@ -11,11 +11,6 @@ class KHS extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = [
-
-        'status_konfirmasi',
-
-    ];
     // Casts
     protected $casts = [
         'status_konfirmasi' => KhsStatusKonfirmasi::class,
@@ -37,7 +32,7 @@ class KHS extends Model
     // Relasi
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class);
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_nim', 'nim');
     }
 
     public function semester()

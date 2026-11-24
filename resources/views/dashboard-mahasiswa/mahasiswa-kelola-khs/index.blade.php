@@ -50,7 +50,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ Str::startsWith($khs->file_khs, 'http') ? $khs->file_khs : asset('storage/' . $khs->file_khs) }}" target="_blank"
+                                <a href="{{ route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]) }}" target="_blank"
                                     class="btn btn-outline-info">Lihat File khs</a>
                             </div>
                         </div>
