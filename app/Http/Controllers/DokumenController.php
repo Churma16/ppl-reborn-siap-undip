@@ -7,7 +7,6 @@ use App\Models\IRS;
 use App\Models\KHS;
 use App\Models\PKL;
 use App\Models\Skripsi;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -16,7 +15,7 @@ class DokumenController extends Controller
     /**
      * Tampilkan atau unduh dokumen akademik terproteksi (IRS, KHS, PKL, Skripsi).
      */
-    public function show(Request $request, string $type, int $id)
+    public function show(string $type, int $id)
     {
         $user = auth()->user();
         if (!$user) {
@@ -42,11 +41,6 @@ class DokumenController extends Controller
             abort(404, 'Dokumen belum diunggah.');
         }
 
-        // Jika URL eksternal (misal Faker seeder), alihkan langsung
-        if (Str::startsWith($filePath, 'http://') || Str::startsWith($filePath, 'https://')) {
-            return redirect()->away($filePath);
-        }
-
         // Verifikasi Otorisasi:
         // 1. Staf (Admin & Departemen): diizinkan
         // 2. Mahasiswa: hanya pemilik berkas (NIM cocok)
@@ -64,6 +58,11 @@ class DokumenController extends Controller
 
         if (!$isStaff && !$isOwner && !$isDoswal) {
             abort(403, 'Anda tidak memiliki hak akses untuk melihat dokumen ini.');
+        }
+
+        // Jika berkas berupa URL eksternal, alihkan SETELAH lolos otorisasi
+        if (Str::startsWith($filePath, 'http://') || Str::startsWith($filePath, 'https://')) {
+            return redirect()->away($filePath);
         }
 
         // Layani dari disk 'local' (privat) atau 'public' (kompatibilitas berkas lama)

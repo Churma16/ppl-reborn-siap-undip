@@ -141,7 +141,7 @@
                                         <td class="align-middle text-center">
                                             {{-- Tombol Download Laporan --}}
                                             @if ($mahasiswa->skripsiTerakhir && $mahasiswa->skripsiTerakhir->file_skripsi)
-                                                <a href="{{ Str::startsWith($mahasiswa->skripsiTerakhir->file_skripsi, 'http') ? $mahasiswa->skripsiTerakhir->file_skripsi : route('dokumen.show', ['type' => 'skripsi', 'id' => $mahasiswa->skripsiTerakhir->id]) }}"
+                                                <a href="{{ route('dokumen.show', ['type' => 'skripsi', 'id' => $mahasiswa->skripsiTerakhir->id]) }}"
                                                     class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip"
                                                     title="Unduh Laporan" target="_blank">
                                                     <i class="material-icons text-sm">download</i>
@@ -244,7 +244,7 @@
                                                                                     class="material-icons text-xs me-1">event</i>
                                                                                 {{ $skripsi->created_at->format('d M Y H:i') }}
                                                                             </small>
-                                                                            <a href="{{ Str::startsWith($skripsi->file_skripsi, 'http') ? $skripsi->file_skripsi : route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}"
+                                                                            <a href="{{ route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}"
                                                                                 class="btn btn-xs btn-outline-dark mb-0 py-1 px-2" target="_blank">
                                                                                 <i
                                                                                     class="material-icons text-xxs me-1">description</i>

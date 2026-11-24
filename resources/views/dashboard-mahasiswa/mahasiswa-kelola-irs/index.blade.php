@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between"></div>
-                                <a href="{{ Str::startsWith($irs->file_sks, 'http') ? $irs->file_sks : route('dokumen.show', ['type' => 'irs', 'id' => $irs->id]) }}" target="_blank"
+                                <a href="{{ route('dokumen.show', ['type' => 'irs', 'id' => $irs->id]) }}" target="_blank"
                                     class="btn btn-outline-info">Lihat File IRS</a>
                                 @if ($irs->status_konfirmasi->value == "Ditolak")
                                     <a type="button" class="btn btn-block btn-warning " data-bs-toggle="modal"
@@ -88,7 +88,7 @@
                                                             @if ($irs->file_sks)
                                                                 <div class="mb-2">
                                                                     <small>File lama:</small>
-                                                                    <a href="{{ Str::startsWith($irs->file_sks, 'http') ? $irs->file_sks : route('dokumen.show', ['type' => 'irs', 'id' => $irs->id]) }}"
+                                                                    <a href="{{ route('dokumen.show', ['type' => 'irs', 'id' => $irs->id]) }}"
                                                                         target="_blank" class="text-primary"
                                                                         name="file_sks">
                                                                         {{ $irs->file_sks }}

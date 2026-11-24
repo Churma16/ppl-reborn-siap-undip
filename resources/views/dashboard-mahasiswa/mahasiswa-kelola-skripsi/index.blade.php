@@ -83,7 +83,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="{{ Str::startsWith($skripsi->file_skripsi, 'http') ? $skripsi->file_skripsi : route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}" target="_blank"
+                                <a href="{{ route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}" target="_blank"
                                     class="btn btn-outline-info">Lihat File Skripsi</a>
                             </div>
                         </div>

@@ -11,11 +11,6 @@ class KHS extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = [
-
-        'status_konfirmasi',
-
-    ];
     // Casts
     protected $casts = [
         'status_konfirmasi' => KhsStatusKonfirmasi::class,

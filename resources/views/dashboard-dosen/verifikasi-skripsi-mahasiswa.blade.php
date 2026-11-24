@@ -114,7 +114,7 @@
                                         </td>
                                         <td>
                                             <p class="text-sm font-weight-bold text-center mb-0">
-                                                <a href="{{ Str::startsWith($skripsi->file_skripsi, 'http') ? $skripsi->file_skripsi : route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}" target="_blank"><i class="fas fa-eye"></i>
+                                                <a href="{{ route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]) }}" target="_blank"><i class="fas fa-eye"></i>
                                                     Lihat File</a>
 
                                                 {{-- {{ $mahasiswa->pkl ? $mahasiswa->pkl->status_konfirmasi : '-' }} --}}

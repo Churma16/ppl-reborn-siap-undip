@@ -140,7 +140,7 @@
                                         <td class="align-middle text-center">
                                             {{-- Tombol Download Laporan --}}
                                             @if ($mahasiswa->pklTerakhir && $mahasiswa->pklTerakhir->file_pkl)
-                                                <a href="{{ Str::startsWith($mahasiswa->pklTerakhir->file_pkl, 'http') ? $mahasiswa->pklTerakhir->file_pkl : route('dokumen.show', ['type' => 'pkl', 'id' => $mahasiswa->pklTerakhir->id]) }}"
+                                                <a href="{{ route('dokumen.show', ['type' => 'pkl', 'id' => $mahasiswa->pklTerakhir->id]) }}"
                                                     class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip"
                                                     title="Unduh Laporan" target="_blank">
                                                     <i class="material-icons text-sm">download</i>
@@ -241,7 +241,7 @@
                                                                                     class="material-icons text-xs me-1">event</i>
                                                                                 {{ $pkl->created_at->format('d M Y H:i') }}
                                                                             </small>
-                                                                            <a href="{{ Str::startsWith($pkl->file_pkl, 'http') ? $pkl->file_pkl : route('dokumen.show', ['type' => 'pkl', 'id' => $pkl->id]) }}"
+                                                                            <a href="{{ route('dokumen.show', ['type' => 'pkl', 'id' => $pkl->id]) }}"
                                                                                 class="btn btn-xs btn-outline-dark mb-0 py-1 px-2" target="_blank">
                                                                                 <i
                                                                                     class="material-icons text-xxs me-1">description</i>

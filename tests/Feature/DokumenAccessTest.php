@@ -202,4 +202,132 @@ class DokumenAccessTest extends TestCase
 
         $response->assertNotFound();
     }
+
+    public function test_external_url_document_is_blocked_for_unauthorized_users()
+    {
+        $semester = Semester::first();
+        $extIrs = IRS::create([
+            'semester_aktif' => 6,
+            'status_konfirmasi' => 'Belum Dikonfirmasi',
+            'jumlah_sks' => 22,
+            'file_sks' => 'https://external-storage.example.com/confidential-irs.pdf',
+            'mahasiswa_nim' => '24060120120001',
+            'semester_id' => $semester->id,
+        ]);
+
+        // Mahasiswa lain dilarang (403), BUKAN di-redirect ke URL eksternal (302)
+        $this->actingAs($this->otherStudentUser)
+            ->get(route('dokumen.show', ['type' => 'irs', 'id' => $extIrs->id]))
+            ->assertForbidden();
+
+        // Pemilik sah di-redirect ke URL eksternal setelah lolos otorisasi
+        $this->actingAs($this->studentUser)
+            ->get(route('dokumen.show', ['type' => 'irs', 'id' => $extIrs->id]))
+            ->assertRedirect('https://external-storage.example.com/confidential-irs.pdf');
+    }
+
+    public function test_khs_document_access_control()
+    {
+        Storage::disk('local')->put('file-khs/test-khs.pdf', '%PDF-1.4 Fake KHS');
+        $semester = Semester::first();
+
+        $khs = \App\Models\KHS::create([
+            'semester' => 4,
+            'status_konfirmasi' => 'Belum Dikonfirmasi',
+            'sks_semester' => 20,
+            'sks_kumulatif' => 80,
+            'ip_semester' => 3.80,
+            'ip_kumulatif' => 3.75,
+            'status_mahasiswa' => 'Aktif',
+            'file_khs' => 'file-khs/test-khs.pdf',
+            'mahasiswa_nim' => '24060120120001',
+            'semester_id' => $semester->id,
+        ]);
+
+        // Pemilik sah -> 200
+        $this->actingAs($this->studentUser)
+            ->get(route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]))
+            ->assertOk();
+
+        // Mahasiswa lain -> 403
+        $this->actingAs($this->otherStudentUser)
+            ->get(route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]))
+            ->assertForbidden();
+
+        // Dosen wali -> 200
+        $this->actingAs($this->doswalUser)
+            ->get(route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]))
+            ->assertOk();
+
+        // Dosen bukan wali -> 403
+        $this->actingAs($this->otherDosenUser)
+            ->get(route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]))
+            ->assertForbidden();
+    }
+
+    public function test_pkl_document_access_control()
+    {
+        Storage::disk('local')->put('file-pkl/test-pkl.pdf', '%PDF-1.4 Fake PKL');
+        $semester = Semester::first();
+
+        $pkl = \App\Models\PKL::create([
+            'status_konfirmasi' => 'Belum Dikonfirmasi',
+            'status_lulus' => 'Belum Lulus',
+            'tanggal_mulai' => '2025-09-01',
+            'nama_perusahaan' => 'Tech Corp',
+            'rincian_progress' => 'Laporan Akhir',
+            'progress_ke' => 1,
+            'file_pkl' => 'file-pkl/test-pkl.pdf',
+            'mahasiswa_nim' => '24060120120001',
+            'semester_id' => $semester->id,
+        ]);
+
+        // Pemilik sah -> 200
+        $this->actingAs($this->studentUser)
+            ->get(route('dokumen.show', ['type' => 'pkl', 'id' => $pkl->id]))
+            ->assertOk();
+
+        // Mahasiswa lain -> 403
+        $this->actingAs($this->otherStudentUser)
+            ->get(route('dokumen.show', ['type' => 'pkl', 'id' => $pkl->id]))
+            ->assertForbidden();
+
+        // Dosen wali -> 200
+        $this->actingAs($this->doswalUser)
+            ->get(route('dokumen.show', ['type' => 'pkl', 'id' => $pkl->id]))
+            ->assertOk();
+    }
+
+    public function test_skripsi_document_access_control()
+    {
+        Storage::disk('local')->put('file_skripsi/test-skripsi.pdf', '%PDF-1.4 Fake Skripsi');
+        $semester = Semester::first();
+
+        $skripsi = \App\Models\Skripsi::create([
+            'judul' => 'Sistem Informasi Akademik',
+            'status_konfirmasi' => 'Belum Dikonfirmasi',
+            'status_skripsi' => 'Belum Lulus',
+            'tanggal_mulai' => '2025-09-01',
+            'rincian_progress' => 'Bab 1',
+            'progress_ke' => 1,
+            'file_skripsi' => 'file_skripsi/test-skripsi.pdf',
+            'mahasiswa_nim' => '24060120120001',
+            'semester_id' => $semester->id,
+        ]);
+
+        // Pemilik sah -> 200
+        $this->actingAs($this->studentUser)
+            ->get(route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]))
+            ->assertOk();
+
+        // Mahasiswa lain -> 403
+        $this->actingAs($this->otherStudentUser)
+            ->get(route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]))
+            ->assertForbidden();
+
+        // Dosen wali -> 200
+        $this->actingAs($this->doswalUser)
+            ->get(route('dokumen.show', ['type' => 'skripsi', 'id' => $skripsi->id]))
+            ->assertOk();
+    }
 }
