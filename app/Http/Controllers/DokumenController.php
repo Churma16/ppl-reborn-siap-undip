@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserRole;
 use App\Models\IRS;
 use App\Models\KHS;
 use App\Models\PKL;
@@ -17,11 +16,6 @@ class DokumenController extends Controller
      */
     public function show(string $type, int $id)
     {
-        $user = auth()->user();
-        if (!$user) {
-            abort(401, 'Silakan login terlebih dahulu.');
-        }
-
         $record = match (strtolower($type)) {
             'irs' => IRS::with('mahasiswa')->findOrFail($id),
             'khs' => KHS::with('mahasiswa')->findOrFail($id),
@@ -29,6 +23,9 @@ class DokumenController extends Controller
             'skripsi' => Skripsi::with('mahasiswa')->findOrFail($id),
             default => abort(404, 'Tipe dokumen tidak valid.'),
         };
+
+        // Delegasikan verifikasi hak akses ke AcademicRecordPolicy (view)
+        $this->authorize('view', $record);
 
         $filePath = match (strtolower($type)) {
             'irs' => $record->file_sks,
@@ -41,26 +38,7 @@ class DokumenController extends Controller
             abort(404, 'Dokumen belum diunggah.');
         }
 
-        // Verifikasi Otorisasi:
-        // 1. Staf (Admin & Departemen): diizinkan
-        // 2. Mahasiswa: hanya pemilik berkas (NIM cocok)
-        // 3. Dosen: hanya mahasiswa perwalian (dosen_kode_wali cocok)
-        $isStaff = in_array($user->role, [UserRole::Admin, UserRole::Departemen], true);
-        $isOwner = (string) $record->mahasiswa_nim === (string) $user->nip_nim;
-        $isDoswal = false;
-
-        if ($user->role === UserRole::Dosen) {
-            $dosen = $user->dosen;
-            if ($dosen && $record->mahasiswa && $record->mahasiswa->dosen_kode_wali === $dosen->kode_wali) {
-                $isDoswal = true;
-            }
-        }
-
-        if (!$isStaff && !$isOwner && !$isDoswal) {
-            abort(403, 'Anda tidak memiliki hak akses untuk melihat dokumen ini.');
-        }
-
-        // Jika berkas berupa URL eksternal, alihkan SETELAH lolos otorisasi
+        // Jika berkas berupa URL eksternal, alihkan SETELAH lolos otorisasi policy
         if (Str::startsWith($filePath, 'http://') || Str::startsWith($filePath, 'https://')) {
             return redirect()->away($filePath);
         }
