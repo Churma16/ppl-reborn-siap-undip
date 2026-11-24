@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   test:
-    name: Run PHPUnit Tests
+    name: Run PHPUnit Tests & Build Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -31,3 +31,6 @@ jobs:
 
       - name: Run Tests
         run: ./vendor/bin/phpunit
+
+      - name: Verify Dockerfile Build
+        run: docker build -t ppl-siap-test .

@@ -14,7 +14,8 @@ RUN composer install \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader \
-    --ignore-platform-reqs
+    --ignore-platform-reqs \
+    --no-scripts
 
 # Stage 2: Production PHP-FPM Runtime
 FROM php:8.2-fpm
@@ -47,14 +48,15 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /var/www
 
-# Copy vendor from stage 1
-COPY --from=vendor /app/vendor /var/www/vendor
+# Copy vendor from stage 1 with www-data ownership
+COPY --from=vendor --chown=www-data:www-data /app/vendor /var/www/vendor
 
-# Copy application source
-COPY . /var/www
+# Copy application source with www-data ownership
+COPY --chown=www-data:www-data . /var/www
 
-# Set storage and bootstrap cache permissions
-RUN chown -R www-data:www-data /var/www \
+# Clear stale cached manifests, run production package discovery, and ensure permissions
+RUN rm -f /var/www/bootstrap/cache/*.php \
+    && php artisan package:discover --ansi \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 9000

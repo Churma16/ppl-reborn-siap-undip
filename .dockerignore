@@ -2,6 +2,14 @@
 .github
 node_modules
 tests
+vendor
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/logs/*
 .env
 .env.*
 phpunit.xml

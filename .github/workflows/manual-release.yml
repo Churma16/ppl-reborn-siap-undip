@@ -79,7 +79,7 @@ jobs:
               echo "[info] No OPENROUTER_API_KEY secret configured. Falling back to default title."
               echo "final_title=PPL SIAP Academic Release" >> "$GITHUB_OUTPUT"
             else
-              AI_TITLE=$(node .github/scripts/generate-release-title.js)
+              AI_TITLE=$(node .github/scripts/generate-release-title.mjs)
               echo "final_title<<EOF" >> "$GITHUB_OUTPUT"
               echo "$AI_TITLE" >> "$GITHUB_OUTPUT"
               echo "EOF" >> "$GITHUB_OUTPUT"
@@ -112,7 +112,10 @@ jobs:
 
           RESOLVED_TAG="v${RESOLVED_VERSION#v}"
           echo "tag_name=$RESOLVED_TAG" >> "$GITHUB_OUTPUT"
-          echo "[info] Target Release Tag: $RESOLVED_TAG"
+          
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "image_name=ghcr.io/${REPO_LOWER}" >> "$GITHUB_OUTPUT"
+          echo "[info] Target Release Tag: $RESOLVED_TAG for image: ghcr.io/${REPO_LOWER}"
 
       # ---------------------------------------------------------
       # 3. Create Tag and Publish Official GitHub Release
@@ -146,8 +149,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.bump.outputs.tag_name }}
-            ghcr.io/${{ github.repository }}:latest
+            ${{ steps.bump.outputs.image_name }}:${{ steps.bump.outputs.tag_name }}
+            ${{ steps.bump.outputs.image_name }}:latest
 
       - name: Publish Official GitHub Release
         if: ${{ !inputs.dry_run }}
