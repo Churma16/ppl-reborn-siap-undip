@@ -4,7 +4,7 @@ namespace App\Actions\Irs;
 
 use App\Enums\IrsStatusKonfirmasi;
 use App\Enums\SemesterStatusAktif;
-use App\Models\Irs;
+use App\Models\IRS;
 use App\Models\KHS;
 use App\Models\Semester;
 use Illuminate\Http\UploadedFile;
@@ -33,7 +33,7 @@ class SubmitIrsAction
 
         // return $irs;
 
-        return Irs::create($payload);
+        return IRS::create($payload);
 
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\KHS;
-use App\Models\Pkl;
+use App\Models\PKL;
 use App\Models\Dosen;
 use App\Models\Skripsi;
 use App\Models\Semester;
@@ -26,7 +26,7 @@ class DashboardDepartemenController extends Controller
     {
         $mahasiswa = new Mahasiswa();
         $dosen = new Dosen();
-        $pkl = new Pkl();
+        $pkl = new PKL();
         $skripsi = new Skripsi();
 
         $semesterAktif = Semester::semesterAktif()->first();
@@ -162,13 +162,13 @@ class DashboardDepartemenController extends Controller
         $totalDosen = Dosen::count();
 
         if ($totalDosen > 0) {
-            $rasio = round($jumlahMhsAktif / $totalDosen,);
+            $rasio = round($jumlahMhsAktif / $totalDosen);
             $rasioDosenMahasiswa = "1 : " . $rasio;
+            $rasioColor = $rasio > 30 ? 'text-danger' : 'text-success';
         } else {
             $rasioDosenMahasiswa = "N/A";
+            $rasioColor = 'text-muted';
         }
-
-        $rasioColor = $rasio > 30 ? 'text-danger' : 'text-success';
         // dd($bebanDoswal->keys());
         return view('dashboard-departemen.index', [
             'title' => 'Dashboard Departemen',
