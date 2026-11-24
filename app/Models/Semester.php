@@ -19,7 +19,7 @@ class Semester extends Model
     // Relasi
     public function irs()
     {
-        return $this->hasMany(Irs::class, 'semester_id', 'id');
+        return $this->hasMany(IRS::class, 'semester_id', 'id');
     }
     public function khs()
     {
