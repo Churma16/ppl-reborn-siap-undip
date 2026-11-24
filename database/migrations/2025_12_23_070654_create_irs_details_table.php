@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('irs_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('irs_id')->constrained('irs')->onDelete('cascade');
-            $table->foreignId('mata_kuliah_id')->constrained('mata_kuliah');
+            $table->foreignId('irs_id')->constrained('i_r_s')->onDelete('cascade');
+            $table->foreignId('mata_kuliah_id')->constrained('mata_kuliahs');
             $table->timestamps();
         });
     }
