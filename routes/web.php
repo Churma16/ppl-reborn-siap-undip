@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\MataKuliahController;
 use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\BerandaGuestController;
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardDepartemenController;
 use App\Http\Controllers\DashboardDosenController;
@@ -37,6 +38,11 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 // Guest
 Route::resource('/', BerandaGuestController::class);
+
+// Dokumen Terproteksi (IRS, KHS, PKL, Skripsi)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dokumen/{type}/{id}', [DokumenController::class, 'show'])->name('dokumen.show');
+});
 
 // Departemen
 Route::middleware(['auth', 'role:' . UserRole::Departemen->value])->group(function () {

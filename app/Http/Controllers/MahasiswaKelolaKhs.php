@@ -100,7 +100,7 @@ class MahasiswaKelolaKhs extends Controller
 
         // Mengunggah file KHS
         if ($request->file('file_khs')) {
-            $validatedData['file_khs'] = $request->file('file_khs')->store('file-khs');
+            $validatedData['file_khs'] = $request->file('file_khs')->store('file-khs', 'local');
         }
 
         // Menambahkan data KHS

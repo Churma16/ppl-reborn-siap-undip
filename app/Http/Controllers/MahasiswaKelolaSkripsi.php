@@ -68,7 +68,7 @@ class MahasiswaKelolaSkripsi extends Controller
         ]);
 
         if (request('file_skripsi')) {
-            $validatedData['file_skripsi'] = $request->file('file_skripsi')->store('file_skripsi');
+            $validatedData['file_skripsi'] = $request->file('file_skripsi')->store('file_skripsi', 'local');
         }
         $latestSemester = Semester::where('is_active', SemesterStatusAktif::AKTIF)->latest()->value('id');
 

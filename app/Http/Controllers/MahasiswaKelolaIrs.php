@@ -96,7 +96,7 @@ class MahasiswaKelolaIrs extends Controller
         // dd($latestSemester);
         // Mengunggah file SKS
         if ($request->file('file_sks')) {
-            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
+            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks', 'local');
         }
 
         // Menambahkan data IRS
@@ -146,8 +146,12 @@ class MahasiswaKelolaIrs extends Controller
 
         // Mengunggah file SKS
         if ($request->file('file_sks')) {
-            Storage::delete($irs->file_sks);
-            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks');
+            if ($irs->file_sks && Storage::disk('local')->exists($irs->file_sks)) {
+                Storage::disk('local')->delete($irs->file_sks);
+            } elseif ($irs->file_sks && Storage::disk('public')->exists($irs->file_sks)) {
+                Storage::disk('public')->delete($irs->file_sks);
+            }
+            $validatedData['file_sks'] = $request->file('file_sks')->store('file-sks', 'local');
         }
 
         // Memperbarui data IRS

@@ -24,9 +24,8 @@ class SubmitIrsAction
         $payload['status_konfirmasi'] = IrsStatusKonfirmasi::Belum_Dikonfirmasi->value;
 
         $fileName = $file->hashName();
-        $path = $file->storeAs('public/uploads/users/file-sks', $fileName);
-        $dbPath = str_replace('public/', '', $path);
-        $payload['file_sks'] = $dbPath;
+        $path = $file->storeAs('file-sks', $fileName, 'local');
+        $payload['file_sks'] = $path;
 
         // $irs = new Irs(
         //     $payload, );

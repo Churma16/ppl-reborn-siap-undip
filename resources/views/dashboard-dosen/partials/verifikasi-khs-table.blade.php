@@ -41,7 +41,7 @@
         {{-- 7. Berkas --}}
         <td class="align-middle text-center">
             @if ($khs->file_khs)
-                <a href="{{ Str::startsWith($khs->file_khs, 'http') ? $khs->file_khs : asset('storage/' . $khs->file_khs) }}" target="_blank" class="btn btn-outline-info btn-sm mb-0 p-1 px-3">
+                <a href="{{ Str::startsWith($khs->file_khs, 'http') ? $khs->file_khs : route('dokumen.show', ['type' => 'khs', 'id' => $khs->id]) }}" target="_blank" class="btn btn-outline-info btn-sm mb-0 p-1 px-3">
                     <i class="fas fa-file-pdf me-1"></i> Lihat
                 </a>
             @else

@@ -39,7 +39,7 @@
                             $filePath = $permintaanTerbaru->file_skripsi;
                             break;
                     }
-                    $fileUrl = $filePath ? (Str::startsWith($filePath, 'http') ? $filePath : asset('storage/' . $filePath)) : '#';
+                    $fileUrl = $filePath ? (Str::startsWith($filePath, 'http') ? $filePath : route('dokumen.show', ['type' => strtolower($permintaanTerbaru->type), 'id' => $permintaanTerbaru->id])) : '#';
                 @endphp
                 <a href="{{ $fileUrl }}" target="_blank" class="btn btn-outline-info px-2 py-1 {{ $filePath ? '' : 'disabled' }}"
                     title="Lihat Berkas">
