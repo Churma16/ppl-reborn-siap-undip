@@ -1,0 +1,190 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_title:
+        description: "Custom Release Title (leave empty to generate via LLM; if provided, LLM call is bypassed)"
+        required: false
+        type: string
+      release_channel:
+        description: "Release Channel"
+        required: true
+        default: "stable"
+        type: choice
+        options:
+          - stable
+          - alpha
+          - beta
+      bump_type:
+        description: "SemVer Increment Type"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+      dispatch_deployment:
+        description: "Trigger GitOps deployment repo after release"
+        required: false
+        default: true
+        type: boolean
+      dry_run:
+        description: "Dry Run (simulate version calculation without publishing tag or release)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  release:
+    name: Determine Version, Tag, Build, and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # ---------------------------------------------------------
+      # 1. Resolve Release Title (Manual Bypass vs LLM Fail-Closed)
+      # ---------------------------------------------------------
+      - name: Resolve Release Title
+        id: title_resolver
+        env:
+          INPUT_TITLE: ${{ inputs.release_title }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          RELEASE_TITLE_MODEL: ${{ vars.RELEASE_TITLE_MODEL || 'meta-llama/llama-3.3-70b-instruct:free' }}
+        run: |
+          if [ -n "$INPUT_TITLE" ]; then
+            echo "[info] Manual release title provided. Bypassing LLM generation."
+            echo "final_title=$INPUT_TITLE" >> "$GITHUB_OUTPUT"
+          else
+            echo "[info] Release title is empty. Invoking LLM title synthesis (fail-closed)..."
+            if [ -z "$OPENROUTER_API_KEY" ]; then
+              echo "[info] No OPENROUTER_API_KEY secret configured. Falling back to default title."
+              echo "final_title=PPL SIAP Academic Release" >> "$GITHUB_OUTPUT"
+            else
+              AI_TITLE=$(node .github/scripts/generate-release-title.mjs)
+              echo "final_title<<EOF" >> "$GITHUB_OUTPUT"
+              echo "$AI_TITLE" >> "$GITHUB_OUTPUT"
+              echo "EOF" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      # ---------------------------------------------------------
+      # 2. Determine Next Semantic Version
+      # ---------------------------------------------------------
+      - name: Calculate Next Version
+        id: bump
+        run: |
+          PRERELEASE_FLAG=""
+          if [ "${{ inputs.release_channel }}" != "stable" ]; then
+            PRERELEASE_FLAG="--prerelease ${{ inputs.release_channel }}"
+          fi
+
+          BUMP_FLAG=""
+          if [ "${{ inputs.bump_type }}" != "auto" ]; then
+            BUMP_FLAG="--release-as ${{ inputs.bump_type }}"
+          fi
+
+          npx -y commit-and-tag-version $PRERELEASE_FLAG $BUMP_FLAG --skip.commit --skip.tag
+
+          if [ -f "VERSION" ]; then
+            RESOLVED_VERSION=$(cat VERSION | tr -d '[:space:]')
+          else
+            RESOLVED_VERSION="1.0.0"
+          fi
+
+          RESOLVED_TAG="v${RESOLVED_VERSION#v}"
+          echo "tag_name=$RESOLVED_TAG" >> "$GITHUB_OUTPUT"
+          
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "image_name=ghcr.io/${REPO_LOWER}" >> "$GITHUB_OUTPUT"
+          echo "[info] Target Release Tag: $RESOLVED_TAG for image: ghcr.io/${REPO_LOWER}"
+
+      # ---------------------------------------------------------
+      # 3. Create Tag and Publish Official GitHub Release
+      # ---------------------------------------------------------
+      - name: Push Git Tag
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.bump.outputs.tag_name }}" -m "Release ${{ steps.bump.outputs.tag_name }}"
+          git push origin "${{ steps.bump.outputs.tag_name }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to GitHub Container Registry
+        if: ${{ !inputs.dry_run }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        if: ${{ !inputs.dry_run }}
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker Image
+        if: ${{ !inputs.dry_run }}
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.bump.outputs.image_name }}:${{ steps.bump.outputs.tag_name }}
+            ${{ steps.bump.outputs.image_name }}:latest
+
+      - name: Publish Official GitHub Release
+        if: ${{ !inputs.dry_run }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.tag_name }}
+          name: "${{ steps.bump.outputs.tag_name }} - ${{ steps.title_resolver.outputs.final_title }}"
+          generate_release_notes: true
+          prerelease: ${{ inputs.release_channel != 'stable' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ---------------------------------------------------------
+      # 4. Side-Effect: Dispatch to GitOps Deployment Repo
+      # ---------------------------------------------------------
+      - name: Dispatch Deployment Event
+        if: ${{ !inputs.dry_run && inputs.dispatch_deployment }}
+        env:
+          DEPLOY_REPOSITORY: ${{ vars.DEPLOYMENT_REPO || 'Churma16/ppl-siap-deployment' }}
+          DEPLOY_ACCESS_TOKEN: ${{ secrets.DEPLOY_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$DEPLOY_ACCESS_TOKEN" ]; then
+            echo "[info] No DEPLOY_DISPATCH_TOKEN secret provided. Skipping deployment dispatch."
+            exit 0
+          fi
+          echo "[info] Dispatching release-promoted event to $DEPLOY_REPOSITORY..."
+          DISPATCH_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $DEPLOY_ACCESS_TOKEN" \
+            "https://api.github.com/repos/$DEPLOY_REPOSITORY/dispatches" \
+            -d "{\"event_type\": \"release-promoted\", \"client_payload\": {\"tag\": \"${{ steps.bump.outputs.tag_name }}\", \"channel\": \"${{ inputs.release_channel }}\"}}")
+
+          if [ "$DISPATCH_RESPONSE" -eq 204 ]; then
+            echo "[info] Deployment dispatch succeeded (HTTP 204)."
+          else
+            echo "[warn] Deployment dispatch responded with HTTP $DISPATCH_RESPONSE. Verify DEPLOY_DISPATCH_TOKEN and DEPLOYMENT_REPO."
+          fi
